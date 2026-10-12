@@ -18,8 +18,9 @@ from scout_worker.logging import configure_logging, get_logger, new_run_id
 from scout_worker.notify.telegram import TelegramClient, notify_profile
 from scout_worker.pipeline.cleanup import run_cleanup_if_due
 from scout_worker.pipeline.embed import embed_new_jobs
+from scout_worker.pipeline.filter_stats import profile_filter_stats
 from scout_worker.pipeline.ingest import ingest
-from scout_worker.pipeline.matching import load_profiles, score_profile
+from scout_worker.pipeline.matching import LOOKBACK, load_profiles, score_profile
 from scout_worker.pipeline.scam import assess_scam
 from scout_worker.pipeline.upsert import ensure_companies, upsert_jobs
 from scout_worker.runs import (
@@ -91,6 +92,15 @@ async def run_full(
             except Exception as exc:  # noqa: BLE001 - one profile must not stop the other
                 log.error("profile_failed", profile=profile.slug, error=type(exc).__name__)
                 status = "partial" if status == "success" else status
+
+        stats["filter"] = {}
+        for profile in profiles:
+            try:
+                stats["filter"][profile.slug] = await profile_filter_stats(
+                    pool, profile.profile_id, profile.min_score, now, LOOKBACK
+                )
+            except Exception as exc:  # noqa: BLE001 - diagnostics only
+                log.warning("filter_stats_failed", profile=profile.slug, error=type(exc).__name__)
 
         if settings.telegram_bot_token:
             tg = TelegramClient(settings.telegram_bot_token, http)

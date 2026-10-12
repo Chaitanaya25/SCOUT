@@ -64,7 +64,7 @@ class ProfileCtx:
 
 
 async def load_profiles(pool) -> list[ProfileCtx]:
-    """Profiles that have an active resume (others cannot be matched yet)."""
+    """Profiles that have an active, parsed resume (a resume still `pending` AI parsing cannot be matched yet)."""
     async with pool.connection() as conn:
         cur = await conn.execute(
             """select p.id, p.slug, p.display_name, pr.roles, pr.locations, pr.remote_ok, pr.job_types::text[] as job_types, pr.grad_year, pr.degree,
@@ -72,7 +72,7 @@ async def load_profiles(pool) -> list[ProfileCtx]:
                       r.id as resume_id, r.embedding, r.parsed, r.skills
                from profiles p
                join preferences pr on pr.profile_id = p.id
-               join lateral (select * from resumes where profile_id = p.id and is_active order by created_at desc limit 1) r on true
+               join lateral (select * from resumes where profile_id = p.id and is_active and parse_status = 'done' order by created_at desc limit 1) r on true
                order by p.slug"""
         )
         rows = await cur.fetchall()
@@ -170,7 +170,7 @@ async def top_candidates(pool, profile: ProfileCtx, now: datetime, k: int) -> li
         cur = await conn.execute(
             """select j.id as job_id, j.title, j.company_name, j.company_id, j.location, j.description, j.posted_at, j.scam_risk,
                       c.similarity, m.eligibility
-               from match_candidates(%s, %s, %s, %s) c
+               from match_candidates_v2(%s, %s, %s, %s) c
                join jobs j on j.id = c.job_id
                join job_matches m on m.job_id = j.id and m.profile_id = %s""",
             (

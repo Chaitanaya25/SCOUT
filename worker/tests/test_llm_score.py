@@ -28,9 +28,13 @@ class FakeModels:
     def __init__(self, behavior) -> None:
         self.behavior = behavior
         self.calls = 0
+        self.models: list[str] = []
 
     async def generate_content(self, model, contents, config):
         self.calls += 1
+        self.models.append(model)
+        if getattr(self.behavior, "by_model", False):
+            return self.behavior(self.calls, model)
         return self.behavior(self.calls)
 
     async def embed_content(self, model, contents, config):
@@ -110,7 +114,43 @@ def test_retry_loop_is_hard_capped():
     client, models, sleeps = make(always_down)
     with pytest.raises(LlmError):
         run(client.generate_json("score", "s", "p", dict))
-    assert models.calls == 3 and client.usage.counts["score"] == 3 and len(sleeps) == 2
+    # 3 primary attempts + exactly one fallback attempt (503 = overloaded), every one counted
+    assert models.calls == 4 and client.usage.counts["score"] == 4 and len(sleeps) == 2
+    assert models.models == ["gemini-3.5-flash-lite"] * 3 + ["gemini-3.8-flash"]
+
+
+def test_503_then_success_retries_with_jittered_backoff():
+    def once_down(n: int):
+        if n == 1:
+            raise ApiError(503, "The model is overloaded. Please try again later.")
+        return ok_text(n)
+
+    client, models, sleeps = make(once_down)
+    assert run(client.generate_json("score", "s", "p", dict))
+    assert models.calls == 2 and client.usage.counts["score"] == 2
+    assert len(sleeps) == 1 and 1.0 <= sleeps[0] <= 2.0  # base 2s: half fixed, half jitter
+
+
+def test_fallback_model_used_once_after_primary_overload():
+    def primary_down(n: int, model: str):
+        if model == "gemini-3.5-flash-lite":
+            raise ApiError(503, "UNAVAILABLE")
+        return ok_text(n)
+
+    primary_down.by_model = True  # type: ignore[attr-defined]
+    client, models, _ = make(primary_down)
+    assert run(client.generate_json("score", "s", "p", dict))
+    assert models.models[-1] == "gemini-3.8-flash" and models.calls == 4
+
+
+def test_no_fallback_for_non_overload_errors():
+    def internal(_: int):
+        raise ApiError(500, "internal error")
+
+    client, models, _ = make(internal)
+    with pytest.raises(LlmError):
+        run(client.generate_json("score", "s", "p", dict))
+    assert models.calls == 3
 
 
 def test_daily_quota_429_stops_immediately():
@@ -194,7 +234,7 @@ def test_settings_defaults_and_models(monkeypatch):
     assert s.llm_cap("score") == 150 and s.embed_dimensions == 768
     assert (monkeypatch.setenv("SCORE_TOP_K", ""), Settings(_env_file=None).score_top_k)[
         1
-    ] == 20  # empty env value falls back to the default
+    ] == 30  # empty env value falls back to the default
 
 
 # ------------------------------------------------------------------- score validation + prompt safety

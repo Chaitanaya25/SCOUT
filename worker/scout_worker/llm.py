@@ -9,6 +9,7 @@
 """
 
 import asyncio
+import random
 import re
 import time
 from datetime import date, datetime
@@ -102,6 +103,23 @@ def classify_error(code: int | None, message: str) -> str:
     return "fatal"
 
 
+def is_overloaded(code: int | None, message: str) -> bool:
+    """503 / 'overloaded' / 'unavailable': the primary model is busy, a fallback attempt is worthwhile."""
+    msg = (message or "").lower()
+    return code == 503 or "overloaded" in msg or "unavailable" in msg or "high demand" in msg
+
+
+BASE_RETRY_WAIT = 2.0
+
+
+def backoff_delay(attempt: int, hint: float | None, rng=random.random) -> float:
+    """Exponential backoff with jitter (half fixed, half random), capped; a provider hint wins (also capped)."""
+    if hint is not None:
+        return min(hint, MAX_RETRY_WAIT)
+    ceiling = min(MAX_RETRY_WAIT, BASE_RETRY_WAIT * 2 ** (attempt - 1))
+    return ceiling / 2 + rng() * ceiling / 2
+
+
 class LlmClient:
     def __init__(
         self,
@@ -110,12 +128,14 @@ class LlmClient:
         client: Any | None = None,
         sleep=asyncio.sleep,
         monotonic=time.monotonic,
+        rng=random.random,
     ) -> None:
         self.settings = settings
         self.usage = usage
         self._client = client
         self._sleep = sleep
         self._monotonic = monotonic
+        self._rng = rng
         self._pace_lock = asyncio.Lock()
         self._last_call = 0.0
 
@@ -136,31 +156,51 @@ class LlmClient:
                 await self._sleep(wait)
             self._last_call = self._monotonic()
 
-    async def _guarded(self, kind: str, call) -> Any:
-        """Run `call()` with cap checks, usage counting, pacing and bounded retries."""
+    async def _attempt(self, kind: str, call, model: str) -> Any:
+        cap = self.settings.llm_cap(kind)
+        if await self.usage.used_today(kind) >= cap:
+            raise LlmBudgetExceeded(f"daily soft cap for '{kind}' reached ({cap})")
+        await self._pace()
+        await self.usage.increment(kind)  # counted before sending: failed attempts count too
+        return await call(model)
+
+    async def _guarded(self, kind: str, call, model: str, fallback: str | None = None) -> Any:
+        """Run `call(model)` with cap checks, usage counting, pacing and bounded retries (jittered exponential
+        backoff or the provider's hint). If the primary's last failure was an overload (503), `fallback` gets one
+        extra attempt. Every attempt is counted against the soft cap."""
         last: Exception | None = None
+        overloaded = False
         for attempt in range(1, MAX_ATTEMPTS + 1):
-            cap = self.settings.llm_cap(kind)
-            if await self.usage.used_today(kind) >= cap:
-                raise LlmBudgetExceeded(f"daily soft cap for '{kind}' reached ({cap})")
-            await self._pace()
-            await self.usage.increment(kind)  # counted before sending: failed attempts count too
             try:
-                return await call()
+                return await self._attempt(kind, call, model)
+            except LlmBudgetExceeded:
+                raise
             except Exception as exc:  # noqa: BLE001 - classified below
                 last = exc
                 code = getattr(exc, "code", None)
+                code = code if isinstance(code, int) else None
                 message = str(exc)
-                verdict = classify_error(code if isinstance(code, int) else None, message)
+                verdict = classify_error(code, message)
+                overloaded = is_overloaded(code, message)
                 log.warning(
                     "llm_call_failed", kind=kind, attempt=attempt, code=code, verdict=verdict
                 )
                 if verdict == "daily":
                     raise LlmBudgetExceeded("provider daily quota exhausted") from exc
-                if verdict == "fatal" or attempt == MAX_ATTEMPTS:
+                if verdict == "fatal":
                     raise LlmError(f"{type(exc).__name__}: {message[:200]}") from exc
-                await self._sleep(min(parse_retry_delay(message) or 2.0**attempt, MAX_RETRY_WAIT))
-        raise LlmError(str(last))  # pragma: no cover
+                if attempt == MAX_ATTEMPTS:
+                    break
+                await self._sleep(backoff_delay(attempt, parse_retry_delay(message), self._rng))
+        if fallback and fallback != model and overloaded:
+            log.warning("llm_fallback_model", kind=kind, model=fallback)
+            try:
+                return await self._attempt(kind, call, fallback)
+            except LlmBudgetExceeded:
+                raise
+            except Exception as exc:  # noqa: BLE001
+                last = exc
+        raise LlmError(f"{type(last).__name__}: {str(last)[:200]}") from last
 
     async def generate_json(
         self, kind: str, system: str, prompt: str, schema: Any, model: str | None = None
@@ -177,16 +217,18 @@ class LlmClient:
             temperature=0,
         )
 
-        async def call() -> Any:
+        async def call(use_model: str) -> Any:
             response = await self.client.aio.models.generate_content(
-                model=model or self.settings.gemini_model, contents=prompt, config=config
+                model=use_model, contents=prompt, config=config
             )
             text = response.text
             if not text:
                 raise LlmError("empty response")
             return json.loads(text)
 
-        return await self._guarded(kind, call)
+        return await self._guarded(
+            kind, call, model or self.settings.gemini_model, self.settings.gemini_fallback_model
+        )
 
     async def embed(
         self, texts: list[str], task_type: str = "RETRIEVAL_DOCUMENT"
@@ -201,9 +243,9 @@ class LlmClient:
         config = types.EmbedContentConfig(output_dimensionality=dims, task_type=task_type)
         contents = [types.Content(parts=[types.Part(text=t)]) for t in texts]
 
-        async def call() -> list[list[float]]:
+        async def call(use_model: str) -> list[list[float]]:
             response = await self.client.aio.models.embed_content(
-                model=self.settings.gemini_embed_model, contents=contents, config=config
+                model=use_model, contents=contents, config=config
             )
             vectors = [list(e.values) for e in response.embeddings or []]
             if len(vectors) != len(texts) or any(len(v) != dims for v in vectors):
@@ -212,4 +254,5 @@ class LlmClient:
                 )
             return vectors
 
-        return await self._guarded("embed", call)
+        # No fallback for embeddings: another model would put vectors in a different space.
+        return await self._guarded("embed", call, self.settings.gemini_embed_model)

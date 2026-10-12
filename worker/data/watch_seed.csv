@@ -1,0 +1,67 @@
+#,Company,Category,Reported Base Pay (INR LPA),Fresher Entry Route / Program,Careers Page,Notes
+1,Google India,Global Big Tech (India R&D),20-28,Off-campus SWE / STEP / campus at top IITs,careers.google.com,Extremely selective; DSA + system design + Googleyness rounds
+2,Microsoft India,Global Big Tech (India R&D),13-17,Off-campus SWE / Explore (1st-2nd yr) / campus,careers.microsoft.com,"Large India campuses in Hyderabad, Bengaluru, Noida"
+3,Amazon India,Global Big Tech (India R&D),14-19,SDE-1 off-campus + University Talent Acquisition intern-to-full-time,amazon.jobs,Very high hiring volume; OA-based off-campus pipeline is real and active
+4,Adobe India,Global Big Tech (India R&D),12-16,Off-campus + campus at top colleges,adobe.com/careers,"Strong engineering culture, Noida/Bengaluru offices"
+5,Salesforce India,Global Big Tech (India R&D),12-16,Associate MTS off-campus + campus,salesforce.com/company/careers,"Good work-life balance, Hyderabad/Bengaluru"
+6,Oracle India,Global Big Tech (India R&D),12-15,Off-campus + Oracle Java/Cloud campus track,oracle.com/careers,"Large stable India presence, Bengaluru/Hyderabad"
+7,SAP Labs India,Global Big Tech (India R&D),12-14,Off-campus + campus,jobs.sap.com,Bengaluru is SAP's largest R&D lab outside Germany
+8,Cisco India,Global Big Tech (India R&D),12-15,Off-campus + campus,jobs.cisco.com,Strong for networking/systems domain
+9,Intuit India,Global Big Tech (India R&D),15-20,Off-campus + campus,intuit.com/careers,"Small, selective, high pay per hire"
+10,Walmart Global Tech India,Global Big Tech (India R&D),14-18,"Off-campus + campus, ~200-300 freshers/yr",walmart.com/careers,"Large scale hiring, Bengaluru"
+11,Atlassian India,Global Big Tech (India R&D),13-17,"Off-campus + campus, ~40-60 freshers/yr",atlassian.com/company/careers,"High bar, 4-5 interview rounds, strong culture"
+12,Uber India,Global Big Tech (India R&D),14-18,"Off-campus + campus, ~100-150 freshers/yr",uber.com/careers,Hyderabad and Bengaluru offices
+13,ServiceNow India,Global Big Tech (India R&D),12-14,Off-campus + campus,servicenow.com/careers,"Growing India engineering center, Hyderabad"
+14,VMware / Broadcom India,Global Big Tech (India R&D),13-17,Off-campus + campus,broadcom.com/careers,Now under Broadcom; strong infra/virtualization work
+15,Nutanix India,Global Big Tech (India R&D),13-16,Off-campus + campus,nutanix.com/careers,"Enterprise cloud infra, Bengaluru/Pune"
+16,NetApp India,Global Big Tech (India R&D),12-15,Off-campus + campus,careers.netapp.com,"Storage systems, Bengaluru/Pune"
+17,Autodesk India,Global Big Tech (India R&D),12-15,Off-campus + campus,autodesk.com/careers,"Design software, Pune/Bengaluru"
+18,Synopsys India,Global Big Tech (India R&D),12-15,Off-campus + campus,synopsys.com/careers,EDA/semiconductor software
+19,Cadence India,Global Big Tech (India R&D),12-15,Off-campus + campus,cadence.com/careers,EDA/semiconductor software
+20,Akamai India,Global Big Tech (India R&D),12-15,Off-campus + campus,akamai.com/careers,"CDN/security, Bengaluru"
+21,Citrix India (Cloud Software Group),Global Big Tech (India R&D),12-15,Off-campus + campus,cloud.com/careers,Formerly Citrix; now Cloud Software Group
+22,Nvidia India,Semiconductor / Hardware,16-22,Off-campus + campus at top colleges,nvidia.com/en-in/about-nvidia/careers,Pune/Hyderabad/Bengaluru; GPU/AI infra work
+23,Qualcomm India,Semiconductor / Hardware,13-17,Off-campus + campus,qualcomm.com/company/careers,"Largest chip R&D center outside the US, Hyderabad/Bengaluru"
+24,Intel India,Semiconductor / Hardware,13-16,Off-campus + campus,intel.com/jobs,Bengaluru is one of Intel's largest global sites
+25,Texas Instruments India,Semiconductor / Hardware,12-15,Off-campus + campus,ti.com/careers,Bengaluru design center
+26,Samsung R&D India,Semiconductor / Hardware,12-16,Off-campus + campus,sri.samsung.com/careers,"Bengaluru/Noida R&D institutes, hardware + software"
+27,Western Digital India,Semiconductor / Hardware,12-15,Off-campus + campus,westerndigital.com/careers,"Storage hardware/firmware, Bengaluru"
+28,Juniper Networks India,Semiconductor / Hardware,12-14,Off-campus + campus,jobs.juniper.net,"Networking hardware/software, Bengaluru"
+29,PayPal India,Global Fintech / Payments,13-17,Off-campus + campus,careers.pypl.com,Chennai/Bengaluru development centers
+30,Stripe India,Global Fintech / Payments,16-20,"Off-campus, small selective intake",stripe.com/jobs,"Bengaluru office, small team, high bar"
+31,Visa India,Global Fintech / Payments,12-15,Off-campus + campus,corporate.visa.com/careers,Bengaluru tech center
+32,Mastercard India,Global Fintech / Payments,12-15,Off-campus + campus,mastercard.com/careers,Pune/Vadodara tech centers
+33,American Express India,Global Fintech / Payments,12-15,Off-campus + campus,americanexpress.com/careers,Gurugram/Bengaluru tech centers
+34,Goldman Sachs (Engineering),Investment Bank GCCs (Tech),18-24,Off-campus + campus at top colleges,goldmansachs.com/careers,Bengaluru is one of GS's largest offices globally
+35,JPMorgan Chase (Tech),Investment Bank GCCs (Tech),14-18,"Off-campus + campus, Code for Good hackathon",careers.jpmorgan.com,Bengaluru/Hyderabad/Mumbai tech centers
+36,Morgan Stanley (Tech),Investment Bank GCCs (Tech),14-18,Off-campus + campus,morganstanley.com/careers,Bengaluru/Mumbai tech centers
+37,Deutsche Bank (Tech),Investment Bank GCCs (Tech),13-16,Off-campus + campus,db.com/careers,Pune/Bengaluru tech centers
+38,BNY Mellon (Tech),Investment Bank GCCs (Tech),12-15,Off-campus + campus,bnymellon.com/careers,Pune/Chennai tech centers
+39,Barclays (Tech),Investment Bank GCCs (Tech),12-15,Off-campus + campus,search.jobs.barclays,Pune tech center
+40,Freshworks,Enterprise SaaS / Cloud,12-16,Off-campus + campus,freshworks.com/company/careers,"Chennai HQ, India's own listed SaaS company"
+41,Postman,Enterprise SaaS / Cloud,14-18,"Off-campus, small selective intake",postman.com/company/careers,"Bengaluru HQ, API tooling, strong engineering brand"
+42,BrowserStack,Enterprise SaaS / Cloud,13-17,Off-campus + campus,browserstack.com/careers,"Mumbai/Bengaluru, profitable SaaS unicorn"
+43,Chargebee,Enterprise SaaS / Cloud,13-16,Off-campus,chargebee.com/careers,Chennai-founded SaaS unicorn
+44,Rubrik,Enterprise SaaS / Cloud,18-24,"Off-campus, small selective intake",rubrik.com/company/careers,"Bengaluru, very high pay per hire, cloud data security"
+45,Sprinklr,Enterprise SaaS / Cloud,16-20,Off-campus + campus,sprinklr.com/careers,"Gurugram, listed on NYSE"
+46,Cohesity,Enterprise SaaS / Cloud,15-19,"Off-campus, small selective intake",cohesity.com/careers,"Bengaluru, enterprise data management"
+47,InMobi,Enterprise SaaS / Cloud,13-16,Off-campus + campus,inmobi.com/careers,"Bengaluru, India's first unicorn, adtech/AI"
+48,MoEngage,Enterprise SaaS / Cloud,12-15,Off-campus,moengage.com/careers,"Bengaluru, marketing engagement SaaS"
+49,Zoho,Enterprise SaaS / Cloud,10-14,"Own campus + off-campus, strong engineering culture",zoho.com/careers,"Founder-run, profitable, no VC money, very stable"
+50,Flipkart,Indian Product Companies,16-22,Off-campus + campus,flipkartcareers.com,"Bengaluru, GRiD challenge is its annual fresher program"
+51,Razorpay,Indian Product Companies,16-20,Off-campus,razorpay.com/jobs,"Bengaluru, fintech unicorn, strong engineering brand"
+52,Zerodha,Indian Product Companies,18-24,"Off-campus, very small selective intake",zerodha.com/careers,"Bootstrapped, profitable, extremely selective, few hires/yr"
+53,CRED,Indian Product Companies,18-24,"Off-campus, small selective intake",cred.club/careers,"Bengaluru, premium fintech, high pay per hire"
+54,PhonePe,Indian Product Companies,16-20,Off-campus + campus,phonepe.com/careers,"Bengaluru, largest UPI player by volume"
+55,Groww,Indian Product Companies,15-19,Off-campus,groww.in/careers,"Bengaluru, fintech/investing platform"
+56,Swiggy,Indian Product Companies,14-18,Off-campus + campus,careers.swiggy.com,"Bengaluru, listed company"
+57,Meesho,Indian Product Companies,14-18,Off-campus + campus,careers.meesho.com,"Bengaluru, e-commerce"
+58,Info Edge (Naukri),Indian Product Companies,10-13,Off-campus + campus,infoedge.in/careers,"Profitable, listed, stable, Noida HQ"
+59,DE Shaw India,Quant / HFT (highly selective),18-25,"Off-campus, near-exclusively IIT/top-tier campus",deshaw.com/careers,Base only; total comp much higher with bonus. Hyderabad office
+60,Tower Research Capital India,Quant / HFT (highly selective),20-28,"Off-campus, near-exclusively IIT campus",tower-research.com/careers,"Gurugram office, base pay only, bonus is large on top"
+61,Graviton Research Capital,Quant / HFT (highly selective),18-25,"Off-campus, near-exclusively IIT campus",gravitonresearch.com/careers,"Gurugram, low-level C++ and math heavy"
+62,AlphaGrep Securities,Quant / HFT (highly selective),18-24,"Off-campus, near-exclusively IIT campus",alphagrep.com/careers,"Mumbai, systems + quant heavy"
+63,Quadeye Securities,Quant / HFT (highly selective),18-24,"Off-campus, near-exclusively IIT campus",quadeye.com/careers,"Gurugram, low-latency systems"
+64,NK Securities Research,Quant / HFT (highly selective),16-22,"Off-campus, near-exclusively IIT campus",nksecurities.com/careers,"Ahmedabad, quant/HFT"
+65,Optiver India,Quant / HFT (highly selective),20-28,"Off-campus, near-exclusively IIT campus",optiver.com/careers,"Mumbai office opened 2024, market making"
+66,Arcesium,Quant / HFT (highly selective),16-22,Off-campus + campus,arcesium.com/careers,"Hyderabad/Bengaluru, fintech-adjacent to DE Shaw"

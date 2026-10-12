@@ -8,7 +8,7 @@ async function parse<T>(res: Response): Promise<ApiOutcome<T>> {
   return { ok: true, data: body };
 }
 
-export async function sendJson<T = Record<string, unknown>>(url: string, method: "POST" | "PUT", body?: unknown): Promise<ApiOutcome<T>> {
+export async function sendJson<T = Record<string, unknown>>(url: string, method: "POST" | "PUT" | "PATCH", body?: unknown): Promise<ApiOutcome<T>> {
   try {
     const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: body === undefined ? undefined : JSON.stringify(body) });
     return await parse<T>(res);

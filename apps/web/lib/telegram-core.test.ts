@@ -102,3 +102,15 @@ describe("confirmedKeyboard", () => {
     expect(kb.inline_keyboard[1].every((b) => (b.callback_data ?? "").length <= 64)).toBe(true);
   });
 });
+
+describe("formatJobAlert (mirrors the worker)", async () => {
+  const { alertKeyboard, formatJobAlert } = await import("./telegram-message");
+  it("escapes job text and shows score and missing skills", () => {
+    const text = formatJobAlert({ title: "ML <Intern>", company: "A&B", location: null, hoursOld: 3, score: 91.4, missingSkills: ["Go", "Rust"], fresh: true });
+    expect(text).toBe("FRESH\n<b>ML &lt;Intern&gt;</b> — A&amp;B\nLocation not listed · 3h ago · <b>91% match</b>\nMissing: Go, Rust");
+  });
+  it("keyboard has an Apply URL row only for http(s)", () => {
+    expect(alertKeyboard(ID, "https://x.test").inline_keyboard).toHaveLength(2);
+    expect(alertKeyboard(ID, "javascript:alert(1)").inline_keyboard).toHaveLength(1);
+  });
+});

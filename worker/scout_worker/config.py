@@ -35,6 +35,9 @@ class Settings(BaseSettings):
     gemini_api_key: str | None = None
     gemini_model: str = "gemini-3.5-flash-lite"
     gemini_embed_model: str = "gemini-embedding-2"
+    gemini_fallback_model: str | None = (
+        "gemini-3.8-flash"  # one extra attempt when the primary returns 503
+    )
     gemini_tailor_model: str | None = None
     embed_dimensions: int = 768
     # Daily soft caps per request kind. Free-tier limits are only published in AI Studio
@@ -72,8 +75,10 @@ class Settings(BaseSettings):
     jobspy_sites: str = "linkedin,indeed,google,naukri,glassdoor"
 
     # Pipeline tuning
-    score_top_k: int = 20
-    score_batch_size: int = 5
+    score_top_k: int = (
+        30  # SCORE_TOP_K: candidates scored per profile per scan (newest, then most similar)
+    )
+    score_batch_size: int = 5  # SCORE_BATCH_SIZE: jobs per Gemini scoring request
     max_individual_alerts: int = 8
     source_timeout_seconds: float = 120.0
     tz: str = "Asia/Kolkata"

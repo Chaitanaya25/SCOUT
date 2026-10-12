@@ -12,6 +12,8 @@ export type RadarBlip = {
   label: string;
   score: number;
   hoursOld: number;
+  /** Score used for the radius only (0–100, higher = nearer the centre); defaults to `score`. */
+  position?: number;
 };
 
 const REFERENCE = 340;
@@ -78,7 +80,7 @@ export function Radar({
       </div>
 
       {shown.map((blip, i) => {
-        const { x, y } = blipPosition(blip.id, blip.score, maxRadius);
+        const { x, y } = blipPosition(blip.id, blip.position ?? blip.score, maxRadius);
         const tone = blipTone(blip.hoursOld);
         const style: CSSProperties = {
           left: "50%",

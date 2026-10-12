@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import { setMatchStatus } from "@/lib/applications";
 import { db } from "@/lib/db";
 import { answerCallbackQuery, editMessageReplyMarkup, escapeHtml, sendMessage } from "@/lib/telegram";
 import {
@@ -99,46 +100,16 @@ async function handleCallback(cb: NonNullable<TelegramUpdate["callback_query"]>)
     return;
   }
 
-  const client = db();
-  // Profile isolation: the match must belong to the profile that owns this chat.
-  const { data: match } = await client.from("job_matches").select("id, job_id").eq("id", parsed.matchId).eq("profile_id", profile.id).maybeSingle();
-  if (!match) {
+  // Profile isolation: setMatchStatus only acts on a match owned by the profile that owns this chat.
+  const status = CALLBACK_ACTIONS[parsed.action];
+  const result = await setMatchStatus(profile.id, parsed.matchId, status);
+  if (!result) {
     await answerCallbackQuery(cb.id, "This match is no longer available.");
     return;
   }
 
-  const status = CALLBACK_ACTIONS[parsed.action];
-  await client.from("job_matches").update({ status }).eq("id", match.id).eq("profile_id", profile.id);
-
-  if (status !== "skipped") await upsertApplication(profile.id, match.job_id, status);
-
   await answerCallbackQuery(cb.id, status === "saved" ? "Saved" : status === "applied" ? "Marked as applied" : "Skipped");
   if (cb.message) {
-    await editMessageReplyMarkup(chatId, cb.message.message_id, confirmedKeyboard(cb.message.reply_markup, parsed.action, match.id));
+    await editMessageReplyMarkup(chatId, cb.message.message_id, confirmedKeyboard(cb.message.reply_markup, parsed.action, parsed.matchId));
   }
-}
-
-function todayIst(): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date());
-}
-
-async function upsertApplication(profileId: string, jobId: string, status: "saved" | "applied") {
-  const client = db();
-  const { data: job } = await client.from("jobs").select("company_name, title, apply_url").eq("id", jobId).maybeSingle();
-  if (!job) return;
-  const { data: existing } = await client.from("applications").select("id, stage").eq("profile_id", profileId).eq("job_id", jobId).maybeSingle();
-  if (!existing) {
-    await client.from("applications").insert({
-      profile_id: profileId,
-      job_id: jobId,
-      company_name: job.company_name,
-      role: job.title,
-      apply_url: job.apply_url,
-      stage: status,
-      applied_at: status === "applied" ? todayIst() : null,
-    });
-  } else if (status === "applied" && existing.stage === "saved") {
-    await client.from("applications").update({ stage: "applied", applied_at: todayIst() }).eq("id", existing.id).eq("profile_id", profileId);
-  }
-  // "Save" never demotes an application that already moved past `saved`.
 }

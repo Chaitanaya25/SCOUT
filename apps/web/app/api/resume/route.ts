@@ -2,27 +2,20 @@ import type { NextRequest } from "next/server";
 
 import { json, sessionOr401 } from "@/lib/api";
 import { db } from "@/lib/db";
-import { embedText, generateJson, LlmBudgetExceeded, LlmError } from "@/lib/gemini";
-import {
-  buildResumePrompt,
-  checkResumeUpload,
-  normalizeSkills,
-  parsedResumeSchema,
-  RESUME_MIME,
-  RESUME_SYSTEM,
-  resumeEmbedText,
-  resumeResponseSchema,
-  resumeStoragePath,
-} from "@/lib/resume-parse";
+import { checkResumeUpload, RESUME_MIME, resumeStoragePath } from "@/lib/resume-parse";
+import { parseStoredResume } from "@/lib/resume-service";
 import { extractResumeText, MIN_RESUME_TEXT } from "@/lib/resume-text";
 
 // Runs on the Node.js runtime, the default. `export const runtime = "nodejs"` cannot be declared here: Next 16 rejects
 // the `runtime` segment config when `cacheComponents` is enabled ("not compatible with nextConfig.cacheComponents").
 export const maxDuration = 60;
+/** Gemini budget (parse + embed, including retries and the fallback attempt), well under maxDuration. */
+const PARSE_BUDGET_MS = 35_000;
 
 /**
  * Resume upload (ARCHITECTURE.md §8.2): validate -> private `resumes` bucket -> extract text -> Gemini parse ->
- * 768-dim query embedding -> one active resume per profile -> prefill empty preferences / college.
+ * 768-dim query embedding -> one active resume per profile -> prefill empty preferences / college. If the AI is
+ * busy the text is kept (`parse_status = pending`) and the client gets 202 + a retry hint.
  */
 export async function POST(request: NextRequest) {
   const auth = await sessionOr401(request);
@@ -64,19 +57,7 @@ async function handleUpload(request: NextRequest, profileId: string) {
     return json({ error: message }, 422);
   }
 
-  // AI first, so a quota problem never leaves a half-saved resume behind.
-  let parsed;
-  let embedding: number[];
-  try {
-    parsed = await generateJson({ kind: "parse", system: RESUME_SYSTEM, prompt: buildResumePrompt(rawText), responseSchema: resumeResponseSchema, schema: parsedResumeSchema });
-    parsed.skills = normalizeSkills(parsed.skills);
-    embedding = await embedText(resumeEmbedText(parsed), "RETRIEVAL_QUERY");
-  } catch (err) {
-    if (err instanceof LlmBudgetExceeded) return json({ error: err.message }, 429);
-    if (err instanceof LlmError) return json({ error: err.message }, 503);
-    throw err;
-  }
-
+  // Save the file and the extracted text FIRST (parse_status = pending), so an AI outage never loses the upload.
   const client = db();
   const path = resumeStoragePath(profileId, check.kind);
   const { error: uploadError } = await client.storage.from("resumes").upload(path, buffer, {
@@ -88,39 +69,17 @@ async function handleUpload(request: NextRequest, profileId: string) {
   // Insert the new resume first, then retire the old ones, so a failed insert never leaves the profile without a resume.
   const { data: inserted, error: insertError } = await client
     .from("resumes")
-    .insert({
-      profile_id: profileId,
-      file_path: path,
-      raw_text: rawText,
-      parsed,
-      skills: parsed.skills,
-      embedding: JSON.stringify(embedding),
-      is_active: true,
-    })
+    .insert({ profile_id: profileId, file_path: path, raw_text: rawText, parsed: {}, skills: [], embedding: null, is_active: true, parse_status: "pending" })
     .select("id, created_at")
     .single();
   if (insertError || !inserted) {
     await client.storage.from("resumes").remove([path]);
     return json({ error: "Could not save the resume." }, 500);
   }
-
   await client.from("resumes").update({ is_active: false }).eq("profile_id", profileId).eq("is_active", true).neq("id", inserted.id);
-  await prefillEmpty(profileId, parsed);
 
-  return json({ ok: true, resume: { id: inserted.id, uploadedAt: inserted.created_at, fileName: file.name.slice(0, 120), size: buffer.length, skills: parsed.skills } });
-}
-
-/** Fills grad_year / degree / roles / college only where the profile has nothing yet; never overwrites user input. */
-async function prefillEmpty(profileId: string, parsed: { grad_year: number | null; degree: string | null; target_roles: string[]; college: string | null }) {
-  const client = db();
-  const { data: prefs } = await client.from("preferences").select("grad_year, degree, roles").eq("profile_id", profileId).maybeSingle();
-  if (prefs) {
-    const patch: { grad_year?: number; degree?: string; roles?: string[] } = {};
-    if (prefs.grad_year == null && parsed.grad_year) patch.grad_year = parsed.grad_year;
-    if (!prefs.degree && parsed.degree) patch.degree = parsed.degree;
-    if ((prefs.roles ?? []).length === 0 && parsed.target_roles.length > 0) patch.roles = parsed.target_roles;
-    if (Object.keys(patch).length > 0) await client.from("preferences").update(patch).eq("profile_id", profileId);
-  }
-  const { data: profile } = await client.from("profiles").select("college").eq("id", profileId).maybeSingle();
-  if (profile && !profile.college && parsed.college) await client.from("profiles").update({ college: parsed.college }).eq("id", profileId);
+  const resume = { id: inserted.id, uploadedAt: inserted.created_at, fileName: file.name.slice(0, 120), size: buffer.length };
+  const outcome = await parseStoredResume(profileId, inserted.id, rawText, PARSE_BUDGET_MS);
+  if (!outcome.ok) return json({ ok: true, pending: true, message: outcome.message, resume: { ...resume, skills: [] } }, 202);
+  return json({ ok: true, pending: false, resume: { ...resume, skills: outcome.parsed.skills } });
 }

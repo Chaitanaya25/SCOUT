@@ -18,7 +18,7 @@ export async function loadProfile(profileId: string) {
 export async function loadResume(profileId: string) {
   const { data } = await db()
     .from("resumes")
-    .select("id, file_path, skills, created_at, parsed")
+    .select("id, file_path, skills, created_at, parsed, parse_status")
     .eq("profile_id", profileId)
     .eq("is_active", true)
     .order("created_at", { ascending: false })
@@ -30,6 +30,7 @@ export async function loadResume(profileId: string) {
     id: data.id,
     ext: data.file_path.split(".").pop() ?? "pdf",
     skills: data.skills ?? [],
+    parseStatus: data.parse_status ?? "done",
     uploadedAt: data.created_at,
     size: typeof info?.size === "number" ? info.size : null,
     summary: typeof (data.parsed as { summary?: unknown } | null)?.summary === "string" ? ((data.parsed as { summary: string }).summary) : "",

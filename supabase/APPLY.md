@@ -10,7 +10,16 @@ You do this once per Supabase project. Everything is pasted into the dashboard's
 1. Open **SQL Editor** → **New query**.
 2. Open `supabase/migrations/0001_init.sql` in this repo, copy **all** of it, paste it into the editor and click **Run**. It must finish with `Success. No rows returned`. It creates the extensions (`vector`, `pg_trgm`), enums, 15 tables, indexes, RLS (enabled on every table, no policies), the three RPCs, and the private `resumes` and `avatars` storage buckets.
 3. New query. Copy all of `supabase/migrations/0002_seed_profiles.sql`, paste, **Run**. It creates `user-01` and `user-02` with empty preferences. It is safe to run twice.
-4. **Do not edit an applied migration.** Later changes go into a new numbered file (`0003_…`), applied the same way.
+4. New query. Copy all of `supabase/migrations/0003_watch_notes_parse_status.sql`, paste, **Run**. It adds the resume parse status, per-profile watched-company notes, the generic careers-page status and the `match_candidates_v2` scoring RPC. It is safe to run twice. Check it with:
+   ```sql
+   select column_name from information_schema.columns
+   where (table_name = 'resumes' and column_name = 'parse_status')
+      or (table_name = 'watched_companies' and column_name in ('notes', 'entry_route'))
+      or (table_name = 'companies' and column_name in ('ats_status', 'last_error'));
+   select proname from pg_proc where proname = 'match_candidates_v2';
+   ```
+   Expected: five column names and `match_candidates_v2`.
+5. **Do not edit an applied migration.** Later changes go into a new numbered file (`0003_…`), applied the same way.
 
 ## 3. Verify (paste each into a new query)
 ```sql

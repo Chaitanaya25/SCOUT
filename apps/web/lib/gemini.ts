@@ -4,23 +4,14 @@ import { GoogleGenAI, type Schema } from "@google/genai";
 import type { z } from "zod";
 
 import { db } from "./db";
-import {
-  capFor,
-  classifyError,
-  LlmBudgetExceeded,
-  LlmError,
-  MAX_ATTEMPTS,
-  MAX_RETRY_DELAY_MS,
-  pacificDay,
-  parseRetryDelay,
-  stripJsonFence,
-  type LlmKind,
-} from "./gemini-core";
+import { capFor, LlmBudgetExceeded, LlmError, pacificDay, runWithRetry, stripJsonFence, type LlmKind, type RetryDeps } from "./gemini-core";
 
 export { LlmBudgetExceeded, LlmError };
 export type { LlmKind };
 
 export const EMBED_DIMENSIONS = 768;
+/** Default wall-clock budget for one wrapped call (attempts + waits). Routes pass less when they do more work. */
+export const DEFAULT_BUDGET_MS = 25_000;
 
 let client: GoogleGenAI | null = null;
 function ai(): GoogleGenAI {
@@ -34,6 +25,13 @@ function model(kind: "generate" | "embed" | "tailor"): string {
   if (kind === "embed") return process.env.GEMINI_EMBED_MODEL || "gemini-embedding-2";
   if (kind === "tailor") return process.env.GEMINI_TAILOR_MODEL || process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
   return process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
+}
+
+/** One extra attempt on this model when the primary is overloaded (503). Set GEMINI_FALLBACK_MODEL="" to disable. */
+function fallbackModel(): string | null {
+  const v = process.env.GEMINI_FALLBACK_MODEL;
+  if (v === "") return null;
+  return v ?? "gemini-3.8-flash";
 }
 
 /**
@@ -50,42 +48,32 @@ async function reserve(kind: LlmKind): Promise<void> {
   if (error) throw new LlmError("Could not record AI usage.");
 }
 
-async function guarded<T>(kind: LlmKind, call: () => Promise<T>): Promise<T> {
-  let lastMessage = "";
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    await reserve(kind);
-    try {
-      return await call();
-    } catch (err) {
-      const status = typeof err === "object" && err && "status" in err ? Number((err as { status: unknown }).status) : undefined;
-      lastMessage = err instanceof Error ? err.message : String(err);
-      const cls = classifyError(status, lastMessage);
-      if (cls === "daily_quota") throw new LlmBudgetExceeded(kind);
-      if (cls === "fatal" || attempt === MAX_ATTEMPTS) break;
-      const hint = parseRetryDelay(lastMessage);
-      if (hint !== null && hint > MAX_RETRY_DELAY_MS) break; // never sleep long inside a request
-      await new Promise((r) => setTimeout(r, Math.min(hint ?? 1000 * 2 ** (attempt - 1), MAX_RETRY_DELAY_MS)));
-    }
-  }
-  throw new LlmError("The AI service is unavailable right now. Try again later.");
+function deps(kind: LlmKind): RetryDeps {
+  return { reserve: () => reserve(kind), sleep: (ms) => new Promise((r) => setTimeout(r, ms)), now: () => Date.now() };
 }
 
-/** Structured JSON generation validated with zod. `untrusted` text is passed as data inside tags, never as instructions. */
+/** Structured JSON generation validated with zod. Untrusted text is passed as data inside tags, never as instructions. */
 export async function generateJson<S extends z.ZodType>(opts: {
   kind: Exclude<LlmKind, "embed">;
   system: string;
   prompt: string;
   responseSchema: Schema;
   schema: S;
+  budgetMs?: number;
 }): Promise<z.infer<S>> {
-  const text = await guarded(opts.kind, async () => {
-    const res = await ai().models.generateContent({
-      model: model(opts.kind === "tailor" ? "tailor" : "generate"),
-      contents: opts.prompt,
-      config: { systemInstruction: opts.system, responseMimeType: "application/json", responseSchema: opts.responseSchema, temperature: 0.1 },
-    });
-    return res.text ?? "";
-  });
+  const primary = model(opts.kind === "tailor" ? "tailor" : "generate");
+  const text = await runWithRetry(
+    { kind: opts.kind, primary, fallback: fallbackModel(), budgetMs: opts.budgetMs ?? DEFAULT_BUDGET_MS },
+    async (m) => {
+      const res = await ai().models.generateContent({
+        model: m,
+        contents: opts.prompt,
+        config: { systemInstruction: opts.system, responseMimeType: "application/json", responseSchema: opts.responseSchema, temperature: 0.1 },
+      });
+      return res.text ?? "";
+    },
+    deps(opts.kind),
+  );
   let json: unknown;
   try {
     json = JSON.parse(stripJsonFence(text));
@@ -97,16 +85,27 @@ export async function generateJson<S extends z.ZodType>(opts: {
   return parsed.data;
 }
 
-/** One 768-dim embedding. Each text goes in its own Content object (a plain string list is aggregated into one vector). */
-export async function embedText(text: string, taskType: "RETRIEVAL_QUERY" | "RETRIEVAL_DOCUMENT" = "RETRIEVAL_QUERY"): Promise<number[]> {
-  return guarded("embed", async () => {
-    const res = await ai().models.embedContent({
-      model: model("embed"),
-      contents: [{ parts: [{ text }] }],
-      config: { outputDimensionality: EMBED_DIMENSIONS, taskType },
-    });
-    const values = res.embeddings?.[0]?.values;
-    if (res.embeddings?.length !== 1 || !values || values.length !== EMBED_DIMENSIONS) throw new Error("Unexpected embedding shape");
-    return values;
-  });
+/**
+ * One 768-dim embedding. Each text goes in its own Content object (a plain string list is aggregated into one
+ * vector). No fallback model: a different embedding model would put vectors in a different space.
+ */
+export async function embedText(
+  text: string,
+  taskType: "RETRIEVAL_QUERY" | "RETRIEVAL_DOCUMENT" = "RETRIEVAL_QUERY",
+  budgetMs: number = DEFAULT_BUDGET_MS,
+): Promise<number[]> {
+  return runWithRetry(
+    { kind: "embed", primary: model("embed"), fallback: null, budgetMs },
+    async (m) => {
+      const res = await ai().models.embedContent({
+        model: m,
+        contents: [{ parts: [{ text }] }],
+        config: { outputDimensionality: EMBED_DIMENSIONS, taskType },
+      });
+      const values = res.embeddings?.[0]?.values;
+      if (res.embeddings?.length !== 1 || !values || values.length !== EMBED_DIMENSIONS) throw new Error("Unexpected embedding shape");
+      return values;
+    },
+    deps("embed"),
+  );
 }

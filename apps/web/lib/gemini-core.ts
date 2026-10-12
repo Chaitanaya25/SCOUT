@@ -49,6 +49,84 @@ export class LlmError extends Error {
   }
 }
 
+export const BASE_RETRY_DELAY_MS = 800;
+
+/** Exponential backoff with full jitter; a server retry hint wins when present. */
+export function backoffDelay(attempt: number, hintMs: number | null, rng: () => number = Math.random): number {
+  if (hintMs !== null) return Math.max(0, hintMs);
+  const ceiling = Math.min(MAX_RETRY_DELAY_MS, BASE_RETRY_DELAY_MS * 2 ** Math.max(0, attempt - 1));
+  return Math.round(ceiling / 2 + rng() * (ceiling / 2)); // half fixed + half random: never 0, never a thundering herd
+}
+
+/** 503 / "overloaded" / "unavailable": the primary model is busy, so one fallback attempt is worth it. */
+export function isOverloaded(status: number | undefined, message: string): boolean {
+  return status === 503 || /overloaded|unavailable|high demand/i.test(message);
+}
+
+export type CallError = { status?: number; message: string };
+
+export function toCallError(err: unknown): CallError {
+  const status = typeof err === "object" && err && "status" in err ? Number((err as { status: unknown }).status) : undefined;
+  return { status: Number.isFinite(status) ? status : undefined, message: err instanceof Error ? err.message : String(err) };
+}
+
+export type RetryDeps = {
+  /** Counts one request against the soft cap BEFORE it is sent; throws LlmBudgetExceeded at the cap. */
+  reserve: () => Promise<void>;
+  sleep: (ms: number) => Promise<void>;
+  now: () => number;
+};
+
+export type RetryPlan = {
+  kind: LlmKind;
+  primary: string;
+  /** Used for exactly one extra attempt after the primary's retries end on an overload (503). */
+  fallback?: string | null;
+  maxAttempts?: number;
+  /** Hard wall-clock budget for all attempts and waits (keep it under the route's maxDuration). */
+  budgetMs: number;
+};
+
+/**
+ * Runs `call(model)` with a hard cap on attempts and total time. 429/500/503/504 are retried with jittered
+ * exponential backoff (or the server's hint); a per-day 429 stops immediately; other errors are fatal. When the
+ * primary's last failure was an overload, the fallback model gets one attempt if time remains. Every attempt is
+ * reserved in llm_usage first, so a soft cap can never be exceeded by retries.
+ */
+export async function runWithRetry<T>(plan: RetryPlan, call: (model: string) => Promise<T>, deps: RetryDeps): Promise<T> {
+  const deadline = deps.now() + plan.budgetMs;
+  const maxAttempts = Math.max(1, Math.min(plan.maxAttempts ?? MAX_ATTEMPTS, MAX_ATTEMPTS));
+  let last: CallError = { message: "not attempted" };
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    await deps.reserve();
+    try {
+      return await call(plan.primary);
+    } catch (err) {
+      last = toCallError(err);
+      const cls = classifyError(last.status, last.message);
+      if (cls === "daily_quota") throw new LlmBudgetExceeded(plan.kind);
+      if (cls === "fatal") throw new LlmError("The AI service rejected the request.");
+      if (attempt === maxAttempts) break;
+      const delay = backoffDelay(attempt, parseRetryDelay(last.message));
+      if (delay > MAX_RETRY_DELAY_MS || deps.now() + delay >= deadline) break; // never wait past the budget
+      await deps.sleep(delay);
+    }
+  }
+
+  const fallback = plan.fallback && plan.fallback !== plan.primary ? plan.fallback : null;
+  if (fallback && isOverloaded(last.status, last.message) && deps.now() < deadline) {
+    await deps.reserve();
+    try {
+      return await call(fallback);
+    } catch (err) {
+      const e = toCallError(err);
+      if (classifyError(e.status, e.message) === "daily_quota") throw new LlmBudgetExceeded(plan.kind);
+    }
+  }
+  throw new LlmError("The AI service is busy right now. Try again in a minute.");
+}
+
 /** Strips a ```json fence some models add even with a JSON mime type. */
 export function stripJsonFence(text: string): string {
   const t = text.trim();

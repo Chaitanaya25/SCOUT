@@ -1,6 +1,6 @@
 "use client";
 
-import { CloudUpload, FileText, Plus, UploadCloud, X } from "lucide-react";
+import { CloudUpload, FileText, Plus, RefreshCw, UploadCloud, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -11,7 +11,7 @@ import { sendFile, sendJson } from "@/lib/client-api";
 import { cn } from "@/lib/cn";
 import { MAX_RESUME_BYTES } from "@/lib/resume-parse";
 
-type Resume = { ext: string; skills: string[]; uploadedAt: string; size: number | null; summary: string };
+type Resume = { ext: string; skills: string[]; uploadedAt: string; size: number | null; summary: string; parseStatus: string };
 
 function formatSize(bytes: number | null): string {
   if (bytes === null) return "";
@@ -31,16 +31,32 @@ export function ResumeSection({ resume }: { resume: Resume | null }) {
   const [adding, setAdding] = useState(false);
   const [draft, setDraft] = useState("");
   const [saving, setSaving] = useState(false);
+  const [pending, setPending] = useState(resume?.parseStatus === "pending");
+  const [retrying, setRetrying] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function upload(file: File) {
     if (file.size > MAX_RESUME_BYTES) return void toast.error("The file is larger than 5 MB.");
     setParsing(true);
-    const res = await sendFile<{ resume: { skills: string[] } }>("/api/resume", file);
+    const res = await sendFile<{ pending?: boolean; message?: string; resume: { skills: string[] } }>("/api/resume", file);
     setParsing(false);
     if (!res.ok) return void toast.error(res.error);
+    setPending(Boolean(res.data.pending));
     setSkills(res.data.resume.skills);
-    toast.success(`Resume parsed · ${res.data.resume.skills.length} skills detected`);
+    if (res.data.pending) toast.message(res.data.message ?? "Resume saved. AI parsing is busy, try again in a minute.");
+    else toast.success(`Resume parsed · ${res.data.resume.skills.length} skills detected`);
+    startTransition(() => router.refresh());
+  }
+
+  async function retryParse() {
+    setRetrying(true);
+    const res = await sendJson<{ pending?: boolean; message?: string; skills?: string[] }>("/api/resume/reparse", "POST");
+    setRetrying(false);
+    if (!res.ok) return void toast.error(res.error);
+    if (res.data.pending) return void toast.message(res.data.message ?? "AI parsing is still busy. Try again in a minute.");
+    setPending(false);
+    setSkills(res.data.skills ?? []);
+    toast.success(`Resume parsed · ${(res.data.skills ?? []).length} skills detected`);
     startTransition(() => router.refresh());
   }
 
@@ -124,6 +140,18 @@ export function ResumeSection({ resume }: { resume: Resume | null }) {
           </div>
           <Button leadingIcon={<CloudUpload size={16} strokeWidth={1.5} aria-hidden />} onClick={() => fileRef.current?.click()}>
             Replace File
+          </Button>
+        </div>
+      ) : null}
+
+      {pending && !parsing ? (
+        <div role="status" className="flex flex-col justify-between gap-3 rounded-lg bg-surface-3 p-4 sm:flex-row sm:items-center">
+          <div>
+            <p className="font-mono text-mono-label uppercase tracking-wider text-warning">Parse pending</p>
+            <p className="text-body-sm text-secondary">Resume saved. AI parsing is busy, try again in a minute. Matching starts once parsing finishes.</p>
+          </div>
+          <Button variant="secondary" disabled={retrying} leadingIcon={<RefreshCw size={16} strokeWidth={1.5} className={retrying ? "animate-spin" : undefined} aria-hidden />} onClick={() => void retryParse()}>
+            {retrying ? "Parsing…" : "Retry parsing"}
           </Button>
         </div>
       ) : null}

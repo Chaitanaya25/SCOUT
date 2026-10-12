@@ -19,6 +19,7 @@ export function StatTile({
   caption,
   trailing,
   bar,
+  footer,
   className,
 }: {
   label: string;
@@ -30,6 +31,8 @@ export function StatTile({
   caption?: ReactNode;
   trailing?: ReactNode;
   bar?: { value: number; tone?: Tone };
+  /** Extra row under the numeral (e.g. a sparkline). */
+  footer?: ReactNode;
   className?: string;
 }) {
   return (
@@ -49,6 +52,7 @@ export function StatTile({
         </span>
         {caption ? <span className="font-mono text-mono-micro text-muted">{caption}</span> : null}
       </div>
+      {footer}
       {bar ? <ProgressBar value={bar.value} tone={bar.tone ?? "accent"} /> : null}
     </div>
   );

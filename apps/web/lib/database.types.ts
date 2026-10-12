@@ -1,5 +1,5 @@
 /**
- * Hand-written from supabase/migrations/0001_init.sql (+ 0002).
+ * Hand-written from supabase/migrations/0001_init.sql (+ 0002, 0003).
  *
  * This file was NOT produced by the Supabase generator: no Supabase project or CLI was available
  * when it was written. Run `pnpm -C apps/web db:types` (needs SUPABASE_ACCESS_TOKEN) to replace it
@@ -16,6 +16,8 @@ export type MatchStatus = "new" | "saved" | "skipped" | "applied";
 export type AppStage = "saved" | "applied" | "oa" | "interview" | "offer" | "rejected";
 export type AtsType = "greenhouse" | "lever" | "ashby" | "workday" | "smartrecruiters" | "generic";
 export type ProgramCategory = "gsoc" | "lfx" | "mlh" | "hackathon" | "off_campus" | "other";
+export type ResumeParseStatus = "done" | "pending" | "failed";
+export type CompanyAtsStatus = "ok" | "pending" | "error";
 
 type ProfilesRow = {
   id: string;
@@ -35,6 +37,7 @@ type ResumesRow = {
   skills: string[];
   embedding: string | null;
   is_active: boolean;
+  parse_status: ResumeParseStatus;
   created_at: string;
 };
 
@@ -65,6 +68,8 @@ type CompaniesRow = {
   ats: AtsType | null;
   ats_token: string | null;
   content_hash: string | null;
+  ats_status: CompanyAtsStatus;
+  last_error: string | null;
   created_at: string;
 };
 
@@ -76,6 +81,8 @@ type WatchedCompaniesRow = {
   last_open_count: number | null;
   last_new_count: number | null;
   last_error: string | null;
+  notes: string | null;
+  entry_route: string | null;
   created_at: string;
 };
 
@@ -394,6 +401,10 @@ export type Database = {
         }[];
       };
       match_candidates: {
+        Args: { p_profile: string; p_embedding: string; p_since: string; p_k: number };
+        Returns: { job_id: string; similarity: number }[];
+      };
+      match_candidates_v2: {
         Args: { p_profile: string; p_embedding: string; p_since: string; p_k: number };
         Returns: { job_id: string; similarity: number }[];
       };
