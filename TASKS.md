@@ -7,12 +7,12 @@ Legend: `[ ]` todo · `[x]` done · `(W)` worker · `(UI)` web.
 ---
 
 ## Phase 0 — Repo & tooling
-- [ ] Monorepo layout per `ARCHITECTURE.md §2`; pnpm workspace for `apps/web`; uv project for `worker`.
-- [ ] Next.js (App Router, TS strict, ESLint, Tailwind v4), path alias `@/*`.
-- [ ] Worker: Python 3.12, uv, ruff, pytest, `python -m scout_worker.main --help` works.
-- [ ] `.env.example` for web and worker (all vars in `ARCHITECTURE.md §12`).
-- [ ] `ci.yml`: web lint + typecheck + build; worker ruff + pytest.
-- [ ] Copy Stitch exports into `docs/design/<NN-screen-theme>/{code.html,screen.png}`.
+- [x] Monorepo layout per `ARCHITECTURE.md §2`; pnpm workspace for `apps/web`; uv project for `worker`.
+- [x] Next.js (App Router, TS strict, ESLint, Tailwind v4), path alias `@/*`.
+- [x] Worker: Python 3.12, uv, ruff, pytest, `python -m scout_worker.main --help` works.
+- [x] `.env.example` for web and worker (all vars in `ARCHITECTURE.md §12`).
+- [x] `ci.yml`: web lint + typecheck + build; worker ruff + pytest.
+- [x] Copy Stitch exports into `docs/design/<NN-screen-theme>/{code.html,screen.png}`.
 
 **Accept:** `pnpm -C apps/web build` and `uv run pytest` pass in CI.
 

@@ -1,0 +1,9 @@
+{
+  "name": "scout",
+  "private": true,
+  "description": "SCOUT — personal AI job & internship radar (monorepo root)",
+  "packageManager": "pnpm@12.9.1",
+  "engines": {
+    "node": ">=20.9"
+  }
+}
