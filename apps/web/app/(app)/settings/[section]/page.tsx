@@ -1,10 +1,15 @@
 import { notFound } from "next/navigation";
 
+import { PreferencesForm, type PreferencesValues } from "@/components/settings/preferences-form";
+import { ProfileForm } from "@/components/settings/profile-form";
+import { ResumeSection } from "@/components/settings/resume-section";
+import { ScanPanel } from "@/components/settings/scan-panel";
 import { SettingsNav } from "@/components/settings/settings-nav";
+import { TelegramPanel } from "@/components/settings/telegram-panel";
 import { ModuleCard } from "@/components/ui/module-card";
 import { PageHeader } from "@/components/ui/page-header";
-import { db } from "@/lib/db";
 import { isSettingsSection, SETTINGS_SECTIONS, type SettingsSection } from "@/lib/nav";
+import { loadPreferences, loadProfile, loadResume, loadScanOverview } from "@/lib/settings-data";
 import { requireProfile } from "@/lib/session";
 
 export const metadata = { title: "Settings — SCOUT" };
@@ -13,11 +18,21 @@ export function generateStaticParams() {
   return SETTINGS_SECTIONS.map((section) => ({ section }));
 }
 
-const Placeholder = ({ children }: { children: string }) => <p className="rounded-lg bg-surface-2 p-4 text-body-sm text-muted">{children}</p>;
+function ConnectionChip({ linked }: { linked: boolean }) {
+  return linked ? (
+    <span className="rounded-pill bg-accent/15 px-3 py-1.5 font-mono text-mono-label font-bold uppercase tracking-wider text-accent-fg">CONNECTED</span>
+  ) : (
+    <span className="flex items-center gap-2 rounded-pill bg-danger-container/30 px-3 py-1.5 font-mono text-mono-label font-bold uppercase tracking-wider text-danger">
+      <span className="size-2 animate-live-ping rounded-full bg-danger" aria-hidden />
+      NOT CONNECTED
+    </span>
+  );
+}
 
-function Section({ section, telegramLinked }: { section: SettingsSection; telegramLinked: boolean }) {
+async function Section({ section, profileId, telegramLinked }: { section: SettingsSection; profileId: string; telegramLinked: boolean }) {
   switch (section) {
-    case "resume":
+    case "resume": {
+      const resume = await loadResume(profileId);
       return (
         <ModuleCard
           index={1}
@@ -25,9 +40,10 @@ function Section({ section, telegramLinked }: { section: SettingsSection; telegr
           title="Autonomous Resume Parsing Engine"
           description="Scout extracts semantic capability vectors to score ATS listings against your live profile."
         >
-          <Placeholder>Resume upload, parsing and editable skill chips arrive in a later phase.</Placeholder>
+          <ResumeSection resume={resume} />
         </ModuleCard>
       );
+    }
     case "telegram":
       return (
         <ModuleCard
@@ -35,38 +51,46 @@ function Section({ section, telegramLinked }: { section: SettingsSection; telegr
           kind="Telemetry routing"
           title="Telegram Instant Alert Conduit"
           description="Low-latency push alerts for fresh matches above your minimum score."
-          status={
-            telegramLinked ? (
-              <span className="rounded-pill bg-accent/15 px-3 py-1.5 font-mono text-mono-label font-bold uppercase tracking-wider text-accent-fg">CONNECTED</span>
-            ) : (
-              <span className="flex items-center gap-2 rounded-pill bg-danger-container/30 px-3 py-1.5 font-mono text-mono-label font-bold uppercase tracking-wider text-danger">
-                <span className="size-2 animate-live-ping rounded-full bg-danger" aria-hidden />
-                NOT CONNECTED
-              </span>
-            )
-          }
+          status={<ConnectionChip linked={telegramLinked} />}
         >
-          <Placeholder>QR pairing, the 15-minute link token and the test message arrive in a later phase.</Placeholder>
+          <TelegramPanel linked={telegramLinked} />
         </ModuleCard>
       );
-    case "preferences":
+    case "preferences": {
+      const prefs = await loadPreferences(profileId);
+      const initial: PreferencesValues = {
+        roles: prefs?.roles ?? [],
+        locations: prefs?.locations ?? [],
+        remote_ok: prefs?.remote_ok ?? true,
+        job_types: (prefs?.job_types ?? ["internship", "full_time"]).filter((t): t is "internship" | "full_time" => t === "internship" || t === "full_time"),
+        grad_year: prefs?.grad_year ?? null,
+        degree: prefs?.degree ?? null,
+        max_experience_years: prefs?.max_experience_years ?? 1,
+        has_active_backlogs: prefs?.has_active_backlogs ?? null,
+        min_score: prefs?.min_score ?? 60,
+      };
       return (
         <ModuleCard kind="Match preferences" title="Match Preferences" description="Target roles, locations, job types, graduation year and minimum match score.">
-          <Placeholder>Preferences form arrives in a later phase.</Placeholder>
+          <PreferencesForm initial={initial} />
         </ModuleCard>
       );
-    case "scan":
+    }
+    case "scan": {
+      const { runs, sources } = await loadScanOverview();
       return (
         <ModuleCard kind="Scan settings" title="Scan & Frequencies" description="Every 3 hours · watched companies hourly.">
-          <Placeholder>Run history, sources and the Scan now button arrive in a later phase.</Placeholder>
+          <ScanPanel runs={runs} sources={sources} now={new Date()} />
         </ModuleCard>
       );
-    default:
+    }
+    default: {
+      const profile = await loadProfile(profileId);
       return (
         <ModuleCard kind="Profile" title="Profile & Identities" description="Display name, avatar and college.">
-          <Placeholder>Profile editing arrives in a later phase.</Placeholder>
+          <ProfileForm initial={{ displayName: profile.displayName, college: profile.college, avatarUrl: profile.avatarUrl }} />
         </ModuleCard>
       );
+    }
   }
 }
 
@@ -75,8 +99,8 @@ export default async function SettingsSectionPage({ params }: PageProps<"/settin
   if (!isSettingsSection(section)) notFound();
 
   const { profileId } = await requireProfile();
-  const { data } = await db().from("preferences").select("telegram_chat_id").eq("profile_id", profileId).maybeSingle();
-  const telegramLinked = data?.telegram_chat_id != null;
+  const prefs = await loadPreferences(profileId);
+  const telegramLinked = prefs?.telegram_chat_id != null;
 
   return (
     <div>
@@ -90,7 +114,7 @@ export default async function SettingsSectionPage({ params }: PageProps<"/settin
           <SettingsNav active={section} telegramLinked={telegramLinked} />
         </div>
         <div className="flex flex-col gap-6 lg:col-span-9">
-          <Section section={section} telegramLinked={telegramLinked} />
+          <Section section={section} profileId={profileId} telegramLinked={telegramLinked} />
         </div>
       </div>
     </div>

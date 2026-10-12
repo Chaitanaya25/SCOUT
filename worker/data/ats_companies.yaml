@@ -1,0 +1,569 @@
+# Companies scanned on every full scan. Each token was verified LIVE (HTTP 200 + postings + an intern/graduate-style
+# role or an India/remote location). Regenerate with: uv run python tools/verify_ats.py --write
+# Workday tokens are tenant|wdN|site.
+companies:
+- name: Adobe
+  ats: workday
+  token: adobe|wd5|external_experienced
+  verified_at: '2026-10-12'
+  note: 139 postings; 12 intern/grad-style; 3 India; 0 remote at verification
+- name: Affirm
+  ats: greenhouse
+  token: affirm
+  verified_at: '2026-10-12'
+  note: 201 postings; 5 intern/grad-style; 0 India; 195 remote at verification
+- name: Airbnb
+  ats: greenhouse
+  token: airbnb
+  verified_at: '2026-10-12'
+  note: 158 postings; 2 intern/grad-style; 5 India; 19 remote at verification
+- name: Airbyte
+  ats: ashby
+  token: airbyte
+  verified_at: '2026-10-12'
+  note: 12 postings; 0 intern/grad-style; 0 India; 12 remote at verification
+- name: Airtable
+  ats: greenhouse
+  token: airtable
+  verified_at: '2026-10-12'
+  note: 3 postings; 0 intern/grad-style; 0 India; 2 remote at verification
+- name: Anthropic
+  ats: greenhouse
+  token: anthropic
+  verified_at: '2026-10-12'
+  note: 645 postings; 0 intern/grad-style; 4 India; 56 remote at verification
+- name: Asana
+  ats: greenhouse
+  token: asana
+  verified_at: '2026-10-12'
+  note: 102 postings; 0 intern/grad-style; 0 India; 4 remote at verification
+- name: Autodesk
+  ats: workday
+  token: autodesk|wd1|Ext
+  verified_at: '2026-10-12'
+  note: 304 postings; 20 intern/grad-style; 0 India; 0 remote at verification
+- name: Bosch
+  ats: smartrecruiters
+  token: BoschGroup
+  verified_at: '2026-10-12'
+  note: 100 postings; 8 intern/grad-style; 19 India; 3 remote at verification
+- name: Braze
+  ats: greenhouse
+  token: braze
+  verified_at: '2026-10-12'
+  note: 331 postings; 0 intern/grad-style; 0 India; 1 remote at verification
+- name: CircleCI
+  ats: greenhouse
+  token: circleci
+  verified_at: '2026-10-12'
+  note: 13 postings; 0 intern/grad-style; 0 India; 5 remote at verification
+- name: Cisco
+  ats: workday
+  token: cisco|wd5|Cisco_Careers
+  verified_at: '2026-10-12'
+  note: 610 postings; 1 intern/grad-style; 0 India; 0 remote at verification
+- name: Citi
+  ats: workday
+  token: citi|wd5|2
+  verified_at: '2026-10-12'
+  note: 2000 postings; 4 intern/grad-style; 0 India; 0 remote at verification
+- name: Clerk
+  ats: ashby
+  token: clerk
+  verified_at: '2026-10-12'
+  note: 2 postings; 0 intern/grad-style; 0 India; 2 remote at verification
+- name: ClickHouse
+  ats: ashby
+  token: clickhouse
+  verified_at: '2026-10-12'
+  note: 194 postings; 0 intern/grad-style; 9 India; 120 remote at verification
+- name: Cloudflare
+  ats: greenhouse
+  token: cloudflare
+  verified_at: '2026-10-12'
+  note: 433 postings; 4 intern/grad-style; 1 India; 3 remote at verification
+- name: Cohere
+  ats: ashby
+  token: cohere
+  verified_at: '2026-10-12'
+  note: 119 postings; 3 intern/grad-style; 0 India; 108 remote at verification
+- name: Coinbase
+  ats: greenhouse
+  token: coinbase
+  verified_at: '2026-10-12'
+  note: 224 postings; 27 intern/grad-style; 10 India; 186 remote at verification
+- name: CRED
+  ats: lever
+  token: cred
+  verified_at: '2026-10-12'
+  note: 7 postings; 0 intern/grad-style; 7 India; 0 remote at verification
+- name: Databricks
+  ats: greenhouse
+  token: databricks
+  verified_at: '2026-10-12'
+  note: 892 postings; 18 intern/grad-style; 96 India; 69 remote at verification
+- name: Datadog
+  ats: greenhouse
+  token: datadog
+  verified_at: '2026-10-12'
+  note: 434 postings; 8 intern/grad-style; 8 India; 55 remote at verification
+- name: Discord
+  ats: greenhouse
+  token: discord
+  verified_at: '2026-10-12'
+  note: 49 postings; 0 intern/grad-style; 0 India; 9 remote at verification
+- name: DoorDash
+  ats: greenhouse
+  token: doordashusa
+  verified_at: '2026-10-12'
+  note: 466 postings; 6 intern/grad-style; 0 India; 40 remote at verification
+- name: Duolingo
+  ats: greenhouse
+  token: duolingo
+  verified_at: '2026-10-12'
+  note: 60 postings; 2 intern/grad-style; 1 India; 2 remote at verification
+- name: Elastic
+  ats: greenhouse
+  token: elastic
+  verified_at: '2026-10-12'
+  note: 404 postings; 0 intern/grad-style; 17 India; 0 remote at verification
+- name: ElevenLabs
+  ats: ashby
+  token: elevenlabs
+  verified_at: '2026-10-12'
+  note: 131 postings; 0 intern/grad-style; 3 India; 113 remote at verification
+- name: Experian
+  ats: smartrecruiters
+  token: Experian
+  verified_at: '2026-10-12'
+  note: 100 postings; 1 intern/grad-style; 18 India; 9 remote at verification
+- name: Fidelity
+  ats: workday
+  token: fmr|wd1|FidelityCareers
+  verified_at: '2026-10-12'
+  note: 292 postings; 2 intern/grad-style; 0 India; 0 remote at verification
+- name: Figma
+  ats: greenhouse
+  token: figma
+  verified_at: '2026-10-12'
+  note: 151 postings; 10 intern/grad-style; 1 India; 0 remote at verification
+- name: Fivetran
+  ats: greenhouse
+  token: fivetran
+  verified_at: '2026-10-12'
+  note: 188 postings; 0 intern/grad-style; 22 India; 35 remote at verification
+- name: Flexport
+  ats: greenhouse
+  token: flexport
+  verified_at: '2026-10-12'
+  note: 208 postings; 6 intern/grad-style; 8 India; 4 remote at verification
+- name: Freshworks
+  ats: smartrecruiters
+  token: Freshworks
+  verified_at: '2026-10-12'
+  note: 100 postings; 0 intern/grad-style; 29 India; 14 remote at verification
+- name: GitLab
+  ats: greenhouse
+  token: gitlab
+  verified_at: '2026-10-12'
+  note: 221 postings; 0 intern/grad-style; 30 India; 197 remote at verification
+- name: Grafana Labs
+  ats: greenhouse
+  token: grafanalabs
+  verified_at: '2026-10-12'
+  note: 104 postings; 0 intern/grad-style; 3 India; 104 remote at verification
+- name: Groww
+  ats: greenhouse
+  token: groww
+  verified_at: '2026-10-12'
+  note: 10 postings; 2 intern/grad-style; 10 India; 0 remote at verification
+- name: Gusto
+  ats: greenhouse
+  token: gusto
+  verified_at: '2026-10-12'
+  note: 97 postings; 1 intern/grad-style; 0 India; 11 remote at verification
+- name: Harvey
+  ats: ashby
+  token: harvey
+  verified_at: '2026-10-12'
+  note: 351 postings; 5 intern/grad-style; 7 India; 282 remote at verification
+- name: Hex
+  ats: ashby
+  token: hex
+  verified_at: '2026-10-12'
+  note: 38 postings; 1 intern/grad-style; 0 India; 38 remote at verification
+- name: HP
+  ats: workday
+  token: hp|wd5|ExternalCareerSite
+  verified_at: '2026-10-12'
+  note: 487 postings; 1 intern/grad-style; 2 India; 0 remote at verification
+- name: InMobi
+  ats: greenhouse
+  token: inmobi
+  verified_at: '2026-10-12'
+  note: 75 postings; 1 intern/grad-style; 39 India; 0 remote at verification
+- name: Instacart
+  ats: greenhouse
+  token: instacart
+  verified_at: '2026-10-12'
+  note: 121 postings; 0 intern/grad-style; 0 India; 116 remote at verification
+- name: Intel
+  ats: workday
+  token: intel|wd1|External
+  verified_at: '2026-10-12'
+  note: 415 postings; 20 intern/grad-style; 0 India; 0 remote at verification
+- name: Intercom
+  ats: greenhouse
+  token: intercom
+  verified_at: '2026-10-12'
+  note: 105 postings; 0 intern/grad-style; 0 India; 4 remote at verification
+- name: Khan Academy
+  ats: greenhouse
+  token: khanacademy
+  verified_at: '2026-10-12'
+  note: 6 postings; 1 intern/grad-style; 0 India; 6 remote at verification
+- name: LangChain
+  ats: ashby
+  token: langchain
+  verified_at: '2026-10-12'
+  note: 102 postings; 2 intern/grad-style; 0 India; 41 remote at verification
+- name: LaunchDarkly
+  ats: greenhouse
+  token: launchdarkly
+  verified_at: '2026-10-12'
+  note: 58 postings; 0 intern/grad-style; 6 India; 42 remote at verification
+- name: Linear
+  ats: ashby
+  token: linear
+  verified_at: '2026-10-12'
+  note: 31 postings; 0 intern/grad-style; 0 India; 31 remote at verification
+- name: LinkedIn
+  ats: smartrecruiters
+  token: LinkedIn3
+  verified_at: '2026-10-12'
+  note: 100 postings; 2 intern/grad-style; 15 India; 4 remote at verification
+- name: Lucid
+  ats: greenhouse
+  token: lucidsoftware
+  verified_at: '2026-10-12'
+  note: 31 postings; 2 intern/grad-style; 0 India; 1 remote at verification
+- name: Lyft
+  ats: greenhouse
+  token: lyft
+  verified_at: '2026-10-12'
+  note: 188 postings; 20 intern/grad-style; 0 India; 2 remote at verification
+- name: Mastercard
+  ats: workday
+  token: mastercard|wd1|CorporateCareers
+  verified_at: '2026-10-12'
+  note: 725 postings; 1 intern/grad-style; 4 India; 1 remote at verification
+- name: Medium
+  ats: greenhouse
+  token: medium
+  verified_at: '2026-10-12'
+  note: 1 postings; 0 intern/grad-style; 0 India; 1 remote at verification
+- name: Meesho
+  ats: lever
+  token: meesho
+  verified_at: '2026-10-12'
+  note: 57 postings; 1 intern/grad-style; 54 India; 0 remote at verification
+- name: Micron
+  ats: workday
+  token: micron|wd1|External
+  verified_at: '2026-10-12'
+  note: 3184 postings; 2 intern/grad-style; 4 India; 0 remote at verification
+- name: Mindtickle
+  ats: lever
+  token: mindtickle
+  verified_at: '2026-10-12'
+  note: 20 postings; 0 intern/grad-style; 19 India; 1 remote at verification
+- name: Mixpanel
+  ats: greenhouse
+  token: mixpanel
+  verified_at: '2026-10-12'
+  note: 55 postings; 0 intern/grad-style; 4 India; 11 remote at verification
+- name: Modal
+  ats: ashby
+  token: modal
+  verified_at: '2026-10-12'
+  note: 41 postings; 1 intern/grad-style; 0 India; 3 remote at verification
+- name: MongoDB
+  ats: greenhouse
+  token: mongodb
+  verified_at: '2026-10-12'
+  note: 396 postings; 1 intern/grad-style; 85 India; 0 remote at verification
+- name: Morgan Stanley
+  ats: workday
+  token: ms|wd5|External
+  verified_at: '2026-10-12'
+  note: 653 postings; 2 intern/grad-style; 1 India; 0 remote at verification
+- name: Mozilla
+  ats: greenhouse
+  token: mozilla
+  verified_at: '2026-10-12'
+  note: 96 postings; 0 intern/grad-style; 0 India; 96 remote at verification
+- name: Neon
+  ats: ashby
+  token: neon
+  verified_at: '2026-10-12'
+  note: 4 postings; 0 intern/grad-style; 0 India; 1 remote at verification
+- name: New Relic
+  ats: greenhouse
+  token: newrelic
+  verified_at: '2026-10-12'
+  note: 54 postings; 0 intern/grad-style; 10 India; 0 remote at verification
+- name: Notion
+  ats: ashby
+  token: notion
+  verified_at: '2026-10-12'
+  note: 131 postings; 9 intern/grad-style; 4 India; 87 remote at verification
+- name: NVIDIA
+  ats: workday
+  token: nvidia|wd5|NVIDIAExternalCareerSite
+  verified_at: '2026-10-12'
+  note: 1077 postings; 19 intern/grad-style; 0 India; 0 remote at verification
+- name: Okta
+  ats: greenhouse
+  token: okta
+  verified_at: '2026-10-12'
+  note: 377 postings; 1 intern/grad-style; 114 India; 0 remote at verification
+- name: OpenAI
+  ats: ashby
+  token: openai
+  verified_at: '2026-10-12'
+  note: 809 postings; 0 intern/grad-style; 8 India; 530 remote at verification
+- name: PagerDuty
+  ats: greenhouse
+  token: pagerduty
+  verified_at: '2026-10-12'
+  note: 52 postings; 0 intern/grad-style; 0 India; 12 remote at verification
+- name: Palantir
+  ats: lever
+  token: palantir
+  verified_at: '2026-10-12'
+  note: 309 postings; 79 intern/grad-style; 0 India; 0 remote at verification
+- name: PayPal
+  ats: workday
+  token: paypal|wd1|jobs
+  verified_at: '2026-10-12'
+  note: 195 postings; 1 intern/grad-style; 3 India; 0 remote at verification
+- name: Paytm
+  ats: lever
+  token: paytm
+  verified_at: '2026-10-12'
+  note: 175 postings; 7 intern/grad-style; 141 India; 0 remote at verification
+- name: Perplexity
+  ats: ashby
+  token: perplexity
+  verified_at: '2026-10-12'
+  note: 133 postings; 6 intern/grad-style; 0 India; 59 remote at verification
+- name: Pinecone
+  ats: ashby
+  token: pinecone
+  verified_at: '2026-10-12'
+  note: 5 postings; 0 intern/grad-style; 0 India; 3 remote at verification
+- name: Pinterest
+  ats: greenhouse
+  token: pinterest
+  verified_at: '2026-10-12'
+  note: 179 postings; 17 intern/grad-style; 0 India; 77 remote at verification
+- name: PostHog
+  ats: ashby
+  token: posthog
+  verified_at: '2026-10-12'
+  note: 10 postings; 0 intern/grad-style; 0 India; 9 remote at verification
+- name: Pure Storage
+  ats: greenhouse
+  token: purestorage
+  verified_at: '2026-10-12'
+  note: 361 postings; 1 intern/grad-style; 75 India; 48 remote at verification
+- name: Ramp
+  ats: ashby
+  token: ramp
+  verified_at: '2026-10-12'
+  note: 165 postings; 6 intern/grad-style; 0 India; 148 remote at verification
+- name: Razorpay
+  ats: greenhouse
+  token: razorpaysoftwareprivatelimited
+  verified_at: '2026-10-12'
+  note: 28 postings; 0 intern/grad-style; 24 India; 0 remote at verification
+- name: Reddit
+  ats: greenhouse
+  token: reddit
+  verified_at: '2026-10-12'
+  note: 145 postings; 0 intern/grad-style; 0 India; 110 remote at verification
+- name: Replit
+  ats: ashby
+  token: replit
+  verified_at: '2026-10-12'
+  note: 69 postings; 2 intern/grad-style; 0 India; 69 remote at verification
+- name: Resend
+  ats: ashby
+  token: resend
+  verified_at: '2026-10-12'
+  note: 14 postings; 0 intern/grad-style; 0 India; 14 remote at verification
+- name: Robinhood
+  ats: greenhouse
+  token: robinhood
+  verified_at: '2026-10-12'
+  note: 180 postings; 25 intern/grad-style; 0 India; 0 remote at verification
+- name: Roblox
+  ats: greenhouse
+  token: roblox
+  verified_at: '2026-10-12'
+  note: 266 postings; 9 intern/grad-style; 10 India; 8 remote at verification
+- name: Rubrik
+  ats: greenhouse
+  token: rubrik
+  verified_at: '2026-10-12'
+  note: 131 postings; 4 intern/grad-style; 35 India; 13 remote at verification
+- name: Runway
+  ats: ashby
+  token: runway
+  verified_at: '2026-10-12'
+  note: 3 postings; 0 intern/grad-style; 0 India; 3 remote at verification
+- name: Salesforce
+  ats: workday
+  token: salesforce|wd12|External_Career_Site
+  verified_at: '2026-10-12'
+  note: 774 postings; 1 intern/grad-style; 0 India; 3 remote at verification
+- name: Samsara
+  ats: greenhouse
+  token: samsara
+  verified_at: '2026-10-12'
+  note: 237 postings; 5 intern/grad-style; 6 India; 207 remote at verification
+- name: Sarvam AI
+  ats: ashby
+  token: sarvam
+  verified_at: '2026-10-12'
+  note: 41 postings; 2 intern/grad-style; 41 India; 0 remote at verification
+- name: Scale AI
+  ats: greenhouse
+  token: scaleai
+  verified_at: '2026-10-12'
+  note: 184 postings; 7 intern/grad-style; 1 India; 0 remote at verification
+- name: Sentry
+  ats: ashby
+  token: sentry
+  verified_at: '2026-10-12'
+  note: 46 postings; 2 intern/grad-style; 0 India; 45 remote at verification
+- name: ServiceNow
+  ats: smartrecruiters
+  token: ServiceNow
+  verified_at: '2026-10-12'
+  note: 100 postings; 0 intern/grad-style; 13 India; 32 remote at verification
+- name: Sodexo
+  ats: smartrecruiters
+  token: Sodexo
+  verified_at: '2026-10-12'
+  note: 100 postings; 0 intern/grad-style; 0 India; 7 remote at verification
+- name: Spotify
+  ats: lever
+  token: spotify
+  verified_at: '2026-10-12'
+  note: 83 postings; 0 intern/grad-style; 1 India; 0 remote at verification
+- name: Squarespace
+  ats: greenhouse
+  token: squarespace
+  verified_at: '2026-10-12'
+  note: 33 postings; 0 intern/grad-style; 0 India; 2 remote at verification
+- name: Stripe
+  ats: greenhouse
+  token: stripe
+  verified_at: '2026-10-12'
+  note: 721 postings; 29 intern/grad-style; 47 India; 112 remote at verification
+- name: Sumo Logic
+  ats: greenhouse
+  token: sumologic
+  verified_at: '2026-10-12'
+  note: 9 postings; 0 intern/grad-style; 5 India; 0 remote at verification
+- name: Supabase
+  ats: ashby
+  token: supabase
+  verified_at: '2026-10-12'
+  note: 52 postings; 0 intern/grad-style; 0 India; 52 remote at verification
+- name: Synthesia
+  ats: ashby
+  token: synthesia
+  verified_at: '2026-10-12'
+  note: 46 postings; 0 intern/grad-style; 0 India; 44 remote at verification
+- name: Temporal
+  ats: ashby
+  token: temporal
+  verified_at: '2026-10-12'
+  note: 67 postings; 0 intern/grad-style; 3 India; 67 remote at verification
+- name: Toast
+  ats: greenhouse
+  token: toast
+  verified_at: '2026-10-12'
+  note: 318 postings; 0 intern/grad-style; 16 India; 55 remote at verification
+- name: Toptal
+  ats: lever
+  token: toptal
+  verified_at: '2026-10-12'
+  note: 32 postings; 0 intern/grad-style; 0 India; 1 remote at verification
+- name: Twilio
+  ats: greenhouse
+  token: twilio
+  verified_at: '2026-10-12'
+  note: 145 postings; 0 intern/grad-style; 19 India; 145 remote at verification
+- name: Ubisoft
+  ats: smartrecruiters
+  token: Ubisoft2
+  verified_at: '2026-10-12'
+  note: 100 postings; 9 intern/grad-style; 3 India; 0 remote at verification
+- name: Vanta
+  ats: ashby
+  token: vanta
+  verified_at: '2026-10-12'
+  note: 83 postings; 0 intern/grad-style; 0 India; 77 remote at verification
+- name: Vercel
+  ats: greenhouse
+  token: vercel
+  verified_at: '2026-10-12'
+  note: 89 postings; 2 intern/grad-style; 2 India; 8 remote at verification
+- name: VMware/Broadcom
+  ats: workday
+  token: broadcom|wd1|External_Career
+  verified_at: '2026-10-12'
+  note: 97 postings; 1 intern/grad-style; 1 India; 1 remote at verification
+- name: Wealthfront
+  ats: lever
+  token: wealthfront
+  verified_at: '2026-10-12'
+  note: 22 postings; 0 intern/grad-style; 0 India; 10 remote at verification
+- name: Webflow
+  ats: greenhouse
+  token: webflow
+  verified_at: '2026-10-12'
+  note: 23 postings; 0 intern/grad-style; 0 India; 18 remote at verification
+- name: Whop
+  ats: ashby
+  token: whop
+  verified_at: '2026-10-12'
+  note: 32 postings; 0 intern/grad-style; 0 India; 3 remote at verification
+- name: Wikimedia
+  ats: greenhouse
+  token: wikimedia
+  verified_at: '2026-10-12'
+  note: 11 postings; 0 intern/grad-style; 0 India; 11 remote at verification
+- name: Wiz
+  ats: greenhouse
+  token: wizinc
+  verified_at: '2026-10-12'
+  note: 126 postings; 0 intern/grad-style; 10 India; 81 remote at verification
+- name: Workday
+  ats: workday
+  token: workday|wd5|Workday
+  verified_at: '2026-10-12'
+  note: 165 postings; 1 intern/grad-style; 2 India; 0 remote at verification
+- name: Zapier
+  ats: ashby
+  token: zapier
+  verified_at: '2026-10-12'
+  note: 11 postings; 0 intern/grad-style; 0 India; 11 remote at verification
+- name: Zscaler
+  ats: greenhouse
+  token: zscaler
+  verified_at: '2026-10-12'
+  note: 376 postings; 0 intern/grad-style; 66 India; 157 remote at verification

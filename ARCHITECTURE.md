@@ -334,15 +334,15 @@ class Source(Protocol):
 
 | Source | Method | v1 | Notes |
 |---|---|---|---|
-| LinkedIn, Indeed, Google Jobs, Naukri, Glassdoor | `python-jobspy` `scrape_jobs(...)` | ✅ | One call per role term, `hours_old=72`, modest `results_wanted`. Verify supported sites in installed version. Most fragile source — isolate failures. |
-| Adzuna | REST API (`/v1/api/jobs/in/search/{page}`) | ✅ | Free key. India. |
-| Internshala | HTML scrape of listing pages | ✅ flag | Respect robots.txt, 1 req/2s, selectors in one module. |
+| LinkedIn, Indeed, Google Jobs, Naukri, Glassdoor | `python-jobspy` `scrape_jobs(...)` | ✅ | One call per role term, `hours_old=72`, few results per query. **Public job listings only** — no profiles, no login, no messaging (LinkedIn profile scraping is out of scope). A site that blocks or returns nothing is noted in `source_runs.error` for that run and the scan continues. Sites come from `JOBSPY_SITES`. Most fragile source. |
+| Adzuna | REST API (`/v1/api/jobs/in/search/{page}`) | ✅ | Free key (`ADZUNA_APP_ID`/`ADZUNA_APP_KEY`); disabled without them. India. **Unverified live** (no keys during build); fixture is hand-written from the docs. |
+| Internshala | HTML scrape of listing pages | ✅ flag | robots.txt is fetched every run and the RFC 9309 matcher (wildcards) is applied per path; disallowed paths are skipped and noted. 1 req/2s, selectors in one module. |
 | RemoteOK | `https://remoteok.com/api` | ✅ | Skip first element (legal notice). Attribute source. |
-| Remotive | `https://remotive.com/api/remote-jobs` | ✅ | Use `search` param. |
-| Himalayas | public jobs API | ✅ | Verify current endpoint. |
+| Remotive | `https://remotive.com/api/remote-jobs` | ✅ | Use `search` param. Terms allow ~4 requests/day with 24h-delayed jobs, so the adapter has `min_interval = 6h` and skips otherwise. |
+| Himalayas | public jobs API | ✅ | Verified: `https://himalayas.app/jobs/api/search?q=<term>` (the `/jobs/api` feed uses cursor pagination and is not used). |
 | Arbeitnow | `https://www.arbeitnow.com/api/job-board-api` | ✅ | |
 | We Work Remotely | RSS feeds per category | ✅ | |
-| Greenhouse | `GET https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true` | ✅ | Watched companies + curated list |
+| Greenhouse | `GET https://boards-api.greenhouse.io/v1/boards/{token}/jobs` (list), then `…/jobs/{id}` only for jobs passing the title/location prefilter | ✅ | Differs from `?content=true`: that response is multi-MB per large board, so details are fetched only for candidates (max 25 per company). Watched companies + curated list |
 | Lever | `GET https://api.lever.co/v0/postings/{company}?mode=json` | ✅ | |
 | Ashby | `GET https://api.ashbyhq.com/posting-api/job-board/{board}?includeCompensation=true` | ✅ | |
 | Workday | `POST https://{tenant}.wd{n}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs` body `{"appliedFacets":{},"limit":20,"offset":0,"searchText":""}` | ✅ | Paginate; details via `…/job/{path}` |
@@ -352,7 +352,9 @@ class Source(Protocol):
 
 Wellfound and JSearch are **not** in v1 (anti-bot / paid). The UI source list is driven by `source_runs`, never hard-coded.
 
-A curated `worker/data/ats_companies.yaml` (e.g. 50–100 companies known to hire interns, with ATS + token) is scanned on every full scan in addition to watched companies.
+A curated `worker/data/ats_companies.yaml` (113 companies, each token verified live with `uv run python tools/verify_ats.py --write`) is scanned on every full scan in addition to watched companies.
+
+**Daily cleanup** (`pipeline/cleanup.py`, once per UTC day inside the full scan, claimed through an `llm_usage(kind='cleanup')` row): jobs unseen for 7 days become inactive; inactive jobs unseen for 45+ days are deleted unless an application references them or a saved/applied match exists; `scan_runs` older than 30 days are deleted (`source_runs` cascade).
 
 ---
 
@@ -415,7 +417,7 @@ Heuristic score → `none/low/high`:
 Gemini scoring (§8.3) can raise (never lower) risk with a reason. Store `scam_reasons` as short human strings.
 
 ### 7.5 Embeddings
-- Model: `GEMINI_EMBED_MODEL` (env), `output_dimensionality=768`, task type `RETRIEVAL_DOCUMENT` for jobs, `RETRIEVAL_QUERY` for the resume profile text.
+- Model: `GEMINI_EMBED_MODEL` (env, default `gemini-embedding-2`), `output_dimensionality=768`. **Pass one `types.Content` per text** — a plain list of strings is aggregated into a single vector (the wrapper rejects a response with the wrong vector count), task type `RETRIEVAL_DOCUMENT` for jobs, `RETRIEVAL_QUERY` for the resume profile text.
 - Job text = `title + company + location + first 2,000 chars of description`.
 - Batch requests (≤100 inputs/request). Only embed jobs without an embedding.
 - Resume embedding is computed when a resume is uploaded/edited (web side) from `summary + skills + project titles + target roles`.
@@ -449,7 +451,8 @@ All dates evaluated in `Asia/Kolkata`.
 Budget estimate per day: 8 full scans × 2 profiles × (20/5 = 4 scoring calls) = 64 score calls + embeddings batches + a handful of parse/tailor/extract calls.
 
 ### 8.1 Models (env)
-- `GEMINI_MODEL` — fast Flash-class model for scoring, extraction, tailoring, parsing.
+- `GEMINI_MODEL` — fast Flash-class model for scoring, extraction, parsing (default `gemini-3.5-flash-lite`).
+- `GEMINI_TAILOR_MODEL` — optional, used for tailoring only; defaults to `GEMINI_MODEL`.
 - `GEMINI_EMBED_MODEL` — Gemini embedding model.
 
 ### 8.2 Resume parse (web, on upload)
@@ -582,7 +585,8 @@ Secrets: all worker env vars. Note: GitHub cron can be delayed; the UI countdown
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | ✅ | ✅ |
 | `DATABASE_URL` (pooler, for psycopg) | | ✅ |
 | `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_EMBED_MODEL` | ✅ | ✅ |
-| `LLM_DAILY_SOFT_CAP_SCORE`, `…_EMBED`, `…_TAILOR` | ✅ | ✅ |
+| `LLM_DAILY_SOFT_CAP_SCORE`, `…_EMBED`, `…_TAILOR`, `…_PARSE`, `…_EXTRACT` | ✅ | ✅ |
+| `GEMINI_TAILOR_MODEL`, `JOBSPY_SITES`, `ENABLE_<SOURCE>` | optional | ✅ |
 | `TELEGRAM_BOT_TOKEN` | ✅ | ✅ |
 | `TELEGRAM_BOT_USERNAME`, `TELEGRAM_WEBHOOK_SECRET` | ✅ | |
 | `APP_PASSWORD_HASH`, `SESSION_SECRET` | ✅ | |

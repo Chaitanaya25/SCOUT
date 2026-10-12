@@ -1,0 +1,53 @@
+name: watched_scan
+
+# Hourly check of watched companies (ATS APIs only: no browser, no jobspy import, target < 1 minute).
+on:
+  schedule:
+    - cron: "37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scout-scan
+  cancel-in-progress: false
+
+jobs:
+  watched:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: worker
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash-lite' }}
+      GEMINI_EMBED_MODEL: ${{ vars.GEMINI_EMBED_MODEL || 'gemini-embedding-2' }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      APP_URL: ${{ secrets.APP_URL }}
+      TZ: Asia/Kolkata
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: worker/uv.lock
+      - run: uv sync --no-dev --frozen
+      # Playwright is installed only when a generic careers page is pending. Today none can be (ATS-API watchers only),
+      # so this resolves to false; the gate and the cache are here so Phase 10 does not slow the hourly run.
+      - name: Is a generic careers page pending?
+        id: generic
+        run: echo "pending=$(uv run python -m scout_worker.main generic-pending)" >> "$GITHUB_OUTPUT"
+      - name: Cache Playwright browsers
+        if: steps.generic.outputs.pending == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('worker/uv.lock') }}
+      - name: Install Playwright
+        if: steps.generic.outputs.pending == 'true'
+        run: uv run playwright install --with-deps chromium
+      - run: uv run python -m scout_worker.main watched

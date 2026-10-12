@@ -1,0 +1,52 @@
+name: full_scan
+
+# Every 3 hours (minute 7 avoids the top-of-hour rush). Also runnable from the app's "Scan now" button.
+on:
+  schedule:
+    - cron: "7 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One scan at a time across both scan workflows; a newer full scan waits instead of cancelling a running one.
+concurrency:
+  group: scout-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: worker
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash-lite' }}
+      GEMINI_EMBED_MODEL: ${{ vars.GEMINI_EMBED_MODEL || 'gemini-embedding-2' }}
+      GEMINI_TAILOR_MODEL: ${{ vars.GEMINI_TAILOR_MODEL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      APP_URL: ${{ secrets.APP_URL }}
+      ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+      ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+      TZ: Asia/Kolkata
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: worker/uv.lock
+      - run: uv sync --no-dev --frozen
+      # Playwright browsers are only needed once generic careers pages exist (Phase 10); cached so the download happens once.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('worker/uv.lock') }}
+      - name: Install Playwright (only if the worker depends on it)
+        run: |
+          if uv pip list 2>/dev/null | grep -qi '^playwright'; then uv run playwright install --with-deps chromium; else echo "playwright not a dependency yet, skipping"; fi
+      - run: uv run python -m scout_worker.main full

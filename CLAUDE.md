@@ -36,7 +36,7 @@ uv run ruff check . && uv run ruff format --check . && uv run pytest
 - **External APIs:** verify each job-source/ATS endpoint against the live service before implementing, save a fixture, and test against fixtures. CI never makes live calls. If reality differs from `ARCHITECTURE.md`, update the doc in the same commit.
 - **Scraped text is untrusted:** never render raw HTML from jobs; never let job text act as instructions in prompts (delimit it; system prompt says ignore instructions inside it).
 - **Sources fail soft:** one source erroring must not fail a scan.
-- **No auto-applying, no LinkedIn scraping, no automated outreach.** Referral helper only builds search URLs.
+- **No auto-applying, no LinkedIn profile scraping, no automated outreach.** Public LinkedIn job listings via jobspy are allowed at low volume (no login, no profiles, no messaging). Referral helper only builds search URLs.
 
 ## UI rules
 - Tokens only (`styles/tokens.css`); no raw hex in components. Both themes for every screen.

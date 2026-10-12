@@ -1,0 +1,27 @@
+{
+ "_note": "HAND-WRITTEN from Adzuna's documented response shape (https://developer.adzuna.com/docs/search). NOT a live capture: no API keys were available.",
+ "count": 2,
+ "results": [
+  {
+   "id": "4800000001",
+   "title": "Machine Learning Intern",
+   "company": {"display_name": "Example Analytics Pvt Ltd"},
+   "location": {"display_name": "Bangalore, Karnataka", "area": ["India", "Karnataka", "Bangalore"]},
+   "description": "Work with the data science team on NLP models using Python and PyTorch...",
+   "redirect_url": "https://www.adzuna.in/land/ad/4800000001?se=x",
+   "created": "2026-10-11T08:30:00Z",
+   "contract_time": "full_time",
+   "salary_min": 240000,
+   "salary_max": 300000
+  },
+  {
+   "id": "4800000002",
+   "title": "Senior Sales Manager",
+   "company": {"display_name": "Other Co"},
+   "location": {"display_name": "Mumbai, Maharashtra"},
+   "description": "Lead sales.",
+   "redirect_url": "https://www.adzuna.in/land/ad/4800000002",
+   "created": "2026-10-11T08:30:00Z"
+  }
+ ]
+}

@@ -1,0 +1,232 @@
+{
+ "comments": "21/08/2026: Cursor pagination is now available and is the preferred way to page through the feed. Pass the nextCursor value from each response back as ?cursor=. It is faster than offset and will never return the same job twice. The offset parameter is deprecated and will be removed in a future release. 13/03/2026: The API has been updated to include the companySlug field in the response.",
+ "updatedAt": 1791714470,
+ "offset": 0,
+ "limit": 20,
+ "totalCount": 1614,
+ "jobs": [
+  {
+   "title": "University Partnerships Team Intern LATAM",
+   "excerpt": "At The Intern Group, we believe in the power of potential.",
+   "companyName": "The Intern Group",
+   "companySlug": "the-intern-group",
+   "companyLogo": "",
+   "employmentType": "Intern",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "Colombia"
+   ],
+   "timezoneRestrictions": [
+    -5
+   ],
+   "categories": [
+    "University-Recruiting-Intern",
+    "Partnerships-Coordinator",
+    "Partnership-Development-Associate",
+    "Student-Support-Coordinator",
+    "Global-Education-Coordinator",
+    "University-Partnerships-Manager",
+    "Partnership-Development-Intern",
+    "University-Student-Internship",
+    "University-Internships",
+    "Entry-Level-Partnerships-Associate"
+   ],
+   "parentCategories": [],
+   "description": "<p>At <a href=\"https://himalayas.app/companies/the-intern-group\">The Intern Group</a>, we believe in the power of potential. Our purpose is to inspire and encourage individuals to believe in and challenge themselves, discover their passions, and realize their true potential. Our vision is bold: a world where all 8 billion people can achieve their dreams. We are on a mission to make this vision a reality, aiming to welcome over 10,000 participants to our programs annually by 2030.</p><p>We aim to cultivate a future where international internships are a key component of academic journeys, with many participants supported by our scholarship program. This future will empower a new generation—skilled, globally-minded, and ready to lead with understanding and cooperation.</p><p>Guided by our core values—people focus, teamwork, continuous learning, and global leadership—<a href=\"https://himalayas.app/companies/the-intern-group\">The Intern Group</a> has grown from a serendipitous meeting of our Co-Founders in a London pub to becoming the leading provider of international internships, receiving 40,000 applications annually. Join us in shaping the next generation of global leaders.</p><p>Does this sound like a place where you can grow? Want to be a part of our journey? Come join our team as:</p><h3>YOUR IMPACT</h3><p>Join us in our purpose to inspire the leaders of tomorrow!</p><p>We’re looking for a highly organized, proactive, and enthusiastic University Partnerships Intern to join our University Partnerships Team (UPT). You’ll work closely with a global team that manages relationships with 150+ universities and helps students access transformative international experiences.</p><p>This is a hands-on role where you’ll support the team across university engagement, alumni ambassador coordination, events, site visits, presentations, and marketing projects. You’ll have the opportunity to work with colleagues and partners around the world while developing practical experience in partnerships, international education, marketing, and project coordination.</p><p>The ideal person is someone who enjoys making things happen—someone who is organized, pays attention to detail, follows through on tasks, and can confidently manage multiple projects and deadlines.</p><h3>YOUR KEY RESPONSIBILITIES</h3><ul>\n<li>Support the UPT team with day-to-day coordination, projects, research, and administrative tasks that help the team achieve its partnership and enrollment goals.</li>\n<li>Coordinate Alumni Ambassadors, supporting communication, engagement, scheduling, content collection, and ongoing program activities.</li>\n<li>Support career fair and conference participation, including logistics, registrations, materials, presentations, meeting schedules, and follow-up.</li>\n<li>Prepare university presentations and materials, helping the team deliver engaging and professional presentations to university partners and students.</li>\n<li>Coordinate the logistics of university site visits, including scheduling, itineraries, materials, communication, and follow-up.</li>\n<li>Support the marketing and distribution of UPT impact reports and other partner-facing materials, working with the marketing team where appropriate.</li>\n<li>Maintain accurate and up-to-date information, including data clean-up and regular follow-ups, across the CRM, spreadsheets, and other team systems. </li>\n<li>Support other UPT initiatives and projects as they arise, taking ownership of assigned tasks and ensuring they are completed on time.</li>\n</ul><h3>YOUR SKILLS &amp; REQUIREMENTS</h3><ul>\n<li>A strong interest in international education, university partnerships, marketing, or global business.</li>\n<li>Excellent written and verbal communication skills in English.</li>\n<li>Strong organization and attention to detail, with the ability to manage multiple tasks and deadlines.</li>\n<li>A proactive, positive, and can-do attitude.</li>\n<li>Strong follow-through—you take ownership and make sure things get done.</li>\n<li>Comfortable working independently in a remote environment while collaborating with a global team.</li>\n<li>Confident using digital tools such as Google Workspace, Microsoft Office, Canva, or similar platforms.</li>\n<li>Creative and resourceful, with an interest in creating engaging presentations and partner-facing materials.</li>\n<li>Comfortable working with spreadsheets, databases, and CRM systems.</li>\n<li>Previous experience in university, marketing, events, administration, student organizations, or customer-facing roles is a plus.</li>\n<li>Experience studying, working, or living abroad is a plus.</li>\n</ul><h3>YOU’LL LOVE WORKING AT TIG BECAUSE</h3><p>At <a href=\"https://himalayas.app/companies/the-intern-group\">The Intern Group</a>, we’re passionate about people, their growth, and making an impact. You’ll work alongside a diverse, global team and gain hands-on experience in international education and university partnerships.</p><h3>You’ll have the opportunity to:</h3><ul>\n<li>Work with a global team and international university partners.</li>\n<li>Take ownership of meaningful projects from day one.</li>\n<li>Develop skills across partnerships, events, marketing, project management, and communications.</li>\n<li>Build an international professional network.</li>\n<li>Learn from experienced colleagues across different areas of the business.</li>\n<li>Contribute directly to our mission of inspiring the leaders of tomorrow.</li>\n</ul><h3>Benefits &amp; Perks:</h3><ul>\n<li>Competitive internship stipend </li>\n<li>Generous global PTO policy</li>\n<li>Continuous learning opportunities</li>\n<li>Access to the Career Advancement Training course and the Keynote Speaker Series</li>\n<li>The incredible opportunity to meet new people and network with people from all around the world across a wide range of industries.</li>\n</ul><h3> HOW TO APPLY</h3><p>We really hope this role has what you’re looking for.  If you would like to apply, click on the “Apply for this Job” button above and submit a brief cover letter (addressed to Mr. Taco) telling us a bit about yourself, sharing examples of successful relationship-building experience, along with your resume or CV in English.</p><p><a href=\"https://himalayas.app/companies/the-intern-group\">The Intern Group</a> is an equal opportunity employer and encourages applicants from diverse backgrounds to apply.</p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1790363684,
+   "expiryDate": 1795547683,
+   "applicationLink": "https://himalayas.app/companies/the-intern-group/jobs/university-partnerships-team-intern-latam",
+   "guid": "https://himalayas.app/companies/the-intern-group/jobs/university-partnerships-team-intern-latam"
+  },
+  {
+   "title": "Internal Audit Intern – Accounting & Finance",
+   "excerpt": "The Internal Audit team is seeking a graduate-level intern with a strong accounting and finance background to support financial and operational audit engagements.",
+   "companyName": "Arista Networks",
+   "companySlug": "arista-networks",
+   "companyLogo": "https://cdn-images.himalayas.app/7btsd7o0yxg6j3hgyq4lw867wb8e",
+   "employmentType": "Intern",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Finance",
+    "Accounting",
+    "Audit",
+    "Financial-Analysis",
+    "Internal-Audit-Intern",
+    "Audit-Intern",
+    "Finance-and-Accounting-Intern",
+    "Accounting-Intern",
+    "Audit-Internship",
+    "Accounting-and-Finance-Internship",
+    "Internal-Auditor"
+   ],
+   "parentCategories": [
+    "Finance"
+   ],
+   "description": "<p>The Internal Audit team is seeking a graduate-level intern with a strong accounting and finance background to support financial and operational audit engagements. This role focuses on evaluating financial processes, controls, and reporting practices while developing a deep understanding of risk management and internal control frameworks.<br><br><strong>What You'll Do:</strong></p><ul>\n<li>Support financial and operational audit engagements, including planning, testing, and documentation</li>\n<li>Assist in evaluating the design and operating effectiveness of internal controls over financial processes</li>\n<li>Analyze financial data to identify trends, anomalies, and potential risk areas</li>\n<li>Document business processes and contribute to clear, management-facing audit reports</li>\n<li>Support advisory projects focused on process improvement and control enhancement</li>\n</ul><h3>Learning Opportunities</h3><ul>\n<li>Gain exposure to a global enterprise financial environment and end-to-end business processes</li>\n<li>Understand internal controls, financial risk, and governance frameworks</li>\n<li>Apply accounting and finance concepts to real-world audit and advisory work</li>\n<li>Develop professional audit documentation, analysis, and stakeholder communication skills</li>\n</ul><ul>\n<li>Currently enrolled in a graduate-level program (MBA, MS, or PhD) in Accounting, Finance, or a related field</li>\n<li>Strong understanding of financial statements, accounting principles, and business processes</li>\n<li>Ability to work independently and collaboratively in a professional environment</li>\n<li>Proficiency in Microsoft Office (Excel, PowerPoint, Word)</li>\n<li>Prior exposure to audit, accounting, or financial analysis is a plus</li>\n</ul><p><a href=\"https://himalayas.app/companies/arista-networks\">Arista Networks</a> is an equal opportunity employer.  Arista makes all hiring and employment-related decisions in a non-discriminatory manner without regard to race, color, religion, sex, sexual orientation, gender identity, national origin or any other factor determined to be unlawful under applicable federal, state, or law law.  All your information will be kept confidential according to EEO guidelines.</p><p><a href=\"https://himalayas.app/companies/arista-networks\">Arista Networks</a> is an industry leader in data-driven, client-to-cloud networking for large data center, campus and routing environments. What sets us apart is our relentless pursuit of innovation. We leverage the latest advancements in cloud computing, artificial intelligence, and software-defined networking to provide our clients with a competitive edge in an increasingly interconnected world. Our solutions are designed to not only meet the current demands of the digital landscape but to also anticipate and adapt to future challenges.</p><p>At Arista we value the diversity of thought and perspectives that each employee brings to the table. We believe that fostering an inclusive environment, where individuals from various backgrounds and experiences feel welcome, is essential for driving creativity and innovation.</p><p>Our commitment to excellence has earned us several prestigious awards, such as Best Engineering Team, Best Company for Diversity, Compensation, and Work-Life Balance. At Arista, we take pride in our track record of success and strive to maintain the highest standards of quality and performance in everything we do.</p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1791401452,
+   "expiryDate": 1793933112,
+   "applicationLink": "https://himalayas.app/companies/arista-networks/jobs/internal-audit-intern-accounting-finance-2312711762",
+   "guid": "https://himalayas.app/companies/arista-networks/jobs/internal-audit-intern-accounting-finance-2312711762"
+  },
+  {
+   "title": "International Oceania Journalist Intern",
+   "excerpt": "The International Oceania Reporter Intern will cover international content focused on the China region as their regular beat for Modern Treatise.",
+   "companyName": "A.N. Publishing",
+   "companySlug": "a-n-publishing",
+   "companyLogo": "https://cdn-images.himalayas.app/8uq94di7md9hhv4qthiay5wczl7n",
+   "employmentType": "Intern",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "Australia"
+   ],
+   "timezoneRestrictions": [
+    8,
+    8.75,
+    9,
+    9.5,
+    10,
+    10.5
+   ],
+   "categories": [
+    "Writing-Editing",
+    "Online-Publishing",
+    "International-Journalism",
+    "Foreign-Correspondent",
+    "International-Relations",
+    "Journalism-Intern",
+    "Journalism-Internship",
+    "Editorial-Internship",
+    "Media-Internship"
+   ],
+   "parentCategories": [],
+   "description": "<p>The International Oceania Reporter Intern will cover international content focused on the China region as their regular beat for <strong><em>Modern Treatise</em></strong>.</p><h3>Responsibilities:</h3><ul>\n<li><p>Write a weekly column covering the social, economic, and political topics related to nations and territories in Australasia, Melanesia, Micronesia, and Polynesia from their perspective.</p></li>\n<li><h3>Special region-related coverage.</h3></li>\n</ul><p><strong>Duration: </strong>6 months</p><p>This is a virtual and unpaid internship. Yet, you will gain valuable writing experience. </p><p><strong>Official Start Date:</strong> ASAP</p><p>The candidate should be adept at understanding the geopolitics of the nations and territories in Australasia, Melanesia, Micronesia, and Polynesia.</p><p>The candidate should be adept at understanding the nuances of domestic/national politics in nations and territories in Australasia, Melanesia, Micronesia, and Polynesia.</p><p>The candidate must be able to look at geopolitical subject matters from multiple perspectives.</p><p>The candidate must be adept at relying on fact-based evidence rather than political or activist wish-thinking.</p><p>The candidate should be adept at understanding the ever-shifting state of the economy or economies nations and territories in Australasia, Melanesia, Micronesia, and Polynesia.</p><p>To learn more about <em>Modern Treatise </em>view the media kit ( and to apply visit the page ( and forward a cover letter, resume stating experience, and three published clips.</p><p>A. N. Publishing is an Equal Opportunity Employer (EOE). Qualified applicants are considered for employment without regard to age, race, color, religion, sex, national origin, sexual orientation, disability, or veteran status. If you need assistance or accommodation during the application process because of a disability, it is available upon request. The company is pleased to provide such assistance, and no applicant will be penalized as a result of such a request.</p><p>Are you a fan of or have you read <em>Foreign Affairs</em>, <em>Foreign Policy</em>, <em>Global Policy</em>, <em>International Affairs, </em>and<em> Semafor</em>? Well, take the present-day concepts for those magazines and put the focus on educated millennials in their late 20s to early 30s.</p><p><em><strong>Modern Treatise</strong></em>provides in-depth reporting and commentary covering international developments and domestic political affairs from across the wide political spectrum.<em><strong>Modern Treatise </strong></em>digital platform also serves as a hub for the intellectual reader who values and engages with diverse perspectives.</p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1790627468,
+   "expiryDate": 1793080672,
+   "applicationLink": "https://himalayas.app/companies/a-n-publishing/jobs/international-oceania-journalist-intern",
+   "guid": "https://himalayas.app/companies/a-n-publishing/jobs/international-oceania-journalist-intern"
+  },
+  {
+   "title": "Internal Audit Interns",
+   "excerpt": "OverviewThe Touro University Virtual Internship is one of America's most ambitious programs for internal audit stewardship.",
+   "companyName": "Touro University",
+   "companySlug": "touro-university",
+   "companyLogo": "https://cdn-images.himalayas.app/4svpl1gnnc0piwjmcvrjkdh6y4a2",
+   "employmentType": "Intern",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "hourly",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Audit",
+    "Accounting",
+    "Audit-Internship",
+    "Internal-Audit-Intern",
+    "Audit-Intern",
+    "Entry-Level-Internal-Auditor",
+    "Internal-Auditor"
+   ],
+   "parentCategories": [
+    "Finance"
+   ],
+   "description": "<h3>Overview</h3><p>The <a href=\"https://himalayas.app/companies/touro-university\">Touro University</a> Virtual Internship is one of America's most ambitious programs for internal audit stewardship. The purpose of the <a href=\"https://himalayas.app/companies/touro-university\">Touro University</a> Auditing Internship program is to provide gifted and highly motivated professionals and students with experience in the process of internal auditing. By participating in this program, the Internal Audit Intern will gain an understanding of the Internal Audit process through participation in audit reviews and lunch and learns seminars. Also the Internal Audit Intern will work side-by-side with experienced team members who can provide direction, coaching, and learning opportunities. As an Internal Audit Intern, you will assist in the performance of audit projects by conducting research and reviewing policy, procedures, and external regulatory documents to create the foundational documents in the audit process, all with a high level of professionalism and confidentiality. The Internal Audit Intern will be part of the Intern Audit team and assist in identifying audit observations and opportunities which ensures compliance with applicable rules and regulations affecting area are supported.</p><h3>Responsibilities</h3><ul>\n<li>Present to Internal Audit Team</li>\n<li>Research laws, regulations, and internal policies and procedures</li>\n<li>Assist in the development of lunch and learn presentations</li>\n<li>Provide feedback to update audit department related documents</li>\n<li>Participate in audit/special projects</li>\n<li>Participate in the creation of audit engagement documents</li>\n</ul><h3>Qualifications</h3><h4>Degrees</h4><ul><li>Bachelor of Business Admin. in Accounting Preferred.</li></ul><h3>Knowledge/ Skills/ Abilities</h3><ul>\n<li>Strong oral and written communication, accounting, analytical, and decision-making skills.</li>\n<li>Proficient in Microsoft Office Suite including Word, Excel, and Power Point</li>\n<li>Ability to interact professionally and communicate with all levels of staff and management</li>\n</ul><h3>Maximum Salary</h3>USD $20.00/Hr.<h3>Minimum Salary</h3>USD $17.00/Hr.<p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1790022989,
+   "expiryDate": 1792558733,
+   "applicationLink": "https://himalayas.app/companies/touro-university/jobs/internal-audit-interns",
+   "guid": "https://himalayas.app/companies/touro-university/jobs/internal-audit-interns"
+  },
+  {
+   "title": "Internal Audit & Corporate Finance Intern",
+   "excerpt": "As a leading financial services and healthcare technology company based on revenue, SS&C is headquartered in Windsor, Connecticut, and has 27,000+ employees in 35 countries.",
+   "companyName": "SS&C Technologies",
+   "companySlug": "ss-c-technologies",
+   "companyLogo": "https://cdn-images.himalayas.app/rn0rkcg7is1wnq609d1l0m5zbdhv",
+   "employmentType": "Intern",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "hourly",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Internal-Auditor",
+    "Corporate-Finance",
+    "Accounting",
+    "Finance",
+    "Audit",
+    "Internal-Audit-Intern",
+    "Audit-Intern",
+    "Corporate-Finance-Intern",
+    "Finance-and-Accounting-Intern",
+    "Accounting-and-Finance-Internship",
+    "Finance-Intern",
+    "Audit-Internship"
+   ],
+   "parentCategories": [
+    "Finance"
+   ],
+   "description": "<p>As a leading financial services and healthcare technology company based on revenue, SS&amp;C is headquartered in Windsor, Connecticut, and has 27,000+ employees in 35 countries. Some 20,000 financial services and healthcare organizations, from the world's largest companies to small and mid-market firms, rely on SS&amp;C for expertise, scale, and technology.</p><p><b>Job Description</b></p><h3>Intern, Internal Audit &amp; Corporate Finance</h3><p><b>Location: </b>Remote</p><h3>Get To Know The Team:</h3><p>SS&amp;C is seeking a motivated Internal Audit intern who is ready to apply knowledge of business practices and processes in a fast-paced, real-world environment. The intern will assist in report writing, conducting research, analyzing data. This will be a valuable experience for any student pursuing a career in accounting or a related field. This internship will report to the Corporate Finance Department and will provide administrative and project assistance to audit team.</p><h3>Why You Will Love It Here! </h3><ul>\n<li><p><b>Flexibility</b>: Hybrid Work Model &amp; a Business Casual Dress Code, including jeans</p></li>\n<li><p><b>Wide Ranging Perspectives:</b> Committed to Celebrating the Variety of Backgrounds, Talents and Experiences of Our Employees</p></li>\n<li><p><b>Training:</b> Hands-On, Team-Customized, including SS&amp;C University</p></li>\n</ul><h3>What You Will Get To Do:</h3><ul>\n<li><p>Provides temporary or seasonal assistance to a department or group within the company to work through a time-bound project or business cycle such as tax season</p></li>\n<li>Assist on SOX404 projects: updating process descriptions &amp; process walkthroughs, &amp; performing transactional testing</li>\n<li>Assist on audit related projects during audit planning and fieldwork phases of the audit </li>\n<li>Learning Internal Audit-based procedures and assisting Audit Managers with compiling/completing testing documentation and corrective action plan tracking</li>\n<li><p>Demonstrates acquired knowledge and skills to resolve or recommend solutions for a wide range of tasks or issues</p></li>\n</ul><h3>What You Will Bring:</h3><ul>\n<li><p>Working toward a Bachelor's degree in accounting or a related field</p></li>\n<li><p>Some internship or professional experience in accounting/audit</p></li>\n</ul><p>We are unable to consider individuals who would eventually need sponsorship in a Full-time role.</p><p>Thank you for your interest in SS&amp;C! To further explore this opportunity, please apply through our careers page on the corporate website at .</p><p>Unless explicitly requested or approached by SS&amp;C Technologies, Inc. or any of its affiliated companies, the company will not accept unsolicited resumes from headhunters, recruitment agencies, or fee-based recruitment services.</p>SS&amp;C offers excellent benefits including health, dental, 401k plan, tuition and professional development reimbursement plan.<p>SS&amp;C Technologies is an Equal Employment Opportunity employer and does not discriminate against any applicant for employment or employee on the basis of race, color, religious creed, gender, age, marital status, sexual orientation, national origin, disability, veteran status or any other classification protected by applicable discrimination laws.</p>Salary is determined by various factors including, but not limited to, relevant work experience, job related knowledge, skills, abilities, business needs, and geographic regions.Jersey City, NJ: Salary range for the position: 21.00 USD/hour to 24.00 USD/hour.<p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1790950994,
+   "expiryDate": 1796134993,
+   "applicationLink": "https://himalayas.app/companies/ss-c-technologies/jobs/internal-audit-corporate-finance-intern",
+   "guid": "https://himalayas.app/companies/ss-c-technologies/jobs/internal-audit-corporate-finance-intern"
+  }
+ ]
+}

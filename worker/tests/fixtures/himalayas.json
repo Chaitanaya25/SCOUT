@@ -1,0 +1,241 @@
+{
+ "comments": "21/08/2026: Cursor pagination is now available and is the preferred way to page through the feed. Pass the nextCursor value from each response back as ?cursor=. It is faster than offset and will never return the same job twice. The offset parameter is deprecated and will be removed in a future release. 13/03/2026: The API has been updated to include the companySlug field in the response.",
+ "updatedAt": 1791816252,
+ "offset": 0,
+ "limit": 5,
+ "totalCount": 125689,
+ "nextCursor": "MjAyNi0xMC0xMlQxNDo0MTo1OC4wOTA4MTBafDIzOTUyOTM",
+ "jobs": [
+  {
+   "title": "Remote Travel Booker- Entry",
+   "excerpt": "A Remote Travel Booker business opportunity offers an excellent chance to provide a valuable service to different organizations and businesses while enjoying the freedom to work from anywhere.",
+   "companyName": "Never Ending Travels",
+   "companySlug": "never-ending-travels",
+   "companyLogo": "https://cdn-images.himalayas.app/3b0yw4dlop498mwb51xc5nukbwsl",
+   "employmentType": "Full Time",
+   "minSalary": 48000,
+   "maxSalary": 65000,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Travel-Booking",
+    "Travel-Coordinator",
+    "Remote-Travel-Agent",
+    "Travel-Consultant",
+    "Business-Travel-Specialist",
+    "Travel-Booker",
+    "Remote-Booking-Agent",
+    "Remote-Travel-Booking-Specialist",
+    "Remote-Booking-Coordinator",
+    "Remote-Travel-Specialist",
+    "Remote-Reservationist"
+   ],
+   "parentCategories": [],
+   "description": "<p>A Remote Travel Booker business opportunity offers an excellent chance to provide a valuable service to different organizations and businesses while enjoying the freedom to work from anywhere. You would be responsible for planning and organizing business travel, bookings, and accommodations for your clients.</p><ul>\n<li>Your duties would include making all necessary arrangements, such as researching and reserving flights, ground transportation, lodging, and other travel-related services.</li>\n<li>You would also be responsible for managing expenses, tracking reimbursements and providing support to travelers while they are on the road.</li>\n<li>Issue airline tickets, vouchers and other travel documents.</li>\n<li>Provide customers with travel advice and information about local attractions.</li>\n<li>Respond to customer inquiries and troubleshoot any travel issues.</li>\n<li>Stay up to date with industry news and developments.</li>\n<li>Ensure customer needs are met in a timely and satisfactory manner.</li>\n<li>Keep current on all forms of payment accepted by the agency.</li>\n<li>Work with external vendors to secure lowest prices and special deals for customers.</li>\n<li>Ensure customer satisfaction through effective communication and follow-up.</li>\n</ul><h3>Key Qualities:</h3><ul>\n<li> Good communication and customer service skills</li>\n<li> Excellent organizational skills</li>\n<li> Familiarity with booking systems and software</li>\n<li> Knowledge of applicable industry rules, regulations, and requirements</li>\n<li>Attentiveness to customers' desires, questions, and needs</li>\n<li>Ability to handle multiple tasks and maintain attention to detail</li>\n<li>Ability to take initiative and anticipate customer needs as needed</li>\n</ul><p>With this remote opportunity, you would have the flexibility to work your own hours. <strong>You must be able to work independently and be comfortable using a variety of software programs, and comfortable working remotely.</strong></p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1791816252,
+   "expiryDate": 1797000250,
+   "applicationLink": "https://himalayas.app/companies/never-ending-travels/jobs/remote-travel-booker-entry",
+   "guid": "https://himalayas.app/companies/never-ending-travels/jobs/remote-travel-booker-entry"
+  },
+  {
+   "title": "Freelance Translators/Translation Checkers - Japanese to English - Dentistry",
+   "excerpt": "We are looking for Translators and TranslationCheckers for our following upcoming project.",
+   "companyName": "Ulatus",
+   "companySlug": "ulatus",
+   "companyLogo": "",
+   "employmentType": "Contractor",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Mid-level"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "Japan"
+   ],
+   "timezoneRestrictions": [
+    9
+   ],
+   "categories": [
+    "Translator",
+    "Freelance-Translator",
+    "Medical-Translator",
+    "Translation-Checker",
+    "Japanese-Translator",
+    "Japanese-English-Medical-Proofreader",
+    "Freelance-Japanese-Language-Quality-Assurance-Specialist",
+    "Japanese-To-English-Translator",
+    "Japanese-To-English-Translation"
+   ],
+   "parentCategories": [
+    "Content Creator"
+   ],
+   "description": "<p>We are looking for Translators and TranslationCheckers for our following upcoming project.</p><ul>\n<li>Languagepair - Japanese to English<br>\n</li>\n<li>Typeof Document - Dentistry (Orthodontics)<br>\n</li>\n</ul><div>Native speaker of English with JLPT N1 or education in Japanese language would be preferred.<br>\n</div><div>Education in the field of Engineering would be an added advantage.<br>\n</div><h3>Eligibility and Skills</h3><p>1.Recognized graduate qualification in translation from an institution of highereducation.</p><h3>OR</h3><p>Recognizedgraduate qualification in any other field from an institution of highereducation with two years of full time experience in translation</p><h3>OR</h3><p>Five years of full time professional experience in translation.</p><h3>2.Fluency in Target Language</h3><h3>About Us:</h3><p>Weare a leading translation and localization service provider. We aim to helpresearchers, students, universities and large businesses communicate globallyin the language of their target audience. Being at the center of thisrevolution, we invite you to be a part of our organization and our growthjourney. With a presence in over 125 countries, we have translated 600,000+documents and have more than 200,000 satisfied clients worldwide. Our clientlist includes reputed international publishing houses, leading universities andFortune 500 companies. To name a few of them, our clients include Netflix,Johnson &amp; Johnson, Dow Jones, Pfizer, Canon, Toyota, etc. To know moreabout us, kindly visit our website</p><h3>Why Join Us?</h3><ol>\n<li>TimelyPayments<br>\n</li>\n<li>Regularflow of assignments<br>\n</li>\n<li>Dedicatedsupport management for translators<br>\n</li>\n<li>In-housequality team to support freelancers in quality<br>\n</li>\n<li>Atriple ISO certified company<b>(ISO17100:2015, ISO 27001:2013, ISO 9001:2015)</b><br>\n</li>\n</ol><p>If you think this requirement fit your interest,pleasesend us your updated EnglishResume  apply at </p><br><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1791816219,
+   "expiryDate": 1797000218,
+   "applicationLink": "https://himalayas.app/companies/ulatus/jobs/freelance-translators-translation-checkers-japanese-to-english-dentistry",
+   "guid": "https://himalayas.app/companies/ulatus/jobs/freelance-translators-translation-checkers-japanese-to-english-dentistry"
+  },
+  {
+   "title": "Technical Recruiter",
+   "excerpt": "Category: Technology Location: Shuru provides on-demand product leadership and strategic guidance to help businesses excel in technology and product strategy without the commitment of a Chief Product Officer or Chief Technology Officer.",
+   "companyName": "Shuru Technologies Private Limited",
+   "companySlug": "shuru-technologies-private-limited",
+   "companyLogo": "https://cdn-images.himalayas.app/fghgp2pf85ds19755ocicqwmx62r",
+   "employmentType": "Full Time",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Mid-level"
+   ],
+   "currency": "INR",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Technical-Recruiter",
+    "Recruiter",
+    "Talent-Acquisition-Specialist",
+    "Technical-Sourcer",
+    "Human-Resources-Specialist",
+    "IT-Technical-Recruiter",
+    "Technical-Recruiting-Consultant",
+    "Tech-Recruiter",
+    "Technical-Recruiting-Specialist",
+    "Technical-Recruitment-Specialist",
+    "Technical-Recruitment",
+    "Technical-Recruiting-Partner",
+    "Technology-Recruiter"
+   ],
+   "parentCategories": [
+    "Human Resources"
+   ],
+   "description": "Category: Technology <br><br>Location: <br><br><br><div>Shuru provides on-demand product leadership and strategic guidance to help businesses excel in technology and product strategy without the commitment of a Chief Product Officer or Chief Technology Officer. From leadership consulting to software delivery, our custom software development services specialize in end-to-end product development. With a team of experienced professionals, we navigate the complex world of technology to bring your vision to life.<br>\n</div><div>This is a full-time remote role for a Technical Recruiter at Shuru. The Technical Recruiter will be responsible for sourcing, screening, and selecting candidates to fill technical and leadership positions. The role will involve coordinating with hiring managers, conducting interviews, and managing the recruitment process efficiently and effectively.<br>\n</div><div>\n<b>Key Responsibilities</b><br>\n</div><ul>\n<li><div>Source and engage candidates through job boards, social platforms, and networks<br>\n</div></li>\n<li><div>Screen resumes and conduct initial technical and culture-fit interviews<br>\n</div></li>\n<li><div>Coordinate interviews, assessments, and feedback with hiring teams<br>\n</div></li>\n<li><div>Maintain candidate pipelines and track progress in the ATS.<br>\n</div></li>\n<li><div>Advise hiring managers on job requirements, market trends, and candidate profiles<br>\n</div></li>\n<li><div>Support employer branding through outreach and events<br>\n</div></li>\n</ul><br><h3>Requirements</h3><div><ul>\n<li>2–5 years of experience hiring for technical roles (engineering, data, product).<br>\n</li>\n<li>Strong understanding of tech stacks, roles, and hiring processes.<br>\n</li>\n<li>Proficient with sourcing tools and ATS systems; strong communication skills.<br>\n</li>\n<li>Ability to manage multiple roles and work in a fast-paced environment.<br><br><br>\n</li>\n</ul></div><br><h3>Benefits</h3><ul>\n<li>\n<b>Work on international projects:</b>Be part of a global team working with clients from across the world.<br>\n</li>\n<li>\n<b>Remote-first culture:</b>Enjoy the flexibility of a remote workplace, allowing you to work from anywhere.<br>\n</li>\n<li>\n<b>Regular team outings:</b>Even with remote work, we believe in building strong team bonds through regular social and team-building events.<br>\n</li>\n<li>\n<b>Collaborative &amp; growth-oriented:</b>Learn from senior engineers, work in a collaborative environment, and grow professionally with opportunities for career development.<br>\n</li>\n<li>​<b>Competitive Salary and Benefits</b><br>\n</li>\n</ul><br><br><br><br>Details<p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1791816162,
+   "expiryDate": 1797000161,
+   "applicationLink": "https://himalayas.app/companies/shuru-technologies-private-limited/jobs/technical-recruiter",
+   "guid": "https://himalayas.app/companies/shuru-technologies-private-limited/jobs/technical-recruiter"
+  },
+  {
+   "title": "Account Management Director, (Remote, Colorado, Texas, or Florida)",
+   "excerpt": "Account Management Director – (Remote or Boulder, CO, Austin, TX, or Plantation, FL) • 50% Travel (including International) • Salary range: $160,000 to $195,000 • Must be authorized to work in the U.",
+   "companyName": "SIVAD Consulting",
+   "companySlug": "sivad-consulting",
+   "companyLogo": "https://cdn-images.himalayas.app/e92hg68tem8p2e3sp95s7p5ucrnf",
+   "employmentType": "Full Time",
+   "minSalary": 160000,
+   "maxSalary": 195000,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Director"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Account-Management-Director",
+    "Strategic-Account-Manager",
+    "Partner-Development-Manager",
+    "Business-Development-Director",
+    "OEM-Account-Management",
+    "Director-Of-Account-Management",
+    "Sales-And-Account-Management-Director"
+   ],
+   "parentCategories": [
+    "Sales"
+   ],
+   "description": "<p><strong>Account Management Director –  (Remote or Boulder, CO, Austin, TX, or Plantation, FL)</strong></p><ul>\n<li>50% Travel (including International)</li>\n<li>Salary range:  $160,000 to $195,000</li>\n<li>Must be authorized to work in the U.S.</li>\n</ul><p>Seeking an Account Management Director with 10+ years of experience in complex hardware environments to own and grow the client's organization's strategic OEM partner relationships. You'll bridge customers and internal engineering, product, and supply chain teams as the organization scales its waveguide and display component business into the next generation of smart glasses.</p><h3>Responsibilities</h3><ul>\n<li>Own day-to-day management of strategic OEM partner accounts from technical qualification through production — these are 12-18 month sales cycles with companies like Samsung, Google, Meta, and Snap </li>\n<li>Serve as the single point of contact between partners and Magic Leap's engineering, product, operations, and supply chain teams </li>\n<li>Coordinate technical discussions, design reviews, and program milestones to keep partner programs on track </li>\n<li>Advocate for partner needs while communicating manufacturing constraints and risks proactively </li>\n<li>Help shape how the account management function operates — this is a new team being built from scratch</li>\n</ul><h3>Key Requirements</h3><ul>\n<li>10+ years of customer-facing experience in complex hardware (semiconductor, optics, displays, consumer electronics, photonics, or capital equipment) </li>\n<li>Proven experience managing strategic/OEM accounts through full product development cycles — not transactional or high-volume account management </li>\n<li>Strong cross-functional coordination skills — ability to quarterback across engineering, product, operations, and supply chain </li>\n<li>Technical credibility to hold design trade-off conversations without a specialist in the room  US-based, able to travel ~50% including internationally; no visa sponsorship available</li>\n</ul><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1791816134,
+   "expiryDate": 1797000133,
+   "applicationLink": "https://himalayas.app/companies/sivad-consulting/jobs/account-management-director-remote-colorado-texas-or-florida",
+   "guid": "https://himalayas.app/companies/sivad-consulting/jobs/account-management-director-remote-colorado-texas-or-florida"
+  },
+  {
+   "title": "Executive Assistant",
+   "excerpt": "Remote Core Solutions provides outsourcing solutions.",
+   "companyName": "Remote Core Solutions",
+   "companySlug": "remote-core-solutions",
+   "companyLogo": "",
+   "employmentType": "Full Time",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Mid-level"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Executive-Assistant",
+    "Executive-Secretary",
+    "Administrative-Assistant",
+    "EA-To-C-Suite",
+    "Office-Manager",
+    "Executive-Admin-Assistant",
+    "CEO-Executive-Assistant",
+    "Executive-Assistant-To-CEO",
+    "Executive-Operations-Assistant",
+    "Corporate-Executive-Assistant",
+    "Executive-Assistant-Support",
+    "Executive-Administrative-Support",
+    "Operations"
+   ],
+   "parentCategories": [
+    "Human Resources",
+    "Operations"
+   ],
+   "description": "<p><a href=\"https://himalayas.app/companies/remote-core-solutions\">Remote Core Solutions</a> provides outsourcing solutions. Our client companies range from small businesses to large corporations, and we pride ourselves on matching candidates with roles where they can thrive and make a significant impact.</p><h3>About the role: </h3>The Executive Assistant (EA) enables the team's achievement of their strategic priorities by providing general administrative and secretarial support, project management, analytics and coordination across business lines to the Site Lead and site leadership. This requires good judgement, strong interpersonal, organizational, and time management skills, as well as a strong attention to detail and a high level of accuracy. The EA will regularly work with partners, other department leaders, business leaders and colleagues across the firm. The EA must be personable, professional, flexible and able to maintain a high degree of confidentiality.<h3>Responsibilities: </h3><ul>\n<li>Support Executive by handling day-to-day matters including, but not limited to, preparing and coordinating communications, taking meeting minutes, complex calendar management, meeting logistics for internal and external appointments, travel arrangements, expense reporting, facilitating changes to daily events as necessary, tracking and helping drive completion of key deliverables and following up on outstanding items by acting as a liaison for direct reports.</li>\n<li> Proficiency with Word, Excel and PowerPoint to create, edit, format and proofread letters, presentations, surveys, emails, reports and other documents as necessary. Use of Excel for reporting and analytics.</li>\n<li> Develop and maintain working relationships with other departments.</li>\n<li> Coordinating global meetings, such as Town Hall meetings involving all stages of planning and execution including logistics (whether in person, via telepresence or conference calls), document and agenda preparation, conference rooms, AV needs, mitigating issues, and partnering with various departments to bring together best-in-class execution of events while collaborating on and giving to developing overall event experience.</li>\n<li> Participate in special projects and other duties as assigned.</li>\n<li> Aligns risk and control processes into day to day responsibilities to monitor and mitigate risk; raises appropriately.</li>\n</ul><h3>Qualifications:</h3><ul>\n<li>\n<br> Experience supporting C-Suite executive(s) and/or senior management in a fast pace, mid-to-large sized legal or other professional services organization.</li>\n<li> Strong proficiency with Microsoft Office skills</li>\n<li> Strong written and verbal communication skills</li>\n<li> Looking for a self-starter who can self-initiate tasks and follow through</li>\n<li> Ability to work seamlessly in a virtual environment and across globally distributed teams.</li>\n</ul><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+   "pubDate": 1791816118,
+   "expiryDate": 1797000116,
+   "applicationLink": "https://himalayas.app/companies/remote-core-solutions/jobs/executive-assistant",
+   "guid": "https://himalayas.app/companies/remote-core-solutions/jobs/executive-assistant"
+  }
+ ]
+}

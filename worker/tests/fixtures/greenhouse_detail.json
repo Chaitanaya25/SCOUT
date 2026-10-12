@@ -1,0 +1,62 @@
+{
+ "absolute_url": "https://stripe.com/jobs/search?gh_jid=8194291",
+ "data_compliance": [
+  {
+   "type": "gdpr",
+   "requires_consent": false,
+   "requires_processing_consent": false,
+   "requires_retention_consent": false,
+   "retention_period": null,
+   "demographic_data_consent_applies": false
+  }
+ ],
+ "education": "education_required",
+ "internal_job_id": 3545647,
+ "location": {
+  "name": "New York, Seattle, South San Francisco HQ"
+ },
+ "metadata": null,
+ "id": 8194291,
+ "updated_at": "2026-10-07T19:02:27-04:00",
+ "requisition_id": "See Opening ID",
+ "title": "Data Analyst, Intern",
+ "company_name": "Stripe",
+ "first_published": "2026-10-01T11:05:29-04:00",
+ "language": "en",
+ "application_deadline": null,
+ "content": "&lt;h2&gt;Who we are&lt;/h2&gt;\n&lt;h3&gt;About Stripe&lt;/h3&gt;\n&lt;p&gt;Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More than 10 million &lt;a href=&quot;https://stripe.com/customers&quot;&gt;businesses&lt;/a&gt; build on Stripe, spanning the economic frontier—from solo founders to established enterprises—united by a practical focus on growth. The most ambitious companies in the world use Stripe as core infrastructure to grow faster. They process trillions of dollars a year on Stripe, equivalent to around 1.6% of global GDP. While economic growth makes everyone better off, open markets also enable greater variety. When any business can easily serve a global customer base, the quality and diversity of products in the world increase, and craft and creativity are unleashed into the smallest niches. Our own growth is wholly contingent on the success of the businesses building on Stripe. We therefore invest back into our technology at an unusual rate. We make &lt;a href=&quot;https://stripe.com/roadmap&quot;&gt;upgrades to our products&lt;/a&gt; every single day to deliver compounding gains to our customers. We maintain some of the most &lt;a href=&quot;https://status.stripe.com/&quot;&gt;reliable APIs&lt;/a&gt; on the internet. We build entirely new &lt;a href=&quot;https://tempo.xyz/&quot;&gt;pieces&lt;/a&gt; of &lt;a href=&quot;https://mpp.dev/&quot;&gt;financial&lt;/a&gt; &lt;a href=&quot;https://joinopenstandard.com/&quot;&gt;infrastructure&lt;/a&gt; to enable new ideas. And our significant advances in &lt;a href=&quot;https://stripe.com/radar&quot;&gt;risk and fraud&lt;/a&gt; infrastructure over many years are making the internet economy safer and more accessible.&lt;/p&gt;\n&lt;p&gt;Though people at Stripe don’t tend to take themselves seriously, Stripe is a fairly serious place: our customers are depending on us for their livelihoods. We admire ambition, intensity, curiosity, humility, and rigor. The most effective people become knowledgeable about many domains besides their own. Any company is an applied exercise in understanding some aspect of society or the market. In working with so many (especially the new and innovative ones), we think that Stripe is one of the very best places to learn about how the world works.&lt;/p&gt;\n&lt;h3&gt;&amp;nbsp;&lt;/h3&gt;\n&lt;h3&gt;About the team&lt;/h3&gt;\n&lt;p&gt;Data Science at Stripe is a vibrant community where data analysts and data scientists learn and grow together. You&#39;ll work with some of the most fundamental data at Stripe, and use that data to help drive company-wide initiatives. We have a variety of Data Analytics roles and teams across Stripe and will seek to align you to the most relevant team based on your background.&lt;/p&gt;\n&lt;h2&gt;&amp;n",
+ "departments": [
+  {
+   "id": 84360,
+   "name": "5112 General University",
+   "child_ids": [],
+   "parent_id": 84359
+  }
+ ],
+ "offices": [
+  {
+   "id": 61413,
+   "name": "US-NYC",
+   "location": "New York, New York, United States",
+   "child_ids": [],
+   "parent_id": 65234
+  },
+  {
+   "id": 16654,
+   "name": "US-Seattle",
+   "location": "Seattle, Washington, United States",
+   "child_ids": [],
+   "parent_id": 65234
+  },
+  {
+   "id": 65238,
+   "name": "US-SF-HQ",
+   "location": "San Francisco, California, United States",
+   "child_ids": [],
+   "parent_id": 65234
+  }
+ ],
+ "ai_disclaimer": null,
+ "include_ai_disclaimer": false,
+ "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/8194291/ai_opt_out"
+}

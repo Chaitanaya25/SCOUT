@@ -2,6 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 
 import { getSessionSecret } from "./env";
 import { SESSION_COOKIE, verifySession, type SessionPayload } from "./session-core";
@@ -11,6 +12,7 @@ export async function getSession(): Promise<SessionPayload | null> {
   // Read the cookie FIRST: it makes every caller request-time dynamic. Checking env before this would let Next
   // prerender the "no session" branch (a baked-in redirect to /login) whenever the secret is absent at build time.
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
+  await connection(); // opt out of prerendering before verifySession reads the clock
   const secret = getSessionSecret();
   if (!secret) return null;
   return verifySession(token, secret);

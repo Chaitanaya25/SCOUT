@@ -46,37 +46,37 @@ Legend: `[ ]` todo · `[x]` done · `(W)` worker · `(UI)` web.
 **Accept:** wrong password rejected and rate-limited; switching profile swaps data; shell matches screenshots at 1440, 1024, 390 widths.
 
 ## Phase 4 — Worker: sources (W)
-- [ ] `config.py` (pydantic-settings), `db.py` (psycopg pool + pgvector register), `models.py` (RawJob, Job).
-- [ ] Shared HTTP client, retry, structured logging, `scan_runs` / `source_runs` bookkeeping.
-- [ ] Adapters (`ARCHITECTURE.md §5`): jobspy, adzuna, internshala, remoteok, remotive, himalayas, arbeitnow, weworkremotely, greenhouse, lever, ashby, workday, smartrecruiters. Verify each live endpoint before coding; record fixtures.
-- [ ] `data/ats_companies.yaml` with a starter list of intern-hiring companies + tokens (verify each).
-- [ ] Normalize (`§7.1`) and dedupe/upsert (`§7.2`).
-- [ ] `main full --dry-run` prints per-source counts without writing.
+- [x] `config.py` (pydantic-settings), `db.py` (psycopg pool + pgvector register), `models.py` (RawJob, Job).
+- [x] Shared HTTP client, retry, structured logging, `scan_runs` / `source_runs` bookkeeping.
+- [x] Adapters (`ARCHITECTURE.md §5`): jobspy, adzuna, internshala, remoteok, remotive, himalayas, arbeitnow, weworkremotely, greenhouse, lever, ashby, workday, smartrecruiters. Verify each live endpoint before coding; record fixtures. _ — verified live (dry-run: 12 sources returned jobs). Adzuna is disabled without keys and UNVERIFIED live (hand-written fixture). jobspy's google site returned 429 in the live run and is skipped with a note._
+- [x] `data/ats_companies.yaml` with a starter list of intern-hiring companies + tokens (verify each).
+- [x] Normalize (`§7.1`) and dedupe/upsert (`§7.2`).
+- [x] `main full --dry-run` prints per-source counts without writing.
 
 **Accept:** one real run inserts jobs from ≥10 sources; a source raising an exception marks only its `source_runs` row failed; unit tests for normalize + dedupe pass on fixtures.
 
 ## Phase 5 — Worker: matching (W)
-- [ ] `llm.py` wrapper (structured output, retries, `llm_usage` soft caps, graceful degradation).
-- [ ] Scam rules (`§7.4`) with tests (fees, deposits, WhatsApp-only, gmail recruiter).
-- [ ] Eligibility rules (`§7.3`) with tests (senior titles, "3+ years", batch restrictions, location/remote, job type).
-- [ ] Embeddings for new jobs (batched) (`§7.5`).
-- [ ] Ranking + Gemini scoring (`§7.6`, `§8.3`), prompt in `prompts/score.md`, pydantic validation.
-- [ ] Freshness + `rank_score` + `breakdown`.
+- [x] `llm.py` wrapper (structured output, retries, `llm_usage` soft caps, graceful degradation). _ — verified with a fake Gemini client; real Gemini calls UNVERIFIED._
+- [x] Scam rules (`§7.4`) with tests (fees, deposits, WhatsApp-only, gmail recruiter).
+- [x] Eligibility rules (`§7.3`) with tests (senior titles, "3+ years", batch restrictions, location/remote, job type).
+- [x] Embeddings for new jobs (batched) (`§7.5`). _ — fake Gemini only; real embedding calls UNVERIFIED._
+- [x] Ranking + Gemini scoring (`§7.6`, `§8.3`), prompt in `prompts/score.md`, pydantic validation. _ — fake Gemini only; real scoring quality UNVERIFIED._
+- [x] Freshness + `rank_score` + `breakdown`.
 
 **Accept:** with a real resume, top 10 matches for User 01 are relevant ML/AI/backend internships/entry roles; no senior roles; per-scan Gemini calls ≤ configured budget; tests pass.
 
 ## Phase 6 — Telegram (W + UI)
-- [ ] Bot setup docs in README (BotFather, setWebhook with secret).
-- [ ] `/api/telegram/webhook`: secret verification, `/start <token>` linking, callback handling (save/skip/applied) with keyboard edit (`ARCHITECTURE.md §9`).
-- [ ] `/api/telegram/link` + Settings → Telegram UI (QR, countdown, linked state, test message, unlink).
-- [ ] Worker notifier: fresh individual alerts, digest, watched alerts, rate-limit handling (`§7.7`).
+- [x] Bot setup docs in README (BotFather, setWebhook with secret).
+- [x] `/api/telegram/webhook`: secret verification, `/start <token>` linking, callback handling (save/skip/applied) with keyboard edit (`ARCHITECTURE.md §9`). _ — verified against a mock Supabase; real Telegram delivery UNVERIFIED._
+- [x] `/api/telegram/link` + Settings → Telegram UI (QR, countdown, linked state, test message, unlink). _ — verified against a mock Supabase._
+- [x] Worker notifier: fresh individual alerts, digest, watched alerts, rate-limit handling (`§7.7`). _ — verified with a fake Telegram transport on PGlite; real delivery UNVERIFIED. Watched alerts exist in the notifier, but `main watched` is still a stub (Phase 10)._
 
 **Accept:** linking works for both profiles independently; tapping Applied ✓ in Telegram moves the job to Applied in the web tracker within one refresh; no duplicate notifications across scans.
 
 ## Phase 7 — Scheduling & scan status
-- [ ] `full_scan.yml` (every 3h, off-hour minute) and `watched_scan.yml` (hourly), shared concurrency group, secrets wired, Playwright chromium installed.
-- [ ] `/api/scan` (workflow_dispatch) + `/api/scan/status`.
-- [ ] `lib/scan-schedule.ts` next-run computation; sidebar ring + topbar pill use it.
+- [x] `full_scan.yml` (every 3h, off-hour minute) and `watched_scan.yml` (hourly), shared concurrency group, secrets wired, Playwright chromium installed. _ — written, not yet run on GitHub. Playwright installs only when a generic careers page is pending (never, until Phase 10)._
+- [x] `/api/scan` (workflow_dispatch) + `/api/scan/status`. _ — `/api/scan` returns 501 until GITHUB_TOKEN/GITHUB_REPO are set; the GitHub call itself is UNVERIFIED._
+- [x] `lib/scan-schedule.ts` next-run computation; sidebar ring + topbar pill use it. _ — already done in Phase 3; the topbar pill now shows live source counts from `source_runs`._
 
 **Accept:** scheduled runs succeed for 24h; "Scan now" starts a run and the UI shows live progress then idle state.
 
@@ -119,10 +119,10 @@ Legend: `[ ]` todo · `[x]` done · `(W)` worker · `(UI)` web.
 **Accept:** tabs filter instantly; a reminder set for a program 7 days out is delivered that day.
 
 ## Phase 13 — Settings (UI)
-- [ ] Profile (name, avatar upload + crop, college).
-- [ ] Resume: upload → storage → text extraction (PDF, DOCX; DOC via best effort) → Gemini parse → embedding → skill chips editable; re-embedding on skill edits.
-- [ ] Preferences form (zod-validated) per `§4.7`.
-- [ ] Telegram (from Phase 6) and Scan Settings (schedule, last 10 runs, sources, Scan now).
+- [x] Profile (name, avatar upload + crop, college). _ — no crop step: the image is stored as uploaded (PNG/JPEG/WebP, max 2 MB)._
+- [x] Resume: upload → storage → text extraction (PDF, DOCX; DOC via best effort) → Gemini parse → embedding → skill chips editable; re-embedding on skill edits. _ — legacy .doc is rejected with a clear message (cannot be parsed in Node); Gemini parse/embedding verified with a fake Gemini only, real calls UNVERIFIED._
+- [x] Preferences form (zod-validated) per `§4.7`.
+- [x] Telegram (from Phase 6) and Scan Settings (schedule, last 10 runs, sources, Scan now). _ — verified against a mock Supabase; Scan now needs real GitHub credentials (UNVERIFIED)._
 
 **Accept:** uploading a resume updates matches on the next scan; preferences changes affect eligibility on the next scan.
 
