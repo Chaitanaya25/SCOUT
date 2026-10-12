@@ -14,8 +14,10 @@ import {
   resumeResponseSchema,
   resumeStoragePath,
 } from "@/lib/resume-parse";
-import { extractResumeText } from "@/lib/resume-text";
+import { extractResumeText, MIN_RESUME_TEXT } from "@/lib/resume-text";
 
+// Runs on the Node.js runtime, the default. `export const runtime = "nodejs"` cannot be declared here: Next 16 rejects
+// the `runtime` segment config when `cacheComponents` is enabled ("not compatible with nextConfig.cacheComponents").
 export const maxDuration = 60;
 
 /**
@@ -25,8 +27,15 @@ export const maxDuration = 60;
 export async function POST(request: NextRequest) {
   const auth = await sessionOr401(request);
   if ("response" in auth) return auth.response;
-  const profileId = auth.session.pid;
+  try {
+    return await handleUpload(request, auth.session.pid);
+  } catch {
+    // Never answer with a bare 500 page: the client always gets a JSON error it can show.
+    return json({ error: "Upload failed. Try again." }, 500);
+  }
+}
 
+async function handleUpload(request: NextRequest, profileId: string) {
   const length = Number(request.headers.get("content-length") ?? 0);
   if (length > 6 * 1024 * 1024) return json({ error: "The file is larger than 5 MB." }, 413);
 
@@ -47,10 +56,12 @@ export async function POST(request: NextRequest) {
   try {
     rawText = await extractResumeText(buffer, check.kind);
   } catch {
-    return json({ error: "Could not read that file. Try exporting it as a fresh PDF or DOCX." }, 422);
+    const message = check.kind === "pdf" ? "Couldn't read this PDF, try a text-based PDF or DOCX" : "Couldn't read this DOCX, try re-saving it or upload a text-based PDF";
+    return json({ error: message }, 422);
   }
-  if (rawText.length < 80) {
-    return json({ error: "No readable text found. Scanned or image-only resumes are not supported; upload a text-based PDF or DOCX." }, 422);
+  if (rawText.length < MIN_RESUME_TEXT) {
+    const message = check.kind === "pdf" ? "This PDF has no readable text (scanned image?)" : "This DOCX has almost no readable text";
+    return json({ error: message }, 422);
   }
 
   // AI first, so a quota problem never leaves a half-saved resume behind.

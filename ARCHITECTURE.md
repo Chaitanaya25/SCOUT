@@ -456,7 +456,7 @@ Budget estimate per day: 8 full scans × 2 profiles × (20/5 = 4 scoring calls) 
 - `GEMINI_EMBED_MODEL` — Gemini embedding model.
 
 ### 8.2 Resume parse (web, on upload)
-Input: extracted resume text (pdf-parse / mammoth for DOCX). Output schema:
+Input: extracted resume text (unpdf for PDF — pure JS, bundled, serverless-safe; mammoth for DOCX; under 200 characters is rejected as "no readable text"). Output schema:
 ```json
 {
   "name": "string", "email": "string|null", "college": "string|null",
