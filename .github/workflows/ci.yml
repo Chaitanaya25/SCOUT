@@ -24,6 +24,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm -C apps/web lint
       - run: pnpm -C apps/web typecheck
+      - run: pnpm -C apps/web test
       - run: pnpm -C apps/web build
 
   worker:

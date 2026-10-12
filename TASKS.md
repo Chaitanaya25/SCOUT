@@ -17,31 +17,31 @@ Legend: `[ ]` todo · `[x]` done · `(W)` worker · `(UI)` web.
 **Accept:** `pnpm -C apps/web build` and `uv run pytest` pass in CI.
 
 ## Phase 1 — Database
-- [ ] `supabase/migrations/0001_init.sql` with the full schema from `ARCHITECTURE.md §4` (types, tables, indexes, RLS enabled, no anon policies).
-- [ ] RPCs: `similar_jobs`, `match_candidates`, `dashboard_kpis`.
-- [ ] Storage buckets `resumes`, `avatars` (private).
-- [ ] Seed script: 2 profiles (`user-01`, `user-02`), empty preferences rows.
-- [ ] Dev seed (`pnpm seed:dev`): ~80 realistic sample jobs, matches, applications, programs, watched companies — for building UI without running scans.
-- [ ] Generate Supabase TS types into `apps/web/lib/database.types.ts`.
+- [x] `supabase/migrations/0001_init.sql` with the full schema from `ARCHITECTURE.md §4` (types, tables, indexes, RLS enabled, no anon policies) + `login_attempts`. *(Applied and checked on a local Postgres/pgvector (PGlite): 15 tables, RLS on all, 0 policies. Not yet applied to a Supabase project.)*
+- [x] RPCs: `similar_jobs`, `match_candidates`, `dashboard_kpis`. *(Smoke-tested on PGlite.)*
+- [x] Storage buckets `resumes`, `avatars` (private). *(In 0001; bucket rows checked on a stub `storage.buckets`, real Supabase storage unverified.)*
+- [x] Seed script: 2 profiles (`user-01`, `user-02`), empty preferences rows (`0002_seed_profiles.sql`, idempotent).
+- [ ] Dev seed (`pnpm seed:dev`): ~80 realistic sample jobs, matches, applications, programs, watched companies — for building UI without running scans. *(Written; row data unit-tested and loaded twice into the real schema on PGlite. The supabase-js runner has not been run against Supabase — pending your project.)*
+- [ ] Generate Supabase TS types into `apps/web/lib/database.types.ts`. *(`db:types` script written (Management API, unverified); the file is currently hand-written from the schema and typechecks against the seed runner.)*
 
 **Accept:** migration applies cleanly on a fresh Supabase project; dev seed renders realistic data.
 
 ## Phase 2 — Design system (UI)
-- [ ] `styles/tokens.css` with dark/light tokens (`DESIGN.md §1`), Tailwind `@theme` mapping, `next-themes` (default dark, class strategy).
-- [ ] Fonts via `next/font`: Archivo Black, Inter Tight, Inter, JetBrains Mono.
-- [ ] `lib/motion.ts` tokens; `LazyMotion` provider in root layout.
-- [ ] Components (`DESIGN.md §3`): Button (primary/secondary/ghost), Chip, Tag, FreshBadge, ScamBadge, AtsBadge, CountPill, DiffPill, MatchRing, ProgressBar, Sparkline, Card, CompanyLogo, Kbd, Skeleton, EmptyState, Switch, Tabs (layoutId indicator), Tooltip.
-- [ ] Radar (`DESIGN.md §5.3`) and Marquee components with off-screen pause + reduced-motion.
-- [ ] `/dev/components` page showing every component in both themes (dev only).
+- [x] `styles/tokens.css` with dark/light tokens (`DESIGN.md §1`), Tailwind `@theme` mapping, `next-themes` (default dark, class strategy). *(Light is unverified: no Stitch mock.)*
+- [x] Fonts via `next/font`: Inter, JetBrains Mono (Stitch export; Archivo Black / Inter Tight were dropped).
+- [x] `lib/motion.ts` tokens; `LazyMotion` provider in root layout.
+- [x] Components (`DESIGN.md §3`): Button (primary/secondary/ghost/danger), Chip, Tag, FreshBadge, ScamBadge, AtsBadge, CountPill, DiffPill, MatchRing, ProgressBar, Sparkline, Card, CompanyLogo, Kbd, Skeleton, EmptyState, Switch, Tabs (layoutId indicator), Tooltip, PageHeader, StatTile, ModuleCard.
+- [x] Radar (`DESIGN.md §5.3`) and Marquee components with off-screen pause + reduced-motion.
+- [x] `/dev/components` page showing every component in both themes (dev only; 404 in production).
 
 **Accept:** component page matches screenshot styling in both themes; animations are transform/opacity only (verify in DevTools "Rendering → Paint flashing": no repaint storms).
 
 ## Phase 3 — Auth & shell (UI)
-- [ ] `/login` exactly per `DESIGN.md §4.1` (profile cards, password, shake on error).
-- [ ] `/api/auth/login|logout|switch`, JWT cookie, login rate limit, `middleware.ts`, `requireProfile()`.
-- [ ] Sidebar (`§2.1`) with profile switcher, nav indicator `layoutId`, next-scan ring, collapse.
-- [ ] Topbar (`§2.2`) with search (cmdk palette: pages + jobs + companies + programs), scan status pill (polling `/api/scan/status`), Telegram dot, bell, theme toggle.
-- [ ] Responsive behaviour (`§2.3`).
+- [x] `/login` exactly per `DESIGN.md §4.1` (profile cards, password, shake on error). *(Checked against `01-sign-in-dark` in dark mode; tile status line shows alert count instead of the mock's "2h ago".)*
+- [x] `/api/auth/login|logout|switch`, JWT cookie, login rate limit, `proxy.ts` (Next 16's `middleware.ts`), `requireProfile()`. *(Verified end to end against a mock of the Supabase REST API, not a real project.)*
+- [x] Sidebar (`§2.1`) with profile switcher, nav indicator `layoutId`, next-scan countdown (Stitch has no ring), collapse.
+- [x] Topbar (`§2.2`) with search (cmdk palette: pages + jobs + companies + programs), scan status pill (polling `/api/scan/status`), Telegram pill, bell, avatar menu (sign out). *(Theme toggle lives in the sidebar, per Stitch. Bell has no data source yet.)*
+- [x] Responsive behaviour (`§2.3`). *(Checked at 1440, 1024 and 390 in dark mode.)*
 
 **Accept:** wrong password rejected and rate-limited; switching profile swaps data; shell matches screenshots at 1440, 1024, 390 widths.
 

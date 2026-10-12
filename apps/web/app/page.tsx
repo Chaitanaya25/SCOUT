@@ -1,7 +1,6 @@
+import { redirect } from "next/navigation";
+
+// The request proxy sends signed-out visitors to /login; signed-in ones land on the dashboard.
 export default function Home() {
-  return (
-    <main>
-      <h1>SCOUT</h1>
-    </main>
-  );
+  redirect("/dashboard");
 }

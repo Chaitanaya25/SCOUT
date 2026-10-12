@@ -1,0 +1,20 @@
+"use client";
+
+import { useSyncExternalStore } from "react";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribe(cb: () => void): () => void {
+  const mql = window.matchMedia(QUERY);
+  mql.addEventListener("change", cb);
+  return () => mql.removeEventListener("change", cb);
+}
+
+/** True when the user prefers reduced motion. Server snapshot is `false`. */
+export function useReducedMotion(): boolean {
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
+}

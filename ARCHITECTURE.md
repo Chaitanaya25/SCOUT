@@ -70,7 +70,7 @@ scout/
 │  ├─ components/ (ui/, shell/, radar/, jobs/, tracker/, …)
 │  ├─ lib/ (db.ts, auth.ts, gemini.ts, telegram.ts, scan-schedule.ts, referrals.ts)
 │  ├─ styles/tokens.css
-│  └─ middleware.ts
+│  └─ proxy.ts                  # Next 16 name for middleware.ts
 ├─ worker/                      # Python 3.12, uv
 │  ├─ scout_worker/
 │  │  ├─ main.py                # CLI: full | watched | reminders
@@ -296,6 +296,13 @@ create table source_runs (
   finished_at timestamptz
 );
 
+create table login_attempts (                -- rate limiting (§10.1): id, ip, success, created_at
+  id bigint generated always as identity primary key,
+  ip text not null,
+  success boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
 create table llm_usage (                     -- quota guard
   day date not null,
   kind text not null,                        -- 'embed'|'score'|'parse'|'tailor'|'extract'
@@ -515,7 +522,7 @@ Prompt rules: rewrite only real experience/projects; no new employers, metrics, 
 ### 10.1 Auth (two profiles, one password)
 - `APP_PASSWORD_HASH` (bcrypt) in env. `POST /api/auth/login {profileSlug, password}` → compare → set cookie `scout_session` = JWT (`jose`, HS256, `SESSION_SECRET`, 30 days) with `{pid, slug}`; `httpOnly`, `secure`, `sameSite=lax`.
 - Rate limit: max 5 failed attempts per IP per 15 min (store in a small `login_attempts` table or in-memory Map per instance — table preferred).
-- `middleware.ts` protects everything except `/login`, `/api/auth/*`, `/api/telegram/webhook`, static assets.
+- `proxy.ts` (Next.js 16 renamed `middleware.ts`) protects everything except `/login`, `/api/auth/*`, `/api/telegram/webhook`, static assets.
 - `POST /api/auth/switch {profileSlug}` re-signs the cookie for the other profile (session must be valid).
 - `lib/session.ts#requireProfile()` used in every server component/action; returns `profile_id`.
 
