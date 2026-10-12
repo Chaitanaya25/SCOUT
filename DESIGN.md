@@ -1,121 +1,152 @@
 # SCOUT — Design System & UI Spec
 
-**The UI is final.** It must match the Stitch screens in `docs/design/` (dark + light). This document turns those screens into exact tokens, components and behaviour. When this file and a screenshot disagree on a small detail, **the screenshot wins for layout, this file wins for tokens and motion.** Do not invent new screens, sections or features.
+**Stitch is the source of truth.** Project: *Scout AI Job Radar* (`projects/9530679423670178592`), design system *Editorial Precision Radar*. Exports live in `docs/design/<NN-screen-theme>/{code.html,screen.png}`:
 
-Design principles: restrained, editorial, high-craft (Linear × Vercel × Raycast). One signal accent used sparingly. Hairline borders, generous space, mono micro-labels, tabular numbers. Every motion is smooth, short and purposeful.
+| Folder | Stitch screen | Theme | Status |
+|---|---|---|---|
+| `00-design-system/` | Design system asset (`design-system.md`, `theme.json`, generated `code.html`) | dark | `screen.png` **missing — Stitch has no image for the design-system asset; export manually** |
+| `01-sign-in-dark/` | Sign In — SCOUT | dark | exported |
+| `02-dashboard-dark/` | Dashboard — SCOUT | dark | exported |
+| `03-job-feed-dark/` | Job Feed — SCOUT (includes the job detail drawer) | dark | exported |
+
+**Gaps in Stitch (no mock exists):** light theme, Watched Companies, Tracker, Programs, Settings. Those sections below are marked **[no Stitch mock]** — they are derived from the Stitch tokens and the previous spec, and must be re-checked if a mock is added.
+
+Where this file and a `code.html` disagree on a value, the **`code.html` (rendered design) wins**; where Stitch's own `design-system.md` text disagrees with its `code.html`, the `code.html` wins and the difference is listed in §10. Do not invent screens, sections or features beyond `PRD.md` (see §9 for Stitch elements that are *not* built).
+
+Design principles: telemetric, analytical, high-density command surface (Swiss editorial × Linear dark-mode discipline × Vercel monochrome). One fluorescent signal accent, used only for intelligence signals, primary actions and live state — never more than ~5% of the viewport. **Depth is tonal layering, not borders**; no gradients on interactive controls.
 
 ---
 
 ## 1. Tokens
 
-Define in `apps/web/styles/tokens.css` as CSS variables on `:root` (light) and `.dark` (dark, default). Map them into Tailwind v4 `@theme`. Components use **only** tokens — no raw hex in components.
+Define in `apps/web/styles/tokens.css` as CSS variables on `:root` (light) and `.dark` (dark, default). Map into Tailwind v4 `@theme`. Components use **only** tokens — no raw hex. The "Stitch name" column is the Material-style name used in the Stitch Tailwind config, for traceability.
 
-### 1.1 Colour — Dark (default)
-| Token | Value | Use |
-|---|---|---|
-| `--bg` | `#0A0A0B` | page background |
-| `--surface` | `#121214` | cards, sidebar, topbar |
-| `--elevated` | `#1A1A1D` | hover, inputs, drawer sections, chips |
-| `--border` | `#26262A` | hairlines |
-| `--border-strong` | `#34343A` | focused/hovered borders |
-| `--text` | `#F4F2EE` | primary text |
-| `--muted` | `#8E8B85` | secondary text, labels |
-| `--subtle` | `#5C5A56` | tertiary text, disabled |
-| `--accent` | `#D4FF3F` | primary buttons, fresh badges, rings, active nav, radar |
-| `--accent-ink` | `#0A0A0B` | text on accent |
-| `--accent-line` | `#D4FF3F` | rings, progress bars, live dots |
-| `--accent-fg` | `#D4FF3F` | accent text/icons on surfaces |
-| `--accent-soft` | `rgb(212 255 63 / 0.10)` | active nav bg, selected chip bg |
-| `--danger` | `#FF5C47` | scam risk, rejected, low scores, urgent deadlines |
-| `--warning` | `#F5B544` | mid scores, soon deadlines |
-| `--success` | `#4ADE80` | passes, positive deltas |
-| `--info` | `#7AA2FF` | links in drawer, info chips |
+### 1.1 Colour — Dark (default) — from Stitch `code.html`
+| Token | Value | Stitch name | Use |
+|---|---|---|---|
+| `--bg` | `#131315` | `background` / `surface` | page background |
+| `--surface-lowest` | `#0e0e10` | `surface-container-lowest` | sidebar, topbar (80% + blur), inputs, radar scope, inset panels (drawer bars, JD box) |
+| `--surface` | `#1b1b1d` | `surface-container-low` | cards, filter hub, drawer, profile switcher |
+| `--surface-2` | `#201f21` | `surface-container` | card hover, inner rows, secondary chips, inactive tiles |
+| `--surface-3` | `#2a2a2c` | `surface-container-high` | active nav, secondary buttons, tags, selected tile |
+| `--surface-4` | `#353437` | `surface-container-highest` | logo tiles, avatars, tooltip |
+| `--surface-bright` | `#39393b` | `surface-bright` | chip hover |
+| `--text-strong` | `#ffffff` | `primary` | headings, wordmark, active nav, numerals |
+| `--text` | `#e5e1e4` | `on-surface` | body text |
+| `--muted` | `#c5c9ae` | `on-surface-variant` | labels, secondary text, inactive nav |
+| `--secondary` | `#c8c6ca` | `secondary` | tertiary text, taglines |
+| `--outline` | `#8f937a` | `outline` | disabled / faint |
+| `--outline-variant` | `#444934` | `outline-variant` | axis lines, rare dividers |
+| `--accent` | `#c8f232` | `primary-container` | primary buttons, active segment, fresh badge fill, rings, bars, radar beam |
+| `--accent-ink` | `#576c00` | `on-primary-container` | text/icons on `--accent` |
+| `--accent-hover` | `#add500` | `primary-fixed-dim` | primary button hover, mid-strength tint |
+| `--accent-tint` | `#add500` | `surface-tint` | live dots, accent text on dark surfaces, small icons |
+| `--accent-soft` | `rgb(200 242 50 / 0.10)` | `primary-container/10` | match chip bg, eligible chip bg |
+| `--info` | `#b0c6ff` | `tertiary-fixed-dim` | 75–89% match, "diff detected", secondary progress |
+| `--danger` | `#ffb4ab` | `error` | scam text/icon, missing-skill warning, urgent deadline |
+| `--danger-container` | `#93000a` | `error-container` | scam badge/blocked ring fill |
+| `--on-danger-container` | `#ffdad6` | `on-error-container` | text on `--danger-container` |
+| `--warning` | `#F5B544` | *(designMd only)* | mid scores < 75, soon deadlines — not used in the three mocks |
+| `--success` | `#4ADE80` | *(designMd only)* | positive deltas, idle scan dot — not used in the three mocks |
 
-### 1.2 Colour — Light
+Fixed inline colours in Stitch screens map to tokens: `#c8f232` → `--accent`, `#add500` → `--accent-tint`, `#b0c6ff` → `--info`, `#ffffff` → `--text-strong`.
+
+### 1.2 Colour — Light **[no Stitch mock]**
+Derived from the Stitch `design-system.md` light palette; accent family aligned to the Stitch dark accent.
 | Token | Value |
 |---|---|
 | `--bg` | `#F6F5F1` |
+| `--surface-lowest` | `#FFFFFF` |
 | `--surface` | `#FFFFFF` |
-| `--elevated` | `#EFEEE9` |
-| `--border` | `#E2E0D9` |
-| `--border-strong` | `#CFCCC3` |
+| `--surface-2` | `#EFEEE9` |
+| `--surface-3` | `#E7E5DE` |
+| `--surface-4` | `#DEDBD2` |
+| `--surface-bright` | `#E2E0D9` |
+| `--text-strong` | `#111111` |
 | `--text` | `#111111` |
 | `--muted` | `#6B6862` |
-| `--subtle` | `#A3A09A` |
-| `--accent` | `#D4FF3F` (fills: buttons, fresh badges, active nav pill) |
-| `--accent-ink` | `#111111` |
-| `--accent-line` | `#5B8A00` (rings, bars, live dots — legible on white) |
-| `--accent-fg` | `#1F3D2E` (accent text/icons) |
-| `--accent-soft` | `rgb(212 255 63 / 0.35)` |
+| `--secondary` | `#6B6862` |
+| `--outline` | `#A3A09A` |
+| `--outline-variant` | `#E2E0D9` |
+| `--accent` | `#c8f232` (fills) |
+| `--accent-ink` | `#3d4d00` |
+| `--accent-hover` | `#add500` |
+| `--accent-tint` | `#5B8A00` (dots, rings, bars — legible on white) |
+| `--accent-fg` | `#1F3D2E` (accent text/icons on light surfaces — never raw lime on white) |
+| `--accent-soft` | `rgb(200 242 50 / 0.35)` |
+| `--info` | `#2F5BD3` |
 | `--danger` | `#D92D20` |
+| `--danger-container` | `#FDE7E4` |
+| `--on-danger-container` | `#7A1A12` |
 | `--warning` | `#B7791F` |
 | `--success` | `#15803D` |
-| `--info` | `#2F5BD3` |
 
-Light-mode radar beam uses `--accent-line` (not red). Light mode uses subtle card shadow `0 1px 2px rgb(0 0 0 / 0.04)`; dark mode uses no shadows, only borders.
+Light mode uses a subtle card shadow `0 1px 2px rgb(0 0 0 / 0.04)`. Stitch dark cards declare `shadow-md/xl`, which are invisible on the dark canvas; implement them as `0 4px 6px -1px rgb(0 0 0 / .1)` (cards) and `0 20px 25px -5px rgb(0 0 0 / .1)` (radar / drawer), static.
 
 ### 1.3 Semantic score colours
-Match ring / score text: `≥ 80 → --accent-line`, `65–79 → --warning`, `< 65 → --danger`.
-Deadline text: `≤ 14 days → --danger`, `≤ 45 → --warning`, else `--muted`.
+Match chip / ring (from Stitch): `≥ 90 → --accent` text on `--accent-soft`; `75–89 → --info` text on `rgb(176 198 255 / .15)`. **Below 75 is not shown in Stitch** — extension: `65–74 → --warning`, `< 65 → --danger`. Scam-blocked jobs show `0% BLOCKED` in `--danger` on `--danger-container/30`.
+Ring caption: `≥ 95 BEST FIT`, `≥ 90 HIGH FIT`, `≥ 75 GOOD FIT` (thresholds inferred from the three examples 96/91/88; `< 75` → `FIT`).
+Deadline: `≤ 14 days → --danger`, `≤ 45 → --warning`, else `--muted` (Stitch shows 3d → danger, 5d/8d → accent/info).
 
-### 1.4 Typography
-Load with `next/font` (display: swap).
+### 1.4 Typography — Inter + JetBrains Mono only (Archivo Black / Inter Tight are **removed**)
+Load with `next/font` (display: swap): Inter 400/500/600/700, JetBrains Mono 400/500/600.
 
-| Role | Font | Size / line / weight / tracking |
-|---|---|---|
-| Wordmark (login) | Archivo Black | 96px / 0.9 / 400 / -0.02em |
-| Wordmark (sidebar) | Archivo Black | 22px / 1 / 400 / -0.01em |
-| H1 page hero | Inter Tight | 36px / 1.1 / 600 / -0.02em |
-| H2 page title (topbar / section) | Inter Tight | 20px / 1.2 / 600 / -0.01em |
-| H3 card title | Inter Tight | 16px / 1.3 / 600 |
-| Body | Inter | 14px / 1.5 / 400 |
-| Body small | Inter | 13px / 1.45 / 400 |
-| Mono label | JetBrains Mono | 11px / 1.2 / 500 / 0.08em, UPPERCASE |
-| Mono data | JetBrains Mono | 12px / 1.3 / 400 (timestamps, counts, URLs) |
-| KPI number | Inter Tight | 40px / 1 / 600, `font-variant-numeric: tabular-nums` |
-| Ring number | Inter Tight | 14px / 1 / 600, tabular |
+| Token | Font | Size / line / weight / tracking | Use |
+|---|---|---|---|
+| `display-hero` | Inter | 48 / 52 / 600 / -0.03em | KPI numerals |
+| `display-hero-mobile` | Inter | 32 / 36 / 600 / -0.025em | KPI numerals < 768 |
+| `headline-lg` | Inter | 30 / 36 / 600 / -0.02em | drawer job title |
+| `headline-lg-mobile` | Inter | 24 / 28 / 600 / -0.02em | |
+| `headline-md` | Inter | 20 / 26 / 600 / -0.02em | job card title, login wordmark (`tracking-wider`) |
+| `headline-sm` | Inter | 16 / 22 / 600 / -0.015em | sidebar wordmark, section headings, company name, primary button label, tab labels |
+| `body-lg` | Inter | 15 / 22 / 400 / -0.005em | dashboard job title (600) |
+| `body-base` | Inter | 14 / 20 / 400 / -0.005em | nav items, body |
+| `body-sm` | Inter | 13 / 18 / 400 / 0 | small body, buttons, JD text |
+| `mono-metric` | JetBrains Mono | 14 / 16 / 500 / -0.01em | counters, logo-tile letters |
+| `mono-label` | JetBrains Mono | 11 / 14 / 500 / 0.08em, UPPERCASE | section labels, company in card, form labels |
+| `mono-micro` | JetBrains Mono | 10 / 12 / 500 / 0.1em | chips, timestamps, badges, status pills, kbd |
 
-All numbers use `tabular-nums`.
+Tiny readouts in Stitch use 9px mono (radar degree labels, source marquee, notification count) — allowed only for those. All numbers `tabular-nums`.
 
 ### 1.5 Spacing, radius, size
-- 8px base grid (Tailwind default scale). Page padding 32px desktop, 20px tablet, 16px mobile.
-- Radius: `--r-sm 6px` (chips, badges), `--r-md 8px` (buttons, inputs), `--r-lg 10px` (cards), `--r-xl 14px` (drawer, modals, login cards), pills `999px`.
-- Borders: 1px `--border` everywhere. Focus ring: 2px `--accent-line` outline, 2px offset.
-- Sidebar 248px (collapsed 68px). Topbar 64px. Drawer 520px. Content max-width 1440px.
-- Icons: lucide-react, 16px in nav/buttons, 14px in chips, stroke 1.5.
+- Spacing scale (Stitch): `space-xs 4`, `space-sm 8`, `space-md 16`, `space-lg 24`, `space-xl 32`; `gutter 16` (mobile) / `24` (desktop); page margin 16 mobile / 24 tablet / 40 desktop token — **the three mocks render a 24px main padding at 1280**, use 24px at ≥768 until a wider mock exists.
+- **Radius (rendered, from the Stitch Tailwind config — `rounded-*` is remapped):** `--r-sm 2px` (Tailwind `DEFAULT`: logo letters, kbd, small tags, avatar tiles), `--r-md 4px` (`lg`: buttons, inputs, nav items, chips, cards' inner rows), `--r-lg 8px` (`xl`: cards, drawer, filter hub, login card, logo tiles), `--r-pill 12px` (`full`: pills, status chips). Avatars, status dots, the radar scope and rings are **true circles (50%)** — Stitch's `rounded-full` renders 12px, which makes the radar scope look like a rounded square in the PNG; build the circle (see §10).
+- Hairlines: Stitch uses **no borders** on cards. Selected feed card: `ring-1 ring-accent/40` + 6px left accent bar. Focus: `2px` `--accent-tint` outline, 2px offset. Input focus: bg → `--surface-2`.
+- Layout: sidebar **248px** (collapsed 68px), topbar **64px**, drawer **520px**, KPI/grid gap 24px (`space-lg`), card padding 16px (`space-md`), radar card padding 24px. Wide-desktop max container 1680px.
+- Icons: **Material Symbols Outlined** (Stitch), 18px in nav, 14–15px in chips/buttons, 16–20px in headers. Name map: radar, dynamic_feed, school, domain, view_kanban, tune, search, notifications, send, dark_mode, light_mode, verified, check_circle, shield, gpp_bad, warning, report, bookmark_border, close, north_east / arrow_outward / open_in_new, arrow_forward, content_copy, task_alt, timer, bolt, notifications_active, share, dock_to_right, smart_toy, schedule, refresh, sort, expand_more, visibility(_off). (Replaces lucide-react — see §10.)
 
 ### 1.6 Background texture
-Hero areas (login, dashboard hero) only: 1px grid lines at 48px spacing, `--border` at 35% opacity, radial mask fading to transparent. Login additionally has a static scatter of 1–2px dots at low opacity. No noise/blur animations.
+Stitch: a faint canvas dot-grid inside the **dashboard radar card only** — `radial-gradient(#fff 1px, transparent 1px)`, `24px` spacing, `opacity .03`. No grid/dots on the login page or elsewhere (the login page is a flat `--bg` with a centered card). Light mode uses `#000` at `.03`. No noise/blur animation.
 
 ---
 
-## 2. App shell
+## 2. App shell (`docs/design/02-dashboard-dark`, `03-job-feed-dark`)
 
 ### 2.1 Sidebar (`components/shell/sidebar.tsx`)
-Top → bottom (see `docs/design/*dashboard*`):
-1. **Wordmark** "SCOUT" (Archivo Black 22px) with radar-mark glyph replacing the "O" (circle + inner ring + 60° accent arc + crosshair).
-2. **Profile switcher**: two stacked rows (avatar 24px, name `User 01`, chevron). Active row has `--elevated` bg. Clicking the other row → `POST /api/auth/switch` → router refresh. Avatar crossfade 200ms.
-3. Mono label `DISCOVER` → Dashboard, Job Feed, Programs.
-4. Mono label `PIPELINE` → Watched Companies, Tracker.
-5. Spacer → Settings.
-6. **Next scan card**: mono label `NEXT SCAN`, 56px progress ring (`--accent-line`) with remaining time `58m` centered, caption "Scans every 3 hours". Ring fills as time elapses since last boundary.
-7. Collapse button (chevron) at the bottom edge; theme toggle lives in topbar.
+Fixed, 248px, `--surface-lowest`, no border. Top → bottom:
+1. **Brand row** (64px, padding 24): 32px circular radar-mark image + `SCOUT` (headline-sm, `--text-strong`, tight) over `AI RADAR v2.4` (mono-micro, `--accent-tint`, widest tracking; version from `package.json`).
+2. Mono label `DISCOVER` → Dashboard (radar), Job Feed (dynamic_feed), Programs (school).
+3. Mono label `PIPELINE` → Watched Companies (domain), Tracker (view_kanban).
+4. Spacer, then **Settings** row (tune icon) with an inline **theme toggle** pill on the right (`--surface-2`, 13px `dark_mode` / `light_mode` icons; the active mode icon is `--accent-tint`).
+5. **Profile switcher**: `--surface` rounded-lg (8px) container, padding 4, two rows, 20px circular letter avatars (`A`/`N`; active = `--accent` bg + `--accent-ink`; inactive = `--secondary-container #47464a`), label `<Name> (<grad year>)` in body-sm; active row bg `--surface-3` with a 6px `--accent-tint` dot. Click the other row → `POST /api/auth/switch` → router refresh.
+6. **Next scan**: `● NEXT SCAN` left, countdown `HH:MM:SS` right (mono-micro, countdown `--text-strong`). *(No progress ring.)*
 
-Nav item: 36px tall, 12px x-padding, icon + label, `--muted` text. Hover: `--elevated` bg, `--text`. **Active:** `--accent-soft` bg, `--accent-fg` text/icon, 2px left indicator bar in `--accent-line` that slides between items using Motion `layoutId="nav-indicator"`.
-
-Collapsed (68px): icons only, tooltips on hover, profile shows active avatar only, next-scan shows ring only.
+Nav item: padding 6px 8px, `--r-md`, body-base, icon 18px. Inactive `--muted`; hover `--surface-3` bg + `--text`. **Active:** `--surface-3` bg, `--text-strong` (no left bar). The active background slides between items via `layoutId="nav-active"`.
+Collapsed (68px): icons only + tooltips; profile switcher shows the active avatar; next scan shows the dot only.
 
 ### 2.2 Topbar (`components/shell/topbar.tsx`)
-64px, sticky, `--surface` at 80% with `backdrop-filter: blur(12px)`, bottom hairline.
-- Left: back chevron (when nested) + breadcrumb/page title.
-- Center: search field 360px — magnifier icon, placeholder "Search jobs, companies, skills…", `⌘K` kbd chip. Clicking opens cmdk palette (jump to pages, search jobs by title/company, companies, programs).
-- Right: **scan status pill** (`● Scanning 14 sources…` with 3 animated dots while running; `● Last scan 42m ago` idle; dot = `--accent-line` running, `--success` idle, `--danger` failed), Telegram status (paper-plane icon + dot), notifications bell (count badge), theme toggle (sun/moon crossfade + 90° rotate), avatar.
+Fixed, 64px, left offset 248px, `--surface-lowest` at 80% + `backdrop-filter: blur(12px+)`, no border, horizontal padding 24.
+- Left: mono-micro `SCOUT RADAR` · `/` · mono-label `INTELLIGENCE CORE` (`--text-strong`). Stitch shows `INTELLIGENCE CORE` on both Dashboard and Job Feed; other pages use their own title in that slot.
+- Center: search field 380px, `--surface`, `--r-md`, magnifier 16px, placeholder `Quick search jobs, companies, tags...`, `⌘K` kbd chip. Click opens the cmdk palette (pages, jobs, companies, programs).
+- Right (gap 16): scan-status pill (`--surface`, `--r-sm`, 6px dot `--accent-tint` pulsing + mono-micro `Scanning 14 sources`; idle `Last scan 42m ago`, failed uses `--danger`), Telegram pill (`send` icon `--accent-tint` + `Telegram Active` / `Telegram not linked`), notifications bell 20px with 14px count badge (`--accent-tint` bg, 9px bold), 32px circular avatar with 8px status dot.
+- No theme toggle in the topbar (it lives in the sidebar).
 
 ### 2.3 Responsive
-- ≥1280: full layout.
-- 1024–1279: sidebar auto-collapses to 68px; dashboard hero becomes 2 columns (radar hidden into scan card header at small size).
-- 768–1023: sidebar hidden; hamburger in topbar opens it as a left sheet; search collapses to icon.
-- <768: single column; KPI tiles 2×2; drawer becomes full-screen sheet sliding up; kanban scrolls horizontally with snap; tables switch to cards.
+Stitch provides only 1280px desktop; the rest follows Stitch's `design-system.md` breakpoints.
+- ≥1280: full layout; job feed shows the 520px inspector inline.
+- 1024–1279: sidebar auto-collapses to 68px; the 12-col dashboard stays 7/5; inspector becomes an overlay sheet.
+- 768–1023: sidebar hidden, hamburger in topbar opens it as a left sheet; search collapses to an icon; 8-col layout, margin 24.
+- < 768: single column, margin 16; KPI tiles stay 2×2 with `display-hero-mobile`; inspector is a full-screen sheet sliding up; the dual-profile switch is available from the sidebar sheet.
 
 ---
 
@@ -123,103 +154,105 @@ Collapsed (68px): icons only, tooltips on hover, profile shows active avatar onl
 
 Build in `components/ui/` on top of shadcn primitives, restyled to tokens.
 
-| Component | Spec |
+| Component | Spec (from Stitch) |
 |---|---|
-| **Button / primary** | `--accent` bg, `--accent-ink` text, 36px (40px on login/drawer footer), `--r-md`, 600 weight. Hover: brightness 1.05 + translateY(-1px). Press: scale .98. Optional trailing icon (`→` or `↗`) that nudges +2px x on hover. |
-| **Button / secondary** | transparent bg, 1px `--border`, `--text`. Hover `--elevated`. |
-| **Button / ghost** | no border, `--muted` → `--text` on hover. |
-| **Chip (filter)** | 28px pill, `--elevated` bg, `--muted` text 12px. Selected: `--accent-soft` bg, `--accent-fg` text, 1px accent border. |
-| **Tag (meta)** | 22px, `--r-sm`, `--elevated`, 11px text — e.g. `Remote`, `Internship`, `Bangalore`. |
-| **Fresh badge** | `--accent` bg, `--accent-ink` text, mono 10px: `● FRESH · 3h`. |
-| **Scam badge** | 1px `--danger` border, `--danger` text, mono 10px `SCAM RISK`, shield icon; tooltip lists reasons. |
-| **ATS badge** | mono 11px lowercase `greenhouse` under company name, `--muted`. |
-| **Count pill** | e.g. `3 open roles` — `--accent` bg + ink; `No openings` — `--elevated` + `--muted`. Diff pill: `+2 new` (`--accent-soft`/`--accent-fg`), `No change` (`--muted`). |
-| **Match ring** | SVG 44px (cards) / 64px (drawer, with `MATCH` mono caption). Track `--border`, arc coloured per §1.3, round caps. Animates 0 → value (§5). |
-| **Progress bar** | 4px, `--border` track, fill `--accent-line` (or semantic), radius pill. |
-| **Sparkline** | 7–12 thin vertical bars, 3px wide, 2px gap, `--accent-line` at 80%, last bar 100%. Pure SVG. |
-| **Card** | `--surface`, 1px `--border`, `--r-lg`, 16–20px padding. Hover (interactive cards): border → `--border-strong`, translateY(-2px). |
-| **Company logo** | 32/40px rounded-md tile, `--elevated` bg; img via favicon/Clearbit-style URL with fallback monogram (first letter, Inter Tight 600). |
-| **Kbd** | mono 11px, 1px border, `--r-sm`. |
-| **Skeleton** | `--elevated` blocks with a single shimmer gradient sweep (transform only). |
-| **Toast** | sonner, `--surface`, border, bottom-right. |
-| **Empty state** | small radar-mark glyph (static), H3, one line of `--muted` copy, one action. |
+| **Button / primary** | `--accent` bg, `--accent-ink` text, headline-sm/600, `--r-md`, 36–40px high (login/drawer 40px, feed card 28–30px). Hover → `--accent-hover` + translateY(-2px) (login) ; press `scale .95–.98`; trailing icon 15–18px. |
+| **Button / secondary** | `--surface-3` bg, `--text` (or `--muted` → `--text`), body-sm, `--r-md`, padding 4×10; hover → `--surface-4`/`--surface-2`. |
+| **Button / danger** | `--danger-container` at 40% bg, `--danger` text, hover 60%. |
+| **Segmented control** | track `--surface-lowest`, padding 2, `--r-md`; active segment `--accent` + `--accent-ink` headline-sm with count in mono-micro on `rgb(0 0 0 / .2)`; inactive `--muted`, count on `--surface-2`. Same shape for the drawer tabs but the active segment is `--surface-3` + `--text-strong`. |
+| **Filter chip** | `--surface-3`, mono-micro, `--r-md`, padding 4×8, leading 14px `check_circle` (or `shield` / 8px dot) in `--accent`; hover `--surface-bright`; `Reset` is `--surface-2`, `--muted`, right-aligned. |
+| **Tag (meta)** | `--surface-3`, `--muted`, mono-micro, `--r-sm`, padding 2×8 — tech tags and location. Location in feed cards is plain mono text after `·`. |
+| **Fresh badge** | `--accent` at 15% bg, `--accent-hover` text, mono-micro UPPERCASE `FRESH · 2H`, `--r-sm`. |
+| **ATS badge** | `--surface-2`, `--text`, mono-micro UPPERCASE `GREENHOUSE ATS`. |
+| **Scam badge** | `--danger-container` bg, `--on-danger-container`, mono-micro bold UPPERCASE `SCAM / PLACEMENT FEE RISK` with `warning` 12px; reasons in an inset `--surface-lowest` box with `report` icon and `--danger` mono text. |
+| **Eligible chip** | `✓ 2026 eligible`: `--accent-soft` bg, `--accent` text, mono-micro, pill. |
+| **Match chip** | `96% MATCH`: mono-label bold + mono-micro, `--r-md`, padding 4×10, colours per §1.3. |
+| **Match ring** | SVG 56px (cards), 36px (drawer summary), `--surface-3` track, arc per §1.3, centered number headline-sm; caption below (§1.3). Animates (§5). |
+| **Progress bar** | track `--surface-3` (or `--surface-2` in drawer), height 4px (KPI) / 6px (deadlines, breakdown), fill `--accent`, `--info` or `--danger`, rounded. |
+| **Card** | `--surface`, `--r-lg`, padding 16 (24 for radar), no border, static shadow. Interactive card hover: bg → `--surface-2` (120ms). Inner rows: `--surface-2`, `--r-md`, padding 12; hover `--surface-3`. |
+| **Company logo tile** | 48px (feed) / 40px (dashboard) / 32px (lists), `--surface-4` (`--surface-3` on dashboard), `--r-lg`, monogram/initials in headline-sm or mono-metric bold `--text-strong`. Selected/drawer variant: `--accent` bg + `--accent-ink`. Scam variant: `--danger-container/40` + `gpp_bad` icon. Real logo image optional with monogram fallback. |
+| **Kbd** | mono-micro, `--surface-3`, `--r-sm`. |
+| **Skeleton** | `--surface-2` blocks, one transform-only shimmer sweep. |
+| **Toast** | sonner, `--surface`, bottom-right. |
+| **Empty state** | static radar-mark glyph, headline-sm, one `--muted` line, one action. |
+| **Status pill** | `--surface`, `--r-sm`, 6px dot + mono-micro (scan status, Telegram, Stream: Live). |
 
 ---
 
 ## 4. Screens
 
-Each screen ships in dark and light. References in `docs/design/`.
+### 4.1 Login (`/login`) — ref `01-sign-in-dark`
+Flat `--bg`, no texture. One centered card: `max-width 448px`, `--surface`, `--r-lg`, padding 32.
+1. Brand row, centered: 28px radar mark · `SCOUT` (headline-md, `tracking-wider`, `--text-strong`) · version badge (mono-micro on `--accent`/20, `--accent-hover` text, UPPERCASE).
+2. Tagline (mono-label, `--secondary`, uppercase, centered, max 320px): `AUTONOMOUS AI JOB & INTERNSHIP RADAR`.
+3. Row: mono-label `SELECT PROFILE` left; mono-micro `● Dual Node Active` right.
+4. Two profile tiles (2-col grid, gap 8): `--r-md`, tile padding 8, `--surface-2` (selected `--surface-3`), corner gradient quarter-circle (`--accent`/10 → transparent, 48px top-right), 32px avatar (initials on `--surface-4`, or uploaded image grayscale), name (headline-sm), `Batch 'YY` (mono-micro `--secondary`), focus line (body-sm `--secondary`), status line: `● 2h ago` (inactive) or `● Active · N alerts` (`--accent`). **Selected tile:** `--surface-3` + 2px bottom bar `--accent`. Default = last used (cookie `scout_last_profile`).
+5. Label row: mono-label `WORKSPACE KEY` (left). Input: 36px, `--surface-lowest`, `--r-md`, mono-label text, visibility toggle 16px right.
+6. Primary button `Launch Radar →`, full width, 40px.
+7. Footer row: `smart_toy` + `@<bot username>` left; `schedule` + `Scan in HH:MM:SS` right (mono-micro, `--secondary`).
+8. Source marquee (9px mono, uppercase, widest tracking, `--muted`/70): `GREENHOUSE · LEVER · ASHBY · WORKDAY · …` from enabled sources, CSS marquee.
+Error: input shake (x 0,−6,6,−4,4,0 over 300ms) + `--danger` caption. Enter submits.
 
-### 4.1 Login / profile picker (`/login`) — ref: `1. LOGIN / PROFILE PICKER`
-Centered column, max 440px, vertically centered on full-viewport hero background (§1.6).
-1. Wordmark **SCOUT** 96px, radar-mark "O" with the accent arc slowly rotating (12s/turn).
-2. Mono tagline `AI JOB & INTERNSHIP RADAR`, letter-spaced, `--muted`.
-3. Two **profile cards** side by side, 168×200, `--r-xl`, image cover (uploaded avatar) with bottom gradient and label `USER 01` / display name in Inter Tight 700 uppercase. Rotated −4° / +4°. Selected: 2px `--accent` border, accent check badge top-right, rotation → 0°, scale 1.03, others dim to 60% opacity. Hover lifts −4px. Default selection = last used (cookie `scout_last_profile`).
-4. Password input with lock icon + eye toggle, placeholder "Enter shared password", 44px.
-5. Full-width primary button **Enter →** 44px.
-6. Mono caption `SCOUT SCANS THE WEB EVERY 3 HOURS`, row of source logo glyphs (monochrome, 18px, `--muted`), and `● 20+ SOURCES ONLINE` (count from latest successful `source_runs`).
-Error: input shakes (x: 0,−6,6,−4,4,0 over 300ms) + `--danger` caption. Enter key submits.
+### 4.2 Dashboard (`/dashboard`) — ref `02-dashboard-dark`
+Main padding 24, vertical gap 24. No greeting/H1 hero (Stitch has none).
+**Hero row — 12-col grid, 7 / 5:**
+- **Radar card** (cols 1–7, `--surface`, `--r-lg`, padding 24, dot-grid §1.6): top bar = pulsing 8px `--accent` dot + mono-micro `TARGET RADAR CORE` `/` `SECTOR: <regions>`; right pill `● LIVE TELEMETRY` (`--surface-2`, `--accent-tint`, bold). Center: **radar scope** 340px (§5.3). Bottom strip: chip `CENTER FREQ: 3H · 14 SOURCES ACTIVE` (`--surface-2`, value in `--accent`) and counters `1,420 SCANNED TODAY / 42 MATCHES PASSED CRITERIA` (mono-metric semibold, value `--text-strong` / `--accent`).
+- **Right column** (cols 8–12): 2×2 KPI grid (gap 16) + Telegram card.
+  - KPI tile (`--surface`, `--r-lg`, padding 16, hover `--surface-2`): mono-label title (top-left) + slot top-right; `display-hero` numeral (zero-padded 2 digits) left with mono-micro caption right; 4px progress bar at the bottom.
+    1. `NEW MATCHES` — delta chip `↗ +6 since 09:00` (`--accent`/10); numeral `18`; caption = active profile name; bar `--accent`.
+    2. `FRESH < 24H` — pulsing dot; numeral `09` in `--accent`; caption `PRIORITY RADAR` (`--accent-tint`); bar `--accent-tint`.
+    3. `APPLIED (WEEK)` — numeral `07`; bar `--info`. *(Stitch also shows `GOAL: 10/WK` / `70% target` — not built, §9.)*
+    4. `INTERVIEWS ACTIVE` — `verified` icon `--accent`; numeral `03`; overlapped 16px company-initial dots; caption `Razorpay · CRED · Stripe` (companies in Interview stage).
+  - **Telegram dispatch card** (`--surface`, padding 16): 36px `send` tile, mono-micro `TELEGRAM DISPATCH CHANNEL` (`--accent`) + `14M AGO`, one-line body-sm of the latest alert sent, `OPEN ↗` button (secondary).
+**Status marquee** (full width, `--surface-lowest`, `--r-md`, padding 8×16, mono-micro uppercase widest): `● RADAR STATUS: NOMINAL /// 14 SOURCES SCANNED /// TELEGRAM DISPATCH VERIFIED /// ELIGIBILITY FILTER: <batch years> ACTIVE /// NO SCAM DETECTED IN LAST RUN (<time> UTC)`. Items driven by real `source_runs`/alert state; `///` separators in `--surface-4`. (`LATENCY: 142MS` is not built.)
+**Workbench — 12-col, 7 / 5:**
+- Left (7): header bar (`--surface`, `--r-md`, padding 8×16): `bolt` icon + headline-sm `Top Matches (Scored for <Name>)`, right `SORT BY: MATCH % DESC`. Then **4 job cards** (`--surface`, `--r-lg`, padding 16, gap 16): 40px logo tile; headline-sm company + location pill + eligible chip; body-lg/600 role; right: match chip + `POSTED 2H AGO` (`--accent-tint` if fresh, else `--muted`); footer: `MISSING:` + tag (`None — Exact Match` in `--accent-tint` when none), actions `Inspect Fit` (secondary) and `Apply ↗` (primary; secondary `View Source ↗` when the match is < 90). Click → `/jobs?job=<id>`.
+- Right (5, gap 24): **Watched Company Alerts** card (`notifications_active` icon, `N DETECTED TODAY`; rows on `--surface-2`: 32px tile, company (body-base 600) + badge `+2 NEW ROLES` (`--accent`/15) or `DIFF DETECTED` (`--info`), role line mono-micro, time right; footer `MANAGE N WATCHED DOMAINS ⚙` secondary full-width → /watched). **Upcoming Deadlines** card (`timer` icon, `GLOBAL COHORTS` → `PROGRAMS`; rows on `--surface-2` with 8px status dot, name 600, days-left chip (`--danger-container` when urgent, else `--surface-3`), description mono-micro, 6px progress bar (time elapsed)).
 
-### 4.2 Dashboard (`/dashboard`) — ref: `2. DASHBOARD`
-**Hero row** (12-col grid, gap 24, on hero background):
-- Cols 1–4: `Good morning,` (time-of-day aware, IST) in `--muted` 15px; H1 `Here's your job radar.`; caption `Live scanning · AI matching · Alerts on Telegram`.
-- Cols 5–8: **Radar** (§6.1), 280px.
-- Cols 9–12: **Scan Status card**: mono label `SCAN STATUS`; title `● Scanning 14 sources…` (or `Last scan · 42m ago`); list of top 6 sources from latest run — icon, name, progress bar, `124 new` mono right-aligned; footer link `View all sources →` (opens popover with full list + errors).
+### 4.3 Job Feed (`/jobs`) — ref `03-job-feed-dark`
+Telemetry strip (mono-micro, above content): `● STREAM: LIVE` pill (`--surface-3`, pinging dot) · `Batch Target: <grad year> (<profile>)` · `Sources Scraped: 14/14 OK`. (Right-side `AUTO-REFRESH` and `Radar Weights` are not built, §9.)
+**Split layout** (gap 24): left column `flex-1`, right **520px inspector** sticky `top-16`, `height calc(100vh - 5rem)`.
+- **Sticky filter hub** (`--surface`/95 + blur, `--r-lg`, padding 16, shadow): row 1 — segmented `All 142 | Internship 48 | Full-time 94`; search input (`Filter company, keywords, stack...`, `--surface-lowest`, `--r-md`) and sort dropdown (`Match (High → Low)` / Newest). Row 2 — chips `Remote Only`, `India Hubs`, `Fresh < 24h`, `Eligible Only (Batch <year>)`, `Hide Scam Risk` (the last two default on) and `Reset`. State lives in URL params.
+- Counter line: mono-micro `DISPLAYING N PRIORITY TELEMETRY DISPATCHES` left, `1 Active In Right Inspector` (`--accent`) right.
+- **Job card** (`--surface`, `--r-lg`, padding 16, hover `--surface-2`): 48px logo tile (initials); top line: mono-label bold company · location (mono-micro `--muted`) · Fresh badge · ATS badge; headline-md title (truncate); meta row: `✓ Open to <year> Batch Graduates` (`--accent-hover`, `verified`), `MISSING: …` (`check` `--accent` when none; `warning` + `--danger` when skills missing — max 4, F5), salary/CTC text only when the job record has it; right: 56px match ring + caption. Footer bar (`--surface-2`/50, bleeds to card edges, `--r-lg` bottom): tech tags left; `Save`, `Skip`, `Apply ↗` right (Apply = primary 15px icon; non-selected cards show `Save` + `Inspect →` in `--surface-4`). **Selected card:** `ring-1 --accent/40` + 6px left bar `--accent`. **Scam card:** gradient bg `--danger-container/20 → --surface`, scam logo tile, struck-through title at 75% opacity, reasons box, `0% BLOCKED` circle, footer with `Mute employer` (danger button). Shown only when *Hide Scam Risk* is off.
+- Infinite scroll by 30, virtualized > 60. Filter changes animate with `layout` + `AnimatePresence`.
+**Inspector drawer** (`--surface`, `--r-lg`, `overflow-hidden`, shadow-2xl):
+- Header (padding 24, `--surface-2`/80): 48px logo tile (`--accent` + `--accent-ink`), mono-label `<COMPANY>` + 6px dot + `FOUND 2H AGO` (`--accent-hover`), headline-lg role, body-sm team line; share + dock icons top-right. Below: **match summary bar** (`--surface-lowest`, `--r-md`, padding 8): 36px ring, `PRIME MATCH CONFIRMED` (`--accent`) + `Profile aligned with <Name> (<year> <degree>)`, location tag right. Then tab segmented control: **Overview · Tailor Resume · Referrals (count badge)**.
+- Body (scroll, padding 24, gap 24):
+  - **Overview:** `AI MATCH TELEMETRY VECTOR` panel (`--surface-lowest`, `--r-lg`, padding 16) with bars — Skills Compatibility / Batch Eligibility / Signal Freshness / Location Alignment (mono-micro label + % right; bar 6px; ≥ 90% `--accent`, else `--secondary`). Per PRD C3 the three scored components are Skills, Eligibility, Freshness; Location is shown only if available. Then `REQUIRED TECHNICAL STACK` chips (`--surface-2`, `--text-strong`, mono-micro, `--r-md`), the **Eligibility Check** list (F3) and **Missing skills** (F5) in the same panel style, then `ROLE OVERVIEW & RESPONSIBILITIES` (`--surface-lowest`, body-sm, bullets in `--muted`; rendered as plain text — never raw HTML).
+  - **Tailor Resume:** `AI RESUME ALIGNMENT` header; 3 bullet cards (`--surface-lowest`, mono-micro `TARGET: …` in `--accent`, italic body-sm, `Copy` button `--surface-2`); `ONE-CLICK OUTREACH COVER NOTE` → rendered as **cover note** with `Copy Draft` (copy only; no sending). Empty state shows the `Generate with AI` primary button; `Regenerate` after generation (F8).
+  - **Referrals:** `Find referrals` — three LinkedIn **search links** (people at company in the role/team, company employees, college alumni) as secondary link rows with `↗` (F9). Stitch's named-people cards and `12 alumni found` counts are not built (§9).
+- Sticky footer (`--surface-3`/90 + blur, padding 16): primary `Apply ↗` (label `Direct <ATS> Apply ↗` when the ATS is known) + secondary `Applied` (`task_alt`) → marks applied; below: `● Sync alert to Telegram` (resend this job's alert) left, parse-time caption right (optional).
+- URL-driven (`?job=<id>`), Esc closes, focus trapped on overlay variants, ←/→ previous/next job.
 
-**KPI row** (4 tiles): `42 New today` · `18 Fresh < 24h` (+ delta chip `+6%` success) · `27 Applied this week` · `5 Interviews`. Number left, label below, sparkline right.
+### 4.4 Watched Companies (`/watched`) **[no Stitch mock]**
+- Header: `Watched Companies` + `+ Add careers page URL` primary button → inline input row expands (Motion `layout`) with URL field + `Add`; while detecting: mono status steps `Fetching… → Detecting ATS… → Found greenhouse · 3 roles` with a spinner.
+- One `--surface` card of rows separated by 8px gaps (rows on `--surface-2`, like the Dashboard alerts rows): 32px logo tile, company (body-base 600) + ATS badge, count pill (`3 open roles` `--accent`+ink; `No openings` `--surface-3`+`--muted`), diff pill (`+2 new` / `No change`), `Last checked 2h ago` mono-micro, **Instant alerts** switch (F2), overflow menu (Open careers page, Remove). Row click expands the open roles (title, location, posted, `Apply ↗`).
+- States: `Waiting for next scan` muted pill; `Couldn't read this page` `--danger` text + retry.
 
-**Top matches for you** — header + `View all →` (to /jobs). 4 cards in a row: logo, ring top-right, company (H3), role, tags `Remote · Internship · Fresh · 3h`. Click → `/jobs?job=<id>` with drawer open.
+### 4.5 Tracker (`/tracker`) **[no Stitch mock]**
+- Header `Application Tracker` + `+ Add application` + fullscreen toggle.
+- Six columns: Saved · Applied · OA · Interview · Offer · Rejected. Column header name + mono-micro count right; min 220px, equal width, horizontal scroll if needed. Column bg `--surface`, `--r-lg`; cards `--surface-2`, `--r-md`.
+- Card: 24px logo tile + company (600) + role; mono-micro date `Applied Oct 10`; next-action chip (`Interview · Oct 15` `--accent-soft`; `Follow up · Oct 14` warning soft; `Offer · Oct 1` success soft). Click → edit popover (stage, dates, next action, notes, delete).
+- Drag & drop with @dnd-kit: dragged card scale 1.03, rotate 1.5°, static shadow `0 12px 30px rgb(0 0 0 / .35)` on the overlay; placeholder slot animates open; counts tick.
 
-**Bottom marquee**: full-width band, mono 11px `--muted`: `SCANNING: GOOGLE · MICROSOFT · AMAZON · NVIDIA · …` (companies from recent jobs). §6.2.
+### 4.6 Programs (`/programs`) **[no Stitch mock — row pattern follows the Dashboard "Upcoming Deadlines" card]**
+- Title `Programs & Opportunities`; segmented tabs All · GSoC · LFX · MLH · Hackathons · Off-campus (shared segmented-control style, sliding active bg via `layoutId`); `+ Add program` → small modal (name, category, url, deadline).
+- Rows on `--surface-2`, `--r-md`, padding 12: 8px status dot, name (600) + organizer muted, days-left chip (`--danger-container` urgent, else `--surface-3`), date mono-micro, 6px time-elapsed bar (colours per §1.3), bell button (`Set reminder` / `Reminder on` accent) — F10.
 
-### 4.3 Job Feed (`/jobs`) — ref: `3. JOB DETAIL DRAWER`, `JOB FEED`
-- Page title `Job Feed` + search.
-- Sticky filter bar: chips `Remote`, `India`, `Internship`, `Fresh < 24h`, `Eligible only` (default on), `Hide scam risk` (default on); sort `Best match / Newest`; view toggle `Cards | Table`. Filters live in URL search params.
-- **Card list** (single column, max 760px when drawer open; fills when closed): row card — logo 40px; company (600) + role; tag row (location, type); `MISSING: Kubernetes, Airflow` mono 11px `--muted` (omit if none); right side: Fresh badge (if fresh), match ring 44px, `Apply ↗` small primary button, bookmark icon (Save). Scam badge replaces Fresh badge when flagged. Posted time `12h ago` mono when not fresh.
-- **Table view**: Company · Role · Location · Posted · Match · Status · Actions. Sticky header, row hover `--elevated`.
-- Virtualize when > 60 items. Infinite scroll by 30.
-
-**Job detail drawer** (right, 520px, `--surface`, left border, `--r-xl` on left corners):
-- Header: logo 48px, company, role (H2), tags (location, type, `Posted 3h ago`), match ring 64px with `MATCH`. Close ✕.
-- Tabs: **Overview · Match · Company · Similar** (underline indicator slides via `layoutId`).
-- **Overview** (two-column inside drawer on ≥1280, stacked otherwise):
-  - Left: `Job Description` (clamped 6 lines, `Show more ↓`), `Eligibility Check` (✓ success / ✗ danger / ? muted icons + labels), `Match Breakdown` (Skills / Eligibility / Freshness bars with % mono).
-  - Right: **Tailor for this job** card (sparkle icon, one line description, primary `Generate with AI`; after generation shows checklist `✓ 3 tailored resume bullets · ✓ 1 cover note · ✓ Optimized for ATS` and expandable results with copy buttons + `Regenerate`). **Find referrals** card: 3 `--info` links with ↗ icons.
-- **Match**: missing skills chips (danger outline), matched skills chips, Gemini `reason`, full eligibility list, scam reasons if any.
-- **Company**: other active roles from this company in SCOUT, watched toggle (Watch / Watching).
-- **Similar**: 5 similar jobs (via `similar_jobs` RPC) as compact rows.
-- Sticky footer: `Apply ↗` (primary, opens apply_url in new tab and asks via toast "Mark as applied?" with action), `Save`, `Skip`.
-- URL-driven (`?job=<id>`), Esc closes, focus trapped, ←/→ moves to previous/next job.
-
-### 4.4 Watched Companies (`/watched`) — ref: `4. WATCHED COMPANIES`
-- Header: title + `+ Add careers page URL` button → inline input row expands (Motion height via layout) with URL field + `Add`. While detecting: field shows mono status steps `Fetching… → Detecting ATS… → Found greenhouse · 3 roles` with a small spinner; success row animates into the list.
-- List rows (one card, divided by hairlines): logo, company name + ATS badge under it, count pill, diff pill, `Last checked 2h ago` mono right, instant-alerts switch, overflow menu (Open careers page, Remove). Row click expands to show open roles (title, location, posted, Apply ↗).
-- Generic-pending state: `Waiting for next scan` muted pill. Error: `Couldn't read this page` danger text + retry.
-
-### 4.5 Tracker (`/tracker`) — ref: `5. TRACKER`
-- Title `Application Tracker`, `+ Add application` button, fullscreen toggle icon.
-- Six columns: Saved · Applied · OA · Interview · Offer · Rejected. Column header: name + mono count right. Columns 220px min, equal width, horizontal scroll if needed. Column bg `--surface`, cards `--elevated`.
-- Card: logo 24px + company (600) + role; date mono `Applied Oct 10`; optional next-action chip (`Interview · Oct 15` accent-soft; `Follow up · Oct 14` warning soft; `Offer · Oct 1` success soft). Click opens edit popover (stage, dates, next action, notes, delete).
-- Drag & drop with @dnd-kit: dragged card lifts (scale 1.03, rotate 1.5°, shadow `0 12px 30px rgb(0 0 0 / .35)` — shadow applied statically to the drag overlay, not animated), placeholder slot animates open, counts tick.
-
-### 4.6 Programs (`/programs`) — ref: `6. PROGRAMS`
-- Title `Programs & Opportunities`. Segmented tabs: All · GSoC · LFX · MLH · Hackathons · Off-campus (sliding active background via `layoutId`).
-- Rows: logo 32px, name (600) + organizer/description muted, progress bar (time elapsed opens→deadline), `50 days left` (semantic colour) + date mono under it, bell button (`Set reminder` / `Reminder on` accent).
-- `+ Add program` in header → small modal (name, category, url, deadline).
-
-### 4.7 Settings (`/settings/[section]`) — ref: `7. SETTINGS`
-Left sub-nav card: Profile · Resume · Preferences · Telegram · Scan Settings (same active style as sidebar).
-- **Profile**: display name, avatar upload (circular crop preview), college.
-- **Resume**: dropzone (dashed `--border-strong`, upload icon, "Click to upload or drag and drop", "PDF, DOC, DOCX (Max 5MB)"); on drop: progress → "Parsing with AI…" skeleton → parsed summary + **Parsed Skills** chips (removable ×, `+ Add skill`). Shows current file name + uploaded date.
-- **Preferences**: target roles (tag input), locations (tag input), remote toggle, job types (Internship / Full-time chips), graduation year, degree, max experience years (stepper), active backlogs (Yes/No/Prefer not), minimum match score (slider 40–90).
-- **Telegram**: status card — not linked: QR code + `Open in Telegram` button + 15-min countdown; linked: chat name, `Send test message`, `Unlink`.
-- **Scan Settings**: schedule display (`Every 3 hours · watched companies hourly`), last 10 runs table (time, kind, status, jobs, new), sources list with enabled state (read-only from env), primary `Scan now` (disabled while running).
+### 4.7 Settings (`/settings/[section]`) **[no Stitch mock]**
+Left sub-nav card (`--surface`): Profile · Resume · Preferences · Telegram · Scan Settings (active = `--surface-3` + `--text-strong`, same as sidebar). Content in `--surface` cards, inputs `--surface-lowest` 36px `--r-md`.
+- **Profile:** display name, avatar upload (circular crop preview), college.
+- **Resume:** dropzone (dashed `--outline-variant`, upload icon, "Click to upload or drag and drop", "PDF, DOC, DOCX (Max 5MB)"); progress → "Parsing with AI…" skeleton → parsed summary + **Parsed Skills** chips (removable ×, `+ Add skill`); shows file name + date.
+- **Preferences:** target roles, locations (tag inputs), remote toggle, job types (Internship / Full-time chips), graduation year, degree, max experience years, active backlogs (Yes / No / Prefer not), minimum match score (slider 40–90).
+- **Telegram:** not linked → QR + `Open in Telegram` + 15-min countdown; linked → chat name, `Send test message`, `Unlink`.
+- **Scan Settings:** schedule `Every 3 hours · watched companies hourly`, last 10 runs table, sources list (read-only from env), primary `Scan now` (disabled while running).
 
 ---
 
 ## 5. Motion system
 
-Library: `motion/react` via `LazyMotion features={domAnimation}` + `m.` components. Loops are pure CSS keyframes.
+Library: `motion/react` via `LazyMotion features={domAnimation}` + `m.` components. Loops are pure CSS keyframes. **Stitch's own animations are `spin 6s` (radar beam), `ping`/`pulse` (live dots, deadline dot), a marquee, and 150ms `transition-colors`/`translate-y-0.5`/`scale-95` on buttons** — all consistent with the rules below.
 
 ### 5.1 Tokens (`lib/motion.ts`)
 ```ts
@@ -237,65 +270,89 @@ export const stagger = (step = 0.04) => ({ show: { transition: { staggerChildren
 | Element | Motion |
 |---|---|
 | Page enter | content `fadeUp`, children stagger 40ms, **max 8 staggered**, rest appear with the 8th |
-| Route change | 150ms opacity crossfade of main area only (shell never re-animates) |
-| KPI numbers | count-up 0 → value over 900ms (`animate()` on a motion value, write text via ref, no re-render per frame), once per mount |
+| Route change | 150ms opacity crossfade of the main area only (shell never re-animates) |
+| KPI numerals | count-up 0 → value over 900ms (`animate()` on a motion value, write text via ref, no re-render per frame), once per mount |
 | Match rings | `strokeDashoffset` full → value, 900ms ease.out, delay = stagger index × 40ms |
-| Progress bars / breakdown bars | `scaleX` 0 → value (transform-origin left), 600ms |
-| Sparklines | bars `scaleY` 0 → 1 staggered 20ms |
-| Cards hover | translateY(-2px) + border colour, 120ms |
-| Buttons | hover translateY(-1px); press scale .98; icon nudge 2px |
-| Nav / tabs indicator | shared `layoutId`, `spring.snappy` |
-| Drawer | x 100% → 0 with `spring.drawer`; overlay opacity 0 → .4 (mobile/tablet only); content inside fades up after 80ms |
+| Progress / breakdown bars | `scaleX` 0 → value (origin left), 600ms |
+| Cards hover | background colour step (`--surface` → `--surface-2`) 120ms — colour swap on hover only, no layout properties |
+| Buttons | hover translateY(-2px) (primary, login) / bg step; press `scale .95–.98`; icon nudge 2px |
+| Nav active bg / segmented tabs | shared `layoutId`, `spring.snappy` |
+| Inspector drawer | inline at ≥1280 (content swaps with a 120ms opacity crossfade on job change); overlay variants: x 100% → 0 with `spring.drawer`, overlay opacity 0 → .4; content fades up after 80ms |
 | Filters change | list items use `layout` + `AnimatePresence` (popLayout) — exit fade 120ms, enter fadeUp |
-| Watched add row | height auto via `layout`, new row fades up + accent flash on border (opacity of an overlay, 600ms) |
+| Watched add row | height via `layout`, new row fades up + accent flash (overlay opacity, 600ms) |
 | Kanban | dnd-kit overlay; drop settles with `spring.snappy`; column count ticks with 150ms number fade |
-| Theme toggle | icon rotate 90° + crossfade 200ms; theme colours swap instantly (no animated colour transitions on the whole page) |
-| Toasts | sonner defaults |
-| Login cards | selection: rotate → 0, scale 1.03, border colour — `spring.snappy`; password error shake 300ms |
-| Live dots | CSS `pulse` (opacity .4↔1, scale .9↔1.1) 1.6s infinite |
-| Scanning dots `…` | CSS staggered opacity 1.2s infinite |
+| Theme toggle | active icon crossfade 200ms; colours swap instantly (no animated page-wide colour transitions) |
+| Login tiles | selection: bg step + bottom bar; password error shake 300ms |
+| Live dots | CSS `pulse` (opacity .4↔1, scale .9↔1.1) 1.6s infinite; `ping` for the radar-card / stream dots |
+| Scanning dots | CSS staggered opacity 1.2s infinite |
 | Skeleton shimmer | CSS translateX gradient 1.4s infinite |
 
 ### 5.3 Signature elements
-**6.1 Radar** (`components/radar/radar.tsx`) — SVG 280×280:
-- 4 concentric circles (`--border`), crosshair lines, outer tick marks every 15° (`--subtle`).
-- Beam: a `div` with `conic-gradient(from 0deg, transparent 0deg, color-mix(in srgb, var(--accent-line) 35%, transparent) 50deg, transparent 60deg)`, masked to a circle, `animation: spin 6s linear infinite` (transform rotate). GPU layer via `will-change: transform` on this element only.
-- Blips: up to 24 recent matches. Polar position: radius = `(100 − score)/100 × R` (best matches near center), angle = hash(job_id) → 0–360°. Size 4px (`--muted`), fresh = 6px `--accent-line` with CSS pulse ring. Blips fade in staggered on mount. Hover → tooltip (company · role · score); click → open drawer.
-- Center: small accent dot.
-- Paused (`animation-play-state: paused`) when off-screen (IntersectionObserver) or tab hidden; static under reduced motion.
+**Radar scope** (`components/radar/radar.tsx`) — 340px circle on `--surface-lowest`, `overflow: hidden`:
+- Concentric discs 280 / 200 / 120 / 40px with tonal fills (`--surface`/40, `--surface-2`/30, `--surface-3`/40, `--accent`/20), crosshair axis lines 1px `--outline-variant`/40, edge readouts `000° N`, `090° E`, `180° S`, `270° W` (9px mono, `--muted`), faint radial vignette at 10% opacity.
+- **Beam:** a full-size element rotating `spin 6s linear infinite` containing a quarter-sector gradient (`--accent`/25 → /5 → transparent) and a 1px leading line in `--accent` with a static 8px glow. `will-change: transform` on this element only.
+- **Blips:** up to 24 recent matches. Polar position: radius = `(100 − score)/100 × R`, angle = hash(job_id). Size/colour by age: < 4h → 10px `--accent` + glow (pulse), ~12h → 8px `--info`, older → 6px `--secondary`. Hover tooltip `COMPANY · 96%` (`--surface-4`, mono 9px); click opens the inspector.
+- Centre: 32px circular `--surface-4` badge with a `radar` icon in `--accent`.
+- Paused (`animation-play-state: paused`) when off-screen (IntersectionObserver) or `document.hidden`; static under reduced motion.
 
-**6.2 Marquee** — two copies of the content in a flex track; CSS `@keyframes marquee { to { transform: translateX(-50%) } }` 40s linear infinite; edges faded with `mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)`; pause on hover; paused off-screen; static under reduced motion.
-
-**6.3 Login wordmark radar-O** — accent arc rotates 12s linear infinite (CSS).
+**Marquees** (status strip, login sources) — two copies in a flex track, `@keyframes marquee { to { transform: translateX(-50%) } }` 40s linear infinite (login uses the same), edge-faded mask, pause on hover and off-screen, static under reduced motion.
 
 ---
 
 ## 6. Performance rules (non-negotiable)
 
-1. Animate **only `transform` and `opacity`** (and SVG `strokeDashoffset` for rings). Never animate width/height/top/left/box-shadow/filter/background-color. Height changes use Motion `layout` (which uses transforms).
-2. `backdrop-filter` only on the topbar (static, never animated).
-3. `will-change` only on the radar beam and on elements during an active drag.
-4. Continuous loops are CSS, not JS, and pause when off-screen or `document.hidden`.
-5. Count-ups write to DOM via refs/motion values — no React state per frame.
-6. Use `LazyMotion` + `m` components; never import the full `motion` bundle in client components.
-7. Virtualize long lists (>60). `content-visibility: auto` on below-the-fold sections.
-8. Fonts via `next/font`; images via `next/image` with explicit sizes; logos lazy.
-9. Server Components by default; client components only for interactivity. Keep client JS for any page < 150KB gz.
-10. `prefers-reduced-motion: reduce` → disable loops, stagger, count-ups (show final values), ring/bars render at final value; keep 120ms opacity fades only.
-11. Targets: Lighthouse Performance ≥ 90 (desktop), CLS < 0.05, INP < 200ms, steady 60fps on dashboard scroll (verify in DevTools Performance with 4× CPU throttle: no long tasks > 50ms during idle animation).
+1. Animate **only `transform` and `opacity`** (and SVG `strokeDashoffset` for rings). Never animate width/height/top/left/box-shadow/filter. Height changes use Motion `layout`.
+2. `backdrop-filter` only on the topbar, filter hub and drawer footer (static, never animated).
+3. `will-change` only on the radar beam and elements during an active drag.
+4. Continuous loops are CSS and pause when off-screen or `document.hidden`.
+5. Count-ups write to the DOM via refs/motion values — no React state per frame.
+6. `LazyMotion` + `m` components; never import the full `motion` bundle in client components.
+7. Virtualize long lists (> 60). `content-visibility: auto` on below-the-fold sections.
+8. Fonts via `next/font`; images via `next/image` with explicit sizes; logos lazy. **No Material Symbols CDN stylesheet** — self-host a subsetted icon font or inline SVGs.
+9. Server Components by default; client JS per page < 150KB gz.
+10. `prefers-reduced-motion: reduce` → disable loops, stagger and count-ups (show final values), rings/bars at final value; keep 120ms opacity fades only.
+11. Targets: Lighthouse Performance ≥ 90 (desktop), CLS < 0.05, INP < 200ms, steady 60fps on dashboard scroll (4× CPU throttle, no long tasks > 50ms while idle).
 
 ---
 
 ## 7. Accessibility
-- WCAG AA contrast in both themes (accent text on surfaces uses `--accent-fg`, never raw lime on white).
+- WCAG AA in both themes (accent text on light surfaces uses `--accent-fg`; `--accent-ink` on `--accent` fills).
 - All interactive elements keyboard reachable; visible focus ring (§1.5).
-- Drawer and modals: focus trap, Esc to close, return focus on close, `aria-modal`.
-- Rings/bars have `aria-label` ("87 percent match"). Icons-only buttons have labels.
+- Drawer overlays and modals: focus trap, Esc to close, return focus, `aria-modal`. Inline inspector: labelled region, Esc clears selection.
+- Rings/bars have `aria-label` ("96 percent match"). Icon-only buttons have labels.
 - Kanban: dnd-kit keyboard sensor enabled.
-- Don't rely on colour alone: scam badge has text; scores show numbers.
+- Colour is never the only signal: scam badge has text, scores show numbers, missing-skill warning has an icon.
 
 ## 8. Copy & content rules
-- Sentence case for UI text, UPPERCASE only for mono labels.
-- Relative times: `3h ago`, `2d ago`; dates `Oct 15` (IST).
-- Numbers: `124 new`, `87%`. No exclamation marks, no emojis in the web UI.
-- Empty states are one line, specific: "No fresh matches yet. Next scan in 58m."
+- Sentence/Title case for UI text as in the mocks (`Top Matches`, `Inspect Fit`, `Launch Radar`); UPPERCASE only for mono labels/badges.
+- Relative times: `3h ago`, `2d ago`, `POSTED 2H AGO` in mono; dates `Oct 15` (IST); countdowns `HH:MM:SS`.
+- Numbers: `124 new`, `96%`; KPI numerals zero-padded to 2 digits (`09`).
+- No exclamation marks, no emojis. Empty states are one specific line: "No fresh matches yet. Next scan in 58m."
+- Demo data in the mocks (Aarav/Neha, Razorpay, ₹ ranges, `@ScoutRadarBot`, `v2.4`) is placeholder — real names, companies, versions and bot usernames come from data/env.
+
+---
+
+## 9. Stitch elements deliberately **not built** (outside `PRD.md` or contradicting it)
+| Stitch element | Where | Why / replacement |
+|---|---|---|
+| `Radar Weights` button | Job Feed strip | Not in PRD (feature freeze) |
+| `AUTO-REFRESH ON (30s)` | Job Feed strip | Not in PRD |
+| `Mute Employer Forever`, `Reported by 14 campus peers` | scam card | Not in PRD / no peer data; scam card shows reasons only (F4) |
+| Named referral people, `Connect`, `12 alumni found` | Referrals tab | F9 is search links only; no scraping or outreach (CLAUDE.md) |
+| `One-Click Outreach` wording; addressing a named person | Tailor tab | F8 gives a short cover note with Copy only |
+| `Fast Apply` label | Dashboard cards | No auto-apply (CLAUDE.md) — label is `Apply ↗` |
+| `GOAL: 10/WK`, `70% target` | KPI 3 | Weekly goals not in PRD |
+| `2 Drafts ready`, `Verified Eligible`, `Prerequisites verified` | Deadlines | Not in PRD |
+| `LATENCY: 142MS` | status marquee | Not tracked |
+| `Encrypted AES-256`, `Multi-tenant Instance` | Login | Inaccurate for a two-profile app; omitted |
+| Table/Cards view toggle (previous spec) and Match/Company/Similar drawer tabs | — | Not in Stitch; removed. Missing skills live in Overview |
+| `Dual Node` split-pane radar workbench, user A/B tab bar (designMd) | — | Not in the screens; profile switching is the sidebar switcher (C6) |
+
+## 10. Stitch-internal conflicts and open points
+1. **Accent:** `design-system.md` text says `#D4FF3F`; every screen uses `#c8f232` / `#add500`. Screens win → `--accent #c8f232`.
+2. **Surface palette:** `design-system.md` text lists `#0A0A0B / #121214 / #1A1A1D` + hairline `#26262A`; screens use the Material surface set (`#131315 … #353437`) and no borders. Screens win.
+3. **Radius:** text says cards 10px / controls 8px / chips 4px; the Tailwind config (what renders) gives 8px / 4px / 2px, and `rounded-full` = 12px. Rendered values adopted; true circles used for avatars/dots/radar (the PNG shows the radar as a rounded square — assumed unintended).
+4. **Icons:** Stitch uses Material Symbols Outlined; `CLAUDE.md` says lucide-react. Spec follows Stitch (self-hosted subset). Decide whether to update `CLAUDE.md`.
+5. **Page margin:** token `margin-desktop 40px` exists but the mocks render 24px.
+6. **Light mode, Watched, Tracker, Programs, Settings** have no mock — generate them in Stitch before building those screens if exact fidelity is wanted.
+7. **Score colours below 75%, warning/success colours** are not shown in any mock; values kept from the previous spec.

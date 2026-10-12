@@ -5,7 +5,7 @@ SCOUT is a personal AI job & internship radar for **two profiles** sharing one p
 ## Read before working
 1. `PRD.md` — scope. **Feature freeze: build only what is listed there** (core capabilities + the 10 features). If something seems missing, ask; don't add it.
 2. `ARCHITECTURE.md` — stack, schema, pipeline, APIs, env.
-3. `DESIGN.md` + `docs/design/*.png` — the UI is final. **Open the relevant screenshot before building or changing any screen** and match it in dark and light mode.
+3. `DESIGN.md` + `docs/design/<NN-screen-theme>/screen.png` — the UI is final. **Open the relevant screenshot before building or changing any screen** and match it in dark and light mode.
 4. `TASKS.md` — work the current phase only, in order. Tick boxes and commit when a phase's acceptance criteria pass.
 
 ## Repo map

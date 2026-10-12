@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-low": "#1b1b1d", "on-secondary": "#303033", "tertiary-container": "#d9e2ff", "on-error": "#690005", "on-secondary-container": "#b6b4b8", "inverse-on-surface": "#303032", "secondary": "#c8c6ca", "surface-container-highest": "#353437", "tertiary-fixed-dim": "#b0c6ff", "tertiary-fixed": "#d9e2ff", "on-surface": "#e5e1e4", "surface-tint": "#add500", "secondary-container": "#47464a", "surface-variant": "#353437", "on-tertiary-container": "#3561b9", "inverse-primary": "#516600", "error": "#ffb4ab", "on-tertiary-fixed-variant": "#06429a", "primary-fixed": "#c8f232", "error-container": "#93000a", "primary-fixed-dim": "#add500", "inverse-surface": "#e5e1e4", "on-primary-fixed": "#171e00", "on-tertiary": "#002d6f", "on-primary": "#293500", "surface-container-high": "#2a2a2c", "on-secondary-fixed": "#1b1b1e", "on-error-container": "#ffdad6", "on-secondary-fixed-variant": "#47464a", "background": "#131315", "surface-bright": "#39393b", "outline": "#8f937a", "surface": "#131315", "on-surface-variant": "#c5c9ae", "secondary-fixed": "#e4e1e5", "tertiary": "#ffffff", "surface-container-lowest": "#0e0e10", "primary-container": "#c8f232", "on-background": "#e5e1e4", "secondary-fixed-dim": "#c8c6ca", "surface-container": "#201f21", "primary": "#ffffff", "surface-dim": "#131315", "on-primary-fixed-variant": "#3d4d00", "on-tertiary-fixed": "#001945", "on-primary-container": "#576c00", "outline-variant": "#444934" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.5rem", "margin-tablet": "1.5rem", "space-lg": "1.5rem", "gutter-desktop": "1.5rem", "margin": "1rem", "space-xl": "2rem", "margin-desktop": "2.5rem", "space-xs": "0.25rem", "gutter": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-md": ["Inter"], "display-hero-mobile": ["Inter"], "headline-lg-mobile": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Inter"], "display-hero": ["Inter"], "mono-label": ["JetBrains Mono"], "headline-sm": ["Inter"], "mono-metric": ["JetBrains Mono"], "body-base": ["Inter"], "mono-micro": ["JetBrains Mono"], "body-lg": ["Inter"] }, "fontSize": { "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-hero-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-hero": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "mono-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "500" }], "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "mono-metric": ["14px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-base": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "mono-micro": ["10px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "500" }], "body-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }] } } } };</script></head><body class="bg-background font-body-base text-body-base text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><aside class="fixed left-0 top-0 h-screen w-[248px] bg-surface-container-lowest z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VrYhBi5JjGipqW1naVRBMeXQG5uzx4VCz6S-csOS5fMoH-BKT2ILIVD-ylNw8rYxe8VNL_UaYqOUbx35pp4VSxqchC3BzAKjFTd4vRRy2Gmb6ju5fbIIXONqzXn9w5ekCcKD9EtGiSoMm80gDNGCQs_x6yr_GrFaB08x_rFJQ1MZVN90iw9R579PzbWoikvtja7-XS1uMZhLsldMQPWVd-NFQnRG2KszMJwT3du0QF7gO0PJA_T2j9E74"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary">SCOUT</span><span class="font-mono-micro text-mono-micro text-surface-tint tracking-widest">AI RADAR v2.4</span></div></div><div class="px-space-md py-space-sm flex flex-col gap-space-md"><div class="flex flex-col gap-space-xs"><span class="px-space-sm font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">DISCOVER</span><nav class="flex flex-col gap-0.5" data-active-classes="bg-surface-container-high text-primary font-body-base text-body-base"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">radar</span>Dashboard</a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg transition-colors bg-surface-container-high text-primary font-body-base text-body-base" data-path="job-feed" href="#"><span class="material-symbols-outlined text-[18px]">dynamic_feed</span>Job Feed</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="programs" href="#"><span class="material-symbols-outlined text-[18px]">school</span>Programs</a></nav></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">PIPELINE</span><nav class="flex flex-col gap-0.5" data-active-classes="bg-surface-container-high text-primary font-body-base text-body-base"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="watched-companies" href="#"><span class="material-symbols-outlined text-[18px]">domain</span>Watched Companies</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tracker" href="#"><span class="material-symbols-outlined text-[18px]">view_kanban</span>Tracker</a></nav></div></div></div><div class="flex flex-col p-space-md gap-space-sm"><nav class="flex flex-col" data-active-classes="bg-surface-container-high text-primary"><a class="flex items-center justify-between px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">tune</span>Settings</span><div class="flex items-center gap-1 bg-surface-container px-1.5 py-0.5 rounded"><span class="material-symbols-outlined text-[13px] text-surface-tint">dark_mode</span><span class="material-symbols-outlined text-[13px] text-on-surface-variant">light_mode</span></div></a></nav><div class="flex flex-col gap-1 p-1 bg-surface-container-low rounded-xl"><div class="flex items-center justify-between px-2 py-1.5 rounded-lg bg-surface-container-high text-on-surface"><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-mono-micro text-mono-micro font-bold">A</div><span class="font-body-sm text-body-sm text-on-surface">Aarav (2025)</span></div><span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span></div><div class="flex items-center justify-between px-2 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors cursor-pointer"><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center font-mono-micro text-mono-micro font-bold">N</div><span class="font-body-sm text-body-sm text-on-surface-variant">Neha (2026)</span></div></div></div><div class="flex items-center justify-between px-space-sm py-1 font-mono-micro text-mono-micro text-on-surface-variant"><div class="flex items-center gap-1.5"><div class="w-3 h-3 rounded-full flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-surface-tint"></div></div><span>NEXT SCAN</span></div><span class="text-primary font-mono-micro text-mono-micro">01:42:10</span></div></div></aside><div class="pl-[248px]"><header class="fixed top-0 left-[248px] right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><span class="font-mono-micro text-mono-micro text-on-surface-variant tracking-wider uppercase">SCOUT RADAR</span><span class="text-on-surface-variant font-mono-micro text-mono-micro">/</span><span class="font-mono-label text-mono-label text-primary">INTELLIGENCE CORE</span></div><div class="w-[380px] flex items-center gap-space-sm px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">search</span><span class="font-body-sm text-body-sm flex-1 text-on-surface-variant select-none">Quick search jobs, companies, tags...</span><kbd class="font-mono-micro text-mono-micro px-1 py-0.5 rounded bg-surface-container-high text-on-surface">⌘K</kbd></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-surface-tint animate-pulse"></span><span class="font-mono-micro text-mono-micro text-on-surface">Scanning 14 sources</span></div><div class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container-low"><span class="material-symbols-outlined text-[14px] text-surface-tint">send</span><span class="font-mono-micro text-mono-micro text-on-surface">Telegram Active</span></div><div class="relative flex items-center justify-center p-1 rounded-lg hover:bg-surface-container transition-colors cursor-pointer"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">notifications</span><span class="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-surface-tint text-on-primary-fixed flex items-center justify-center font-mono-micro text-[9px] font-bold">3</span></div><div class="relative"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VrYhBi5JjGipqW1naVRBMeXQG5uzx4VCz6S-csOS5fMoH-BKT2ILIVD-ylNw8rYxe8VNL_UaYqOUbx35pp4VSxqchC3BzAKjFTd4vRRy2Gmb6ju5fbIIXONqzXn9w5ekCcKD9EtGiSoMm80gDNGCQs_x6yr_GrFaB08x_rFJQ1MZVN90iw9R579PzbWoikvtja7-XS1uMZhLsldMQPWVd-NFQnRG2KszMJwT3du0QF7gO0PJA_T2j9E74"/><span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-surface-tint ring-2 ring-surface-container-lowest"></span></div></div></header><main class="relative pt-16 bg-background min-h-screen w-full px-space-lg"><div class="flex flex-col w-full pb-12">
+<!-- Top Command Telemetry Strip -->
+<div class="flex flex-wrap items-center justify-between gap-space-md py-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded-lg bg-surface-container-high">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-mono-micro text-mono-micro uppercase text-on-surface tracking-wider">Stream: Live</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">·</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Batch Target: <strong class="text-primary font-mono-micro text-mono-micro">2026 (Neha Profile)</strong></span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">·</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Sources Scraped: <span class="text-primary font-mono-micro text-mono-micro">14/14 OK</span></span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-low font-mono-micro text-mono-micro text-on-surface-variant">
+<span>AUTO-REFRESH</span>
+<span class="text-primary-container font-semibold font-mono-micro text-mono-micro">ON (30s)</span>
+</div>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high font-mono-micro text-mono-micro transition-colors">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+        Radar Weights
+      </button>
+</div>
+</div>
+<!-- Primary Workspace: Split Layout (Main Stream + Right 520px Detail Drawer) -->
+<div class="flex items-start gap-space-lg w-full relative">
+<!-- LEFT / CENTER COLUMN: Filter Hub + Job Cards Feed -->
+<div class="flex-1 min-w-0 flex flex-col gap-space-md">
+<!-- Sticky Filter Bar Hub -->
+<div class="sticky top-16 z-30 flex flex-col gap-space-sm p-space-md rounded-xl bg-surface-container-low/95 backdrop-blur-md shadow-md">
+<!-- Top Row: Segmented pill controls & Search -->
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center p-0.5 rounded-lg bg-surface-container-lowest">
+<button class="px-space-md py-1 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-headline-sm flex items-center gap-1.5 transition-all">
+<span>All</span>
+<span class="font-mono-micro text-mono-micro px-1.5 py-0.2 rounded-full bg-black/20 text-on-primary-container">142</span>
+</button>
+<button class="px-space-md py-1 rounded-lg text-on-surface-variant hover:text-on-surface font-body-base text-body-base flex items-center gap-1.5 transition-colors">
+<span>Internship</span>
+<span class="font-mono-micro text-mono-micro px-1 py-0.2 rounded-full bg-surface-container text-on-surface-variant">48</span>
+</button>
+<button class="px-space-md py-1 rounded-lg text-on-surface-variant hover:text-on-surface font-body-base text-body-base flex items-center gap-1.5 transition-colors">
+<span>Full-time</span>
+<span class="font-mono-micro text-mono-micro px-1 py-0.2 rounded-full bg-surface-container text-on-surface-variant">94</span>
+</button>
+</div>
+<div class="flex items-center gap-space-sm flex-1 max-w-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[16px] text-on-surface-variant">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:bg-surface-container" placeholder="Filter company, keywords, stack..." type="text"/>
+</div>
+<!-- Sort Dropdown Trigger -->
+<div class="relative flex items-center bg-surface-container-lowest rounded-lg px-space-sm py-1.5 text-on-surface cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-1">sort</span>
+<span class="font-mono-micro text-mono-micro truncate max-w-[130px]">Match (High → Low)</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant ml-1">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Filter Chips with Active Signal States -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded-lg bg-surface-container-high text-primary font-mono-micro text-mono-micro transition-colors hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[14px] text-primary-container">check_circle</span>
+            Remote Only
+          </button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded-lg bg-surface-container-high text-primary font-mono-micro text-mono-micro transition-colors hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[14px] text-primary-container">check_circle</span>
+            India Hubs
+          </button>
+<button class="flex items-center gap-1.5 px-space-sm py-1 rounded-lg bg-surface-container-high text-primary font-mono-micro text-mono-micro transition-colors hover:bg-surface-bright">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-sm"></span>
+            Fresh &lt; 24h
+          </button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded-lg bg-surface-container-high text-primary font-mono-micro text-mono-micro transition-colors hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[14px] text-primary-container">check_circle</span>
+            Eligible Only (Batch 2026)
+          </button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded-lg bg-surface-container-high text-primary font-mono-micro text-mono-micro transition-colors hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[14px] text-primary-container">shield</span>
+            Hide Scam Risk
+          </button>
+<button class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-mono-micro text-mono-micro transition-colors ml-auto">
+<span class="material-symbols-outlined text-[13px]">refresh</span>
+            Reset
+          </button>
+</div>
+</div>
+<!-- Feed Listing Counter Meta -->
+<div class="flex items-center justify-between px-space-sm pt-space-xs">
+<span class="font-mono-micro text-mono-micro uppercase text-on-surface-variant tracking-wider">Displaying 4 Priority Telemetry Dispatches</span>
+<span class="font-mono-micro text-mono-micro text-primary-container">1 Active In Right Inspector</span>
+</div>
+<!-- Job Cards Stream -->
+<div class="flex flex-col gap-space-md">
+<!-- CARD 1 (SELECTED / ACTIVE: RAZORPAY) -->
+<article class="relative flex flex-col p-space-md rounded-xl bg-surface-container-low transition-all shadow-md group cursor-pointer ring-1 ring-primary-container/40">
+<!-- Active Left Accent Indicator Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl bg-primary-container"></div>
+<div class="flex items-start justify-between gap-space-md pl-space-xs">
+<!-- Left Info Block -->
+<div class="flex items-start gap-space-md flex-1 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary font-headline-sm text-headline-sm flex-shrink-0 shadow-sm">
+                RZ
+              </div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<span class="font-mono-label text-mono-label text-primary font-semibold">RAZORPAY</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">·</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Bangalore (Hybrid)</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-container/15 text-primary-fixed-dim font-mono-micro text-mono-micro font-semibold uppercase">FRESH · 2H</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro uppercase">Greenhouse ATS</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary tracking-tight truncate">
+                  Frontend Engineer (Design Systems)
+                </h3>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-space-md mt-2">
+<div class="flex items-center gap-1 text-primary-fixed-dim font-mono-micro text-mono-micro">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+                    Open to 2026 Batch Graduates
+                  </div>
+<div class="flex items-center gap-1 text-on-surface-variant font-mono-micro text-mono-micro">
+<span class="material-symbols-outlined text-[15px] text-primary-container">check</span>
+                    MISSING: None
+                  </div>
+<div class="text-on-surface-variant font-mono-micro text-mono-micro">
+                    ₹18L - ₹24L CTC EST.
+                  </div>
+</div>
+</div>
+</div>
+<!-- Right Circular Match Telemetry Ring -->
+<div class="flex flex-col items-center flex-shrink-0">
+<div class="relative w-14 h-14 flex items-center justify-center">
+<svg class="w-14 h-14 transform -rotate-90" viewbox="0 0 48 48">
+<circle class="text-surface-container-highest fill-none" cx="24" cy="24" r="20" stroke="currentColor" stroke-width="3.5"></circle>
+<circle class="text-primary-container fill-none" cx="24" cy="24" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="5.02" stroke-linecap="round" stroke-width="3.5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-sm text-headline-sm text-primary leading-none">96%</span>
+</div>
+</div>
+<span class="font-mono-micro text-mono-micro text-primary-container mt-1 uppercase font-semibold">BEST FIT</span>
+</div>
+</div>
+<!-- Quick Action Bar -->
+<div class="flex items-center justify-between mt-space-md pt-space-sm pl-space-xs bg-surface-container/50 -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">React</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">TypeScript</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Tailwind</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Blade DS</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">bookmark_border</span>
+                Save
+              </button>
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">close</span>
+                Skip
+              </button>
+<button class="px-space-md py-1 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-headline-sm flex items-center gap-1 transition-transform active:scale-95 shadow-sm">
+                Apply
+                <span class="material-symbols-outlined text-[15px]">north_east</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 2: CRED -->
+<article class="relative flex flex-col p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group cursor-pointer shadow-sm">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md flex-1 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary font-headline-sm text-headline-sm flex-shrink-0">
+                CR
+              </div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<span class="font-mono-label text-mono-label text-primary font-semibold">CRED</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">·</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Bangalore (Onsite)</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-container/15 text-primary-fixed-dim font-mono-micro text-mono-micro font-semibold uppercase">FRESH · 4H</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro uppercase">Lever ATS</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary tracking-tight truncate">
+                  Product Engineer - Growth
+                </h3>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-space-md mt-2">
+<div class="flex items-center gap-1 text-primary-fixed-dim font-mono-micro text-mono-micro">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+                    Open to 2026 Batch Graduates
+                  </div>
+<div class="flex items-center gap-1 text-error font-mono-micro text-mono-micro">
+<span class="material-symbols-outlined text-[15px]">warning</span>
+                    MISSING: GraphQL
+                  </div>
+<div class="text-on-surface-variant font-mono-micro text-mono-micro">
+                    ₹22L - ₹28L CTC EST.
+                  </div>
+</div>
+</div>
+</div>
+<!-- Right Circular Match Telemetry Ring 91% -->
+<div class="flex flex-col items-center flex-shrink-0">
+<div class="relative w-14 h-14 flex items-center justify-center">
+<svg class="w-14 h-14 transform -rotate-90" viewbox="0 0 48 48">
+<circle class="text-surface-container-highest fill-none" cx="24" cy="24" r="20" stroke="currentColor" stroke-width="3.5"></circle>
+<circle class="text-primary-container fill-none" cx="24" cy="24" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="11.3" stroke-linecap="round" stroke-width="3.5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-sm text-headline-sm text-primary leading-none">91%</span>
+</div>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant mt-1 uppercase">HIGH FIT</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-sm bg-surface-container/30 -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Next.js</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">React</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Node.js</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm">
+                Save
+              </button>
+<button class="px-space-md py-1 rounded-lg bg-surface-container-highest hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm flex items-center gap-1">
+                Inspect
+                <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 3: FLAGGED SCAM / DEPOSIT RISK -->
+<article class="relative flex flex-col p-space-md rounded-xl bg-surface-container-low transition-all group shadow-sm bg-gradient-to-r from-error-container/20 via-surface-container-low to-surface-container-low">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md flex-1 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-error-container/40 text-error flex items-center justify-center font-headline-sm text-headline-sm flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">gpp_bad</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<span class="font-mono-label text-mono-label text-error font-semibold">GLOBALTECH SOLUTIONS</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">·</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Off-Campus Portal Scrape</span>
+<span class="px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-mono-micro text-mono-micro font-bold uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+                    SCAM / PLACEMENT FEE RISK
+                  </span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface line-through opacity-75 truncate">
+                  Junior Developer &amp; QA Trainee
+                </h3>
+<div class="mt-2 p-space-sm rounded-lg bg-surface-container-lowest text-error font-mono-micro text-mono-micro flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error flex-shrink-0">report</span>
+<span>AI Telemetry Alert: Requires ₹2,500 "Mandatory training kit deposit" prior to interview allocation. High blacklist correlation.</span>
+</div>
+</div>
+</div>
+<!-- Danger Match Suppression -->
+<div class="flex flex-col items-center flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-error-container/30 flex flex-col items-center justify-center text-center">
+<span class="font-headline-sm text-headline-sm text-error leading-none">0%</span>
+<span class="font-mono-micro text-[9px] text-error uppercase">BLOCKED</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-sm bg-surface-container/30 -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Reported by 14 campus peers</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded-lg bg-error-container/40 text-error hover:bg-error-container/60 font-body-sm text-body-sm transition-colors">
+                Mute Employer Forever
+              </button>
+</div>
+</div>
+</article>
+<!-- CARD 4: POSTMAN INTERNSHIP -->
+<article class="relative flex flex-col p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group cursor-pointer shadow-sm">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md flex-1 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary font-headline-sm text-headline-sm flex-shrink-0">
+                PM
+              </div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<span class="font-mono-label text-mono-label text-primary font-semibold">POSTMAN</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">·</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Bangalore / Hybrid Remote</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-container/15 text-primary-fixed-dim font-mono-micro text-mono-micro font-semibold uppercase">FRESH · 6H</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro uppercase">Ashby ATS</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary tracking-tight truncate">
+                  Software Engineer Intern (Platform)
+                </h3>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-space-md mt-2">
+<div class="flex items-center gap-1 text-primary-fixed-dim font-mono-micro text-mono-micro">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+                    Targeting 2026 Batch Summer '25
+                  </div>
+<div class="flex items-center gap-1 text-on-surface-variant font-mono-micro text-mono-micro">
+<span class="material-symbols-outlined text-[15px] text-primary-container">check</span>
+                    MISSING: Docker internals
+                  </div>
+<div class="text-on-surface-variant font-mono-micro text-mono-micro">
+                    ₹60k - ₹75k / month stipend
+                  </div>
+</div>
+</div>
+</div>
+<!-- Right Circular Match Telemetry Ring 88% -->
+<div class="flex flex-col items-center flex-shrink-0">
+<div class="relative w-14 h-14 flex items-center justify-center">
+<svg class="w-14 h-14 transform -rotate-90" viewbox="0 0 48 48">
+<circle class="text-surface-container-highest fill-none" cx="24" cy="24" r="20" stroke="currentColor" stroke-width="3.5"></circle>
+<circle class="text-tertiary-fixed-dim fill-none" cx="24" cy="24" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="15.07" stroke-linecap="round" stroke-width="3.5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-sm text-headline-sm text-primary leading-none">88%</span>
+</div>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant mt-1 uppercase">GOOD FIT</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-sm bg-surface-container/30 -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Node.js</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">APIs</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Electron</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm">
+                Save
+              </button>
+<button class="px-space-md py-1 rounded-lg bg-surface-container-highest hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm flex items-center gap-1">
+                Inspect
+                <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- RIGHT DETAIL DRAWER: 520px Fixed / Slide-In Spring Aesthetic -->
+<aside class="w-[520px] flex-shrink-0 sticky top-16 h-[calc(100vh-5rem)] flex flex-col rounded-xl bg-surface-container-low shadow-2xl overflow-hidden">
+<!-- Drawer Header Bar -->
+<div class="p-space-lg bg-surface-container/80 flex flex-col gap-space-md flex-shrink-0">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container font-headline-md text-headline-md flex items-center justify-center font-bold shadow-md">
+              RZ
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">RAZORPAY INDIA</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-mono-micro text-mono-micro text-primary-fixed-dim">FOUND 2H AGO</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Frontend Engineer</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Design Systems &amp; Core UI Team</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Share">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Minimize">
+<span class="material-symbols-outlined text-[18px]">dock_to_right</span>
+</button>
+</div>
+</div>
+<!-- Metric High-Density Pill -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-lowest">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-9 h-9 flex items-center justify-center flex-shrink-0">
+<svg class="w-9 h-9 transform -rotate-90" viewbox="0 0 40 40">
+<circle class="text-surface-container-highest fill-none" cx="20" cy="20" r="16" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-primary-container fill-none" cx="20" cy="20" r="16" stroke="currentColor" stroke-dasharray="100.5" stroke-dashoffset="4.02" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute font-mono-micro text-mono-micro text-primary font-bold">96%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono-micro text-mono-micro text-primary-container font-semibold">PRIME MATCH CONFIRMED</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Profile aligned with Neha (2026 CS)</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro">Bangalore, IN</span>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex items-center p-0.5 rounded-lg bg-surface-container-lowest" id="drawerTabs">
+<button class="flex-1 py-1.5 rounded-lg bg-surface-container-high text-primary font-headline-sm text-headline-sm text-center transition-all" id="btn-tab-overview" onclick="switchTab('tab-overview')">
+            Overview
+          </button>
+<button class="flex-1 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm text-center transition-all" id="btn-tab-tailor" onclick="switchTab('tab-tailor')">
+            Tailor Resume
+          </button>
+<button class="flex-1 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm text-center transition-all flex items-center justify-center gap-1" id="btn-tab-referrals" onclick="switchTab('tab-referrals')">
+<span>Referrals</span>
+<span class="font-mono-micro text-mono-micro px-1 rounded-full bg-primary-container/20 text-primary-container">4</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Drawer Body Content -->
+<div class="flex-1 overflow-y-auto p-space-lg flex flex-col gap-space-lg select-text">
+<!-- TAB 1: OVERVIEW -->
+<div class="flex flex-col gap-space-lg" id="tab-overview">
+<!-- Match Breakdown Bars -->
+<div class="flex flex-col gap-space-sm p-space-md rounded-xl bg-surface-container-lowest">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">AI Match Telemetry Vector</span>
+<!-- Metric 1: Skills -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-mono-micro text-mono-micro">
+<span class="text-on-surface">Skills Compatibility</span>
+<span class="text-primary-container font-semibold">98%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 98%"></div>
+</div>
+</div>
+<!-- Metric 2: Batch Eligibility -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-mono-micro text-mono-micro">
+<span class="text-on-surface">Batch Eligibility (2026 Batch)</span>
+<span class="text-primary-container font-semibold">100%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- Metric 3: Freshness -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-mono-micro text-mono-micro">
+<span class="text-on-surface">Signal Freshness (&lt; 3h)</span>
+<span class="text-primary-container font-semibold">95%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<!-- Metric 4: Location -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-mono-micro text-mono-micro">
+<span class="text-on-surface">Location Alignment (Bangalore)</span>
+<span class="text-on-surface font-semibold">90%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 90%"></div>
+</div>
+</div>
+</div>
+<!-- Key Tech Stack Chips -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Required Technical Stack</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-mono-micro text-mono-micro">React 18+</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-mono-micro text-mono-micro">TypeScript</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-mono-micro text-mono-micro">Tailwind CSS</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-mono-micro text-mono-micro">Web Components</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-mono-micro text-mono-micro">Storybook</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-mono-micro text-mono-micro">CI/CD Chromatic</span>
+</div>
+</div>
+<!-- Full Job Description Excerpt -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Role Overview &amp; Responsibilities</span>
+<div class="p-space-md rounded-xl bg-surface-container-lowest font-body-sm text-body-sm text-on-surface flex flex-col gap-space-sm leading-relaxed">
+<p>
+                Razorpay's Blade Design System powers millions of checkouts across India. As an Engineer on the Core UI Systems team, you will build accessible, high-performance UI primitives utilized across internal dashboards, partner portals, and customer checkouts.
+              </p>
+<h4 class="font-headline-sm text-headline-sm text-primary pt-1">What You'll Do:</h4>
+<ul class="list-disc pl-4 space-y-1 text-on-surface-variant font-body-sm text-body-sm">
+<li>Architect and maintain polymorphic, accessible web components across React and micro-frontends.</li>
+<li>Benchmark rendering bottlenecks in high-frequency payment checkout overlays.</li>
+<li>Write comprehensive unit tests with Vitest, React Testing Library, and visual regression suites in Storybook.</li>
+<li>Collaborate closely with Product Designers to translate token hierarchies into seamless cross-platform outputs.</li>
+</ul>
+<h4 class="font-headline-sm text-headline-sm text-primary pt-1">Qualifications:</h4>
+<ul class="list-disc pl-4 space-y-1 text-on-surface-variant font-body-sm text-body-sm">
+<li>Graduating in 2026 or 2025 with strong foundations in Data Structures and Modern JavaScript (ESNext).</li>
+<li>Demonstrated portfolio or open-source projects demonstrating custom component architecture.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- TAB 2: TAILOR RESUME -->
+<div class="hidden flex-col gap-space-lg" id="tab-tailor">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-primary-container uppercase tracking-wider">AI Resume Alignment (Neha's Profile)</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Matched with Master Resume v3</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Insert these 3 high-impact customized bullet points to pass Razorpay's Greenhouse screening thresholds with a 99% ATS match rate:</p>
+</div>
+<!-- Tailored Bullet 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex flex-col gap-2 relative group">
+<div class="flex items-center justify-between">
+<span class="font-mono-micro text-mono-micro text-primary-container uppercase">Target: Design Systems Focus</span>
+<button class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro hover:bg-surface-container-high transition-colors flex items-center gap-1" onclick="copySnippet(this, 'Engineered 14+ reusable React/TypeScript UI primitives compliant with WAI-ARIA standards, reducing front-end boilerplate by 35% across campus platform.')">
+<span class="material-symbols-outlined text-[12px]">content_copy</span>
+                Copy
+              </button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Engineered 14+ reusable React/TypeScript UI primitives compliant with WAI-ARIA standards, reducing front-end boilerplate by 35% across campus platform."
+            </p>
+</div>
+<!-- Tailored Bullet 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex flex-col gap-2 relative group">
+<div class="flex items-center justify-between">
+<span class="font-mono-micro text-mono-micro text-primary-container uppercase">Target: Performance &amp; Metrics</span>
+<button class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro hover:bg-surface-container-high transition-colors flex items-center gap-1" onclick="copySnippet(this, 'Benchmarked rendering cycles using React Profiler and implemented memoization pipelines, boosting Core Web Vitals FID scores by 42ms.')">
+<span class="material-symbols-outlined text-[12px]">content_copy</span>
+                Copy
+              </button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Benchmarked rendering cycles using React Profiler and implemented memoization pipelines, boosting Core Web Vitals FID scores by 42ms."
+            </p>
+</div>
+<!-- Tailored Bullet 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex flex-col gap-2 relative group">
+<div class="flex items-center justify-between">
+<span class="font-mono-micro text-mono-micro text-primary-container uppercase">Target: Storybook Documentation</span>
+<button class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro hover:bg-surface-container-high transition-colors flex items-center gap-1" onclick="copySnippet(this, 'Documented interactive component states in Storybook with visual snapshot tests, eliminating style regressions across 8 release sprints.')">
+<span class="material-symbols-outlined text-[12px]">content_copy</span>
+                Copy
+              </button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Documented interactive component states in Storybook with visual snapshot tests, eliminating style regressions across 8 release sprints."
+            </p>
+</div>
+<!-- One-Click Cold Outreach Cover Note -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">One-Click Outreach Cover Note</span>
+<button class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro hover:bg-surface-container-high transition-colors flex items-center gap-1" onclick="copySnippet(this, 'Hi Varun, noticed Razorpay is scaling the Core UI/Blade team. As a 2026 CS student focused on accessible Design System primitives in React &amp; TypeScript, I recently built an open-source token system used by 200+ students. Would love to share my portfolio if you have 5 mins.')">
+<span class="material-symbols-outlined text-[12px]">content_copy</span>
+                Copy Draft
+              </button>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest text-on-surface-variant font-body-sm text-body-sm leading-relaxed">
+              Hi Varun, noticed Razorpay is scaling the Core UI/Blade team. As a 2026 CS student focused on accessible Design System primitives in React &amp; TypeScript, I recently built an open-source token system used by 200+ students. Would love to share my portfolio if you have 5 mins.
+            </div>
+</div>
+</div>
+<!-- TAB 3: REFERRALS -->
+<div class="hidden flex-col gap-space-lg" id="tab-referrals">
+<div class="flex flex-col gap-1">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Discovered Network Nodes (4)</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direct connections and alumni matches at Razorpay currently in Engineering.</p>
+</div>
+<!-- Referral Node 1: Hiring Manager -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-primary flex items-center justify-center font-headline-sm text-headline-sm">
+                VK
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary">Varun K.</span>
+<span class="px-1.5 py-0.2 rounded bg-primary-container/20 text-primary-container font-mono-micro text-mono-micro uppercase">Hiring Manager</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Engineering Lead · Blade Design System</span>
+</div>
+</div>
+<a class="px-space-md py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm flex items-center gap-1 transition-colors" href="#">
+              Connect
+              <span class="material-symbols-outlined text-[14px]">north_east</span>
+</a>
+</div>
+<!-- Referral Node 2: College Alumni -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-primary flex items-center justify-center font-headline-sm text-headline-sm">
+                AS
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary">Ananya S.</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface font-mono-micro text-mono-micro uppercase">Tier-1 Alumni</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Frontend Engineer II (Joined '23)</span>
+</div>
+</div>
+<a class="px-space-md py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm flex items-center gap-1 transition-colors" href="#">
+              Referral ↗
+            </a>
+</div>
+<!-- Alumni Filter Search Hub -->
+<div class="p-space-md rounded-xl bg-surface-container-high/40 flex flex-col gap-space-sm">
+<span class="font-mono-label text-mono-label text-primary uppercase">Direct LinkedIn Deep Query</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 alumni found at Razorpay matching "Frontend" or "Design System".</p>
+<a class="inline-flex items-center justify-center gap-2 py-2 rounded-lg bg-surface-container text-primary font-headline-sm text-headline-sm hover:bg-surface-bright transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">search</span>
+              Open LinkedIn Alumni Search (12 matches)
+            </a>
+</div>
+</div>
+</div>
+<!-- Drawer Bottom Sticky Action Bar -->
+<div class="p-space-md bg-surface-container-high/90 backdrop-blur-md flex flex-col gap-space-xs flex-shrink-0">
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-1.5 transition-transform active:scale-95 shadow-md">
+            Direct Greenhouse Apply
+            <span class="material-symbols-outlined text-[17px]">open_in_new</span>
+</button>
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container hover:bg-surface-bright text-on-surface font-headline-sm text-headline-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+            Applied
+          </button>
+</div>
+<div class="flex items-center justify-between pt-1 px-1">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary font-mono-micro text-mono-micro transition-colors">
+<span class="material-symbols-outlined text-[14px] text-surface-tint">send</span>
+            Sync alert to Telegram
+          </button>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Auto-parsed in 1.4s</span>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<script>
+  function switchTab(targetTabId) {
+    const tabs = ['tab-overview', 'tab-tailor', 'tab-referrals'];
+    tabs.forEach(tabId => {
+      const el = document.getElementById(tabId);
+      const btn = document.getElementById('btn-' + tabId);
+      if (tabId === targetTabId) {
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+        btn.classList.remove('text-on-surface-variant', 'bg-transparent');
+        btn.classList.add('bg-surface-container-high', 'text-primary');
+      } else {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+        btn.classList.remove('bg-surface-container-high', 'text-primary');
+        btn.classList.add('text-on-surface-variant');
+      }
+    });
+  }
+
+  function copySnippet(buttonElement, textToCopy) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(textToCopy);
+      const originalHtml = buttonElement.innerHTML;
+      buttonElement.innerHTML = '<span class="material-symbols-outlined text-[12px] text-primary-container">check</span> Copied!';
+      setTimeout(() => {
+        buttonElement.innerHTML = originalHtml;
+      }, 1600);
+    }
+  }
+</script></main></div></body></html>

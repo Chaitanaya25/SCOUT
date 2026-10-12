@@ -55,7 +55,7 @@ flowchart LR
 ```
 scout/
 ├─ CLAUDE.md  PRD.md  ARCHITECTURE.md  DESIGN.md  TASKS.md
-├─ docs/design/                 # Stitch screenshots — UI source of truth
+├─ docs/design/                 # Stitch exports: <NN-screen-theme>/{code.html,screen.png} — UI source of truth
 ├─ apps/web/                    # Next.js app
 │  ├─ app/
 │  │  ├─ (auth)/login/page.tsx

@@ -12,7 +12,7 @@ Legend: `[ ]` todo · `[x]` done · `(W)` worker · `(UI)` web.
 - [ ] Worker: Python 3.12, uv, ruff, pytest, `python -m scout_worker.main --help` works.
 - [ ] `.env.example` for web and worker (all vars in `ARCHITECTURE.md §12`).
 - [ ] `ci.yml`: web lint + typecheck + build; worker ruff + pytest.
-- [ ] Copy Stitch screenshots into `docs/design/`.
+- [ ] Copy Stitch exports into `docs/design/<NN-screen-theme>/{code.html,screen.png}`.
 
 **Accept:** `pnpm -C apps/web build` and `uv run pytest` pass in CI.
 
@@ -127,7 +127,7 @@ Legend: `[ ]` todo · `[x]` done · `(W)` worker · `(UI)` web.
 **Accept:** uploading a resume updates matches on the next scan; preferences changes affect eligibility on the next scan.
 
 ## Phase 14 — Polish & QA
-- [ ] Pixel pass against every screenshot in `docs/design/` (dark + light, 1440/1024/390).
+- [ ] Pixel pass against every `docs/design/<NN-screen-theme>/screen.png` (dark + light, 1440/1024/390).
 - [ ] Reduced-motion pass; keyboard-only pass; contrast check.
 - [ ] Performance pass (`DESIGN.md §6` targets) and bundle check.
 - [ ] Error states for every fetch; toasts for every mutation.

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-low": "#1b1b1d", "on-secondary": "#303033", "tertiary-container": "#d9e2ff", "on-error": "#690005", "on-secondary-container": "#b6b4b8", "inverse-on-surface": "#303032", "secondary": "#c8c6ca", "surface-container-highest": "#353437", "tertiary-fixed-dim": "#b0c6ff", "tertiary-fixed": "#d9e2ff", "on-surface": "#e5e1e4", "surface-tint": "#add500", "secondary-container": "#47464a", "surface-variant": "#353437", "on-tertiary-container": "#3561b9", "inverse-primary": "#516600", "error": "#ffb4ab", "on-tertiary-fixed-variant": "#06429a", "primary-fixed": "#c8f232", "error-container": "#93000a", "primary-fixed-dim": "#add500", "inverse-surface": "#e5e1e4", "on-primary-fixed": "#171e00", "on-tertiary": "#002d6f", "on-primary": "#293500", "surface-container-high": "#2a2a2c", "on-secondary-fixed": "#1b1b1e", "on-error-container": "#ffdad6", "on-secondary-fixed-variant": "#47464a", "background": "#131315", "surface-bright": "#39393b", "outline": "#8f937a", "surface": "#131315", "on-surface-variant": "#c5c9ae", "secondary-fixed": "#e4e1e5", "tertiary": "#ffffff", "surface-container-lowest": "#0e0e10", "primary-container": "#c8f232", "on-background": "#e5e1e4", "secondary-fixed-dim": "#c8c6ca", "surface-container": "#201f21", "primary": "#ffffff", "surface-dim": "#131315", "on-primary-fixed-variant": "#3d4d00", "on-tertiary-fixed": "#001945", "on-primary-container": "#576c00", "outline-variant": "#444934" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.5rem", "margin-tablet": "1.5rem", "space-lg": "1.5rem", "gutter-desktop": "1.5rem", "margin": "1rem", "space-xl": "2rem", "margin-desktop": "2.5rem", "space-xs": "0.25rem", "gutter": "1rem", "space-md": "1rem" }, "fontFamily": { "headline-md": ["Inter"], "display-hero-mobile": ["Inter"], "headline-lg-mobile": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Inter"], "display-hero": ["Inter"], "mono-label": ["JetBrains Mono"], "headline-sm": ["Inter"], "mono-metric": ["JetBrains Mono"], "body-base": ["Inter"], "mono-micro": ["JetBrains Mono"], "body-lg": ["Inter"] }, "fontSize": { "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-hero-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-hero": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "mono-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "500" }], "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "mono-metric": ["14px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-base": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "mono-micro": ["10px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "500" }], "body-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }] } } } };</script></head><body class="bg-background font-body-base text-body-base text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><aside class="fixed left-0 top-0 h-screen w-[248px] bg-surface-container-lowest z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VrYhBi5JjGipqW1naVRBMeXQG5uzx4VCz6S-csOS5fMoH-BKT2ILIVD-ylNw8rYxe8VNL_UaYqOUbx35pp4VSxqchC3BzAKjFTd4vRRy2Gmb6ju5fbIIXONqzXn9w5ekCcKD9EtGiSoMm80gDNGCQs_x6yr_GrFaB08x_rFJQ1MZVN90iw9R579PzbWoikvtja7-XS1uMZhLsldMQPWVd-NFQnRG2KszMJwT3du0QF7gO0PJA_T2j9E74"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-primary">SCOUT</span><span class="font-mono-micro text-mono-micro text-surface-tint tracking-widest">AI RADAR v2.4</span></div></div><div class="px-space-md py-space-sm flex flex-col gap-space-md"><div class="flex flex-col gap-space-xs"><span class="px-space-sm font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">DISCOVER</span><nav class="flex flex-col gap-0.5" data-active-classes="bg-surface-container-high text-primary font-body-base text-body-base"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg transition-colors bg-surface-container-high text-primary font-body-base text-body-base" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">radar</span>Dashboard</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="job-feed" href="#"><span class="material-symbols-outlined text-[18px]">dynamic_feed</span>Job Feed</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="programs" href="#"><span class="material-symbols-outlined text-[18px]">school</span>Programs</a></nav></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">PIPELINE</span><nav class="flex flex-col gap-0.5" data-active-classes="bg-surface-container-high text-primary font-body-base text-body-base"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="watched-companies" href="#"><span class="material-symbols-outlined text-[18px]">domain</span>Watched Companies</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tracker" href="#"><span class="material-symbols-outlined text-[18px]">view_kanban</span>Tracker</a></nav></div></div></div><div class="flex flex-col p-space-md gap-space-sm"><nav class="flex flex-col" data-active-classes="bg-surface-container-high text-primary"><a class="flex items-center justify-between px-space-sm py-1.5 rounded-lg text-on-surface-variant font-body-base text-body-base hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">tune</span>Settings</span><div class="flex items-center gap-1 bg-surface-container px-1.5 py-0.5 rounded"><span class="material-symbols-outlined text-[13px] text-surface-tint">dark_mode</span><span class="material-symbols-outlined text-[13px] text-on-surface-variant">light_mode</span></div></a></nav><div class="flex flex-col gap-1 p-1 bg-surface-container-low rounded-xl"><div class="flex items-center justify-between px-2 py-1.5 rounded-lg bg-surface-container-high text-on-surface"><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-mono-micro text-mono-micro font-bold">A</div><span class="font-body-sm text-body-sm text-on-surface">Aarav (2025)</span></div><span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span></div><div class="flex items-center justify-between px-2 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors cursor-pointer"><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center font-mono-micro text-mono-micro font-bold">N</div><span class="font-body-sm text-body-sm text-on-surface-variant">Neha (2026)</span></div></div></div><div class="flex items-center justify-between px-space-sm py-1 font-mono-micro text-mono-micro text-on-surface-variant"><div class="flex items-center gap-1.5"><div class="w-3 h-3 rounded-full flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-surface-tint"></div></div><span>NEXT SCAN</span></div><span class="text-primary font-mono-micro text-mono-micro">01:42:10</span></div></div></aside><div class="pl-[248px]"><header class="fixed top-0 left-[248px] right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><span class="font-mono-micro text-mono-micro text-on-surface-variant tracking-wider uppercase">SCOUT RADAR</span><span class="text-on-surface-variant font-mono-micro text-mono-micro">/</span><span class="font-mono-label text-mono-label text-primary">INTELLIGENCE CORE</span></div><div class="w-[380px] flex items-center gap-space-sm px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">search</span><span class="font-body-sm text-body-sm flex-1 text-on-surface-variant select-none">Quick search jobs, companies, tags...</span><kbd class="font-mono-micro text-mono-micro px-1 py-0.5 rounded bg-surface-container-high text-on-surface">⌘K</kbd></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-surface-tint animate-pulse"></span><span class="font-mono-micro text-mono-micro text-on-surface">Scanning 14 sources</span></div><div class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container-low"><span class="material-symbols-outlined text-[14px] text-surface-tint">send</span><span class="font-mono-micro text-mono-micro text-on-surface">Telegram Active</span></div><div class="relative flex items-center justify-center p-1 rounded-lg hover:bg-surface-container transition-colors cursor-pointer"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">notifications</span><span class="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-surface-tint text-on-primary-fixed flex items-center justify-center font-mono-micro text-[9px] font-bold">3</span></div><div class="relative"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VrYhBi5JjGipqW1naVRBMeXQG5uzx4VCz6S-csOS5fMoH-BKT2ILIVD-ylNw8rYxe8VNL_UaYqOUbx35pp4VSxqchC3BzAKjFTd4vRRy2Gmb6ju5fbIIXONqzXn9w5ekCcKD9EtGiSoMm80gDNGCQs_x6yr_GrFaB08x_rFJQ1MZVN90iw9R579PzbWoikvtja7-XS1uMZhLsldMQPWVd-NFQnRG2KszMJwT3du0QF7gO0PJA_T2j9E74"/><span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-surface-tint ring-2 ring-surface-container-lowest"></span></div></div></header><main class="relative pt-16 bg-background min-h-screen w-full px-space-lg"><div class="flex flex-col w-full pb-space-xl">
+<!-- Keyframe Utilities via inline style injection without outer wrappers -->
+<svg class="hidden" height="0" width="0">
+<defs>
+<lineargradient id="limeGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#c8f232" stop-opacity="0.9"></stop>
+<stop offset="100%" stop-color="#add500" stop-opacity="0.2"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- TOP HERO ROW: 55% Radar Command Scope + 45% High-Density Telemetry -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg items-stretch">
+<!-- Visual Radar Viewport (55% / 7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-low rounded-xl p-space-lg relative overflow-hidden flex flex-col justify-between shadow-xl">
+<!-- Background Drafting Grid Overlay -->
+<div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none"></div>
+<!-- Scope Metadata Bar -->
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-mono-micro text-mono-micro tracking-widest uppercase text-on-surface">TARGET RADAR CORE</span>
+<span class="text-outline-variant font-mono-micro text-mono-micro">/</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">SECTOR: ASIA-PACIFIC &amp; REMOTE</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-2.5 py-1 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span>
+<span class="font-mono-micro text-mono-micro text-surface-tint font-bold tracking-wider">LIVE TELEMETRY</span>
+</div>
+</div>
+<!-- Center Radar Instrument Viewport -->
+<div class="relative z-10 my-4 flex items-center justify-center py-6">
+<!-- Scope Container -->
+<div class="relative w-[340px] h-[340px] rounded-full bg-surface-container-lowest flex items-center justify-center overflow-hidden shadow-2xl">
+<!-- Concentric Distance Hairlines -->
+<div class="absolute inset-2 rounded-full opacity-10 bg-[radial-gradient(circle_at_center,transparent_40%,#ffffff_100%)]"></div>
+<div class="absolute w-[280px] h-[280px] rounded-full bg-surface-container-low/40"></div>
+<div class="absolute w-[200px] h-[200px] rounded-full bg-surface-container/30"></div>
+<div class="absolute w-[120px] h-[120px] rounded-full bg-surface-container-high/40"></div>
+<div class="absolute w-[40px] h-[40px] rounded-full bg-primary-container/20"></div>
+<!-- Cardinal Axis Lines -->
+<div class="absolute inset-x-0 h-[1px] bg-outline-variant/40"></div>
+<div class="absolute inset-y-0 w-[1px] bg-outline-variant/40"></div>
+<!-- Axis Polar Degree Readouts -->
+<span class="absolute top-2 font-mono-micro text-[9px] text-on-surface-variant">000° N</span>
+<span class="absolute bottom-2 font-mono-micro text-[9px] text-on-surface-variant">180° S</span>
+<span class="absolute right-2 font-mono-micro text-[9px] text-on-surface-variant">090° E</span>
+<span class="absolute left-2 font-mono-micro text-[9px] text-on-surface-variant">270° W</span>
+<!-- Continuous Rotating Radar Beam -->
+<div class="absolute inset-0 origin-center animate-[spin_6s_linear_infinite] pointer-events-none">
+<div class="w-1/2 h-1/2 bg-gradient-to-br from-primary-container/25 via-primary-container/5 to-transparent origin-bottom-right rounded-tl-full"></div>
+<div class="w-1/2 h-[1px] bg-primary-container shadow-[0_0_8px_#c8f232]"></div>
+</div>
+<!-- Dynamic Blips (Signal Lime <3h Fresh vs Older Muted) -->
+<!-- Blip 1: Razorpay (<2h) -->
+<div class="absolute top-20 right-24 flex items-center gap-1 group cursor-pointer">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_10px_#c8f232] animate-pulse"></span>
+<span class="hidden group-hover:inline-block px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-mono-micro text-[9px] shadow-lg">RAZORPAY · 96%</span>
+</div>
+<!-- Blip 2: Stripe (<4h) -->
+<div class="absolute top-36 right-16 flex items-center gap-1 group cursor-pointer">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_#c8f232]"></span>
+<span class="hidden group-hover:inline-block px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-mono-micro text-[9px] shadow-lg">STRIPE · 94%</span>
+</div>
+<!-- Blip 3: Vercel (12h - Muted Blue) -->
+<div class="absolute bottom-24 left-20 flex items-center gap-1 group cursor-pointer">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim shadow-[0_0_4px_#b0c6ff]"></span>
+<span class="hidden group-hover:inline-block px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-mono-micro text-[9px] shadow-lg">VERCEL · 91%</span>
+</div>
+<!-- Blip 4: Hugging Face (18h) -->
+<div class="absolute bottom-16 right-28 flex items-center gap-1 group cursor-pointer">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="hidden group-hover:inline-block px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-mono-micro text-[9px] shadow-lg">HUGGING FACE · 89%</span>
+</div>
+<!-- Blip 5: CRED Role -->
+<div class="absolute top-28 left-24 flex items-center gap-1 group cursor-pointer">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_#c8f232]"></span>
+</div>
+<!-- Blip 6: Postman Role -->
+<div class="absolute top-16 left-36 flex items-center gap-1 group cursor-pointer">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim"></span>
+</div>
+<!-- Center Instrument Origin Badge -->
+<div class="relative z-20 w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container shadow-md">
+<span class="material-symbols-outlined text-[16px]">radar</span>
+</div>
+</div>
+</div>
+<!-- Readout Strip & Live Counters -->
+<div class="relative z-10 flex flex-wrap items-center justify-between gap-space-sm pt-space-sm bg-surface-container-low/90">
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant uppercase tracking-wider">CENTER FREQ:</span>
+<span class="font-mono-label text-mono-label text-primary-container font-semibold">3H · 14 SOURCES ACTIVE</span>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-baseline gap-1.5">
+<span class="font-mono-metric text-mono-metric font-semibold text-primary">1,420</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">SCANNED TODAY</span>
+</div>
+<span class="text-surface-variant">/</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-mono-metric text-mono-metric font-semibold text-primary-container">42</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">MATCHES PASSED CRITERIA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary KPI Panel (45% / 5 cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-md">
+<!-- 4 High-Density Numerals Grid -->
+<div class="grid grid-cols-2 gap-space-md flex-1">
+<!-- KPI 1: New Matches -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between shadow-md group hover:bg-surface-container transition-colors">
+<div class="flex items-start justify-between">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant tracking-wider">New Matches</span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-primary-container/10 text-primary-container font-mono-micro text-mono-micro font-semibold">
+<span class="material-symbols-outlined text-[11px]">trending_up</span>
+              +6 since 09:00
+            </span>
+</div>
+<div class="flex items-baseline justify-between mt-2">
+<span class="font-display-hero text-display-hero text-primary tracking-tight font-headline-lg">18</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Aarav + Neha</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-primary-container h-full w-[78%]"></div>
+</div>
+</div>
+<!-- KPI 2: Fresh < 24h -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between shadow-md group hover:bg-surface-container transition-colors">
+<div class="flex items-start justify-between">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant tracking-wider">Fresh &lt; 24h</span>
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+</div>
+<div class="flex items-baseline justify-between mt-2">
+<span class="font-display-hero text-display-hero text-primary-container tracking-tight font-headline-lg">09</span>
+<span class="font-mono-micro text-mono-micro text-surface-tint">PRIORITY RADAR</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-surface-tint h-full w-[90%]"></div>
+</div>
+</div>
+<!-- KPI 3: Applied This Week -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between shadow-md group hover:bg-surface-container transition-colors">
+<div class="flex items-start justify-between">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant tracking-wider">Applied (Week)</span>
+<span class="font-mono-micro text-mono-micro text-secondary">GOAL: 10/WK</span>
+</div>
+<div class="flex items-baseline justify-between mt-2">
+<span class="font-display-hero text-display-hero text-primary tracking-tight font-headline-lg">07</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">70% target</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-tertiary-fixed-dim h-full w-[70%]"></div>
+</div>
+</div>
+<!-- KPI 4: Interviews Pipeline -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between shadow-md group hover:bg-surface-container transition-colors">
+<div class="flex items-start justify-between">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant tracking-wider">Interviews Active</span>
+<span class="material-symbols-outlined text-primary-container text-[16px]">verified</span>
+</div>
+<div class="flex items-baseline justify-between mt-2">
+<span class="font-display-hero text-display-hero text-primary tracking-tight font-headline-lg">03</span>
+<div class="flex -space-x-1">
+<span class="w-4 h-4 rounded-full bg-surface-container-highest text-[8px] font-mono-micro flex items-center justify-center font-bold text-on-surface">R</span>
+<span class="w-4 h-4 rounded-full bg-surface-container-high text-[8px] font-mono-micro flex items-center justify-center font-bold text-on-surface">C</span>
+<span class="w-4 h-4 rounded-full bg-secondary-container text-[8px] font-mono-micro flex items-center justify-center font-bold text-on-surface">S</span>
+</div>
+</div>
+<div class="text-[10px] font-mono-micro text-on-surface-variant truncate mt-2">
+            Razorpay · CRED · Stripe
+          </div>
+</div>
+</div>
+<!-- Telegram Immediate Dispatch Bar -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex items-center gap-space-md shadow-md">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-micro text-mono-micro text-primary-container tracking-wider uppercase font-semibold">TELEGRAM DISPATCH CHANNEL</span>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">14M AGO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface truncate mt-0.5">
+            Stripe New Grad SWE ($145k · Remote APAC) pushed to Aarav &amp; Neha feed
+          </p>
+</div>
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface text-mono-micro font-mono-micro transition-colors flex items-center gap-1">
+<span>OPEN</span>
+<span class="material-symbols-outlined text-[13px]">arrow_outward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- THIN FULL-WIDTH MONO TELETYPE MARQUEE -->
+<section class="w-full bg-surface-container-lowest rounded-lg py-2 px-space-md mb-space-lg overflow-hidden flex items-center shadow-inner">
+<div class="flex items-center gap-2 whitespace-nowrap font-mono-micro text-mono-micro text-on-surface-variant uppercase tracking-widest w-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="text-primary-container font-semibold">RADAR STATUS: NOMINAL</span>
+<span class="text-surface-variant">///</span>
+<span>14 SOURCES SCANNED</span>
+<span class="text-surface-variant">///</span>
+<span class="text-on-surface">TELEGRAM DISPATCH VERIFIED</span>
+<span class="text-surface-variant">///</span>
+<span class="text-surface-tint">ELIGIBILITY FILTER: 2025 &amp; 2026 BATCHES ACTIVE</span>
+<span class="text-surface-variant">///</span>
+<span class="text-secondary">NO SCAM DETECTED IN LAST RUN (02:14:00 UTC)</span>
+<span class="text-surface-variant">///</span>
+<span class="text-on-surface-variant">LATENCY: 142MS</span>
+</div>
+</section>
+<!-- MAIN CONTENT: DUAL COLUMN WORKBENCH -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT: Top Matches (Scored for Neha) - 7 Columns -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Section Header with Active Persona Badge -->
+<div class="flex items-center justify-between bg-surface-container-low px-space-md py-space-sm rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">bolt</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Top Matches (Scored for Neha)</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">SORT BY:</span>
+<span class="font-mono-micro text-mono-micro bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-semibold">MATCH % DESC</span>
+</div>
+</div>
+<!-- Job Card 1: Razorpay (96%) -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md hover:bg-surface-container transition-all group flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-mono-metric font-bold text-headline-sm flex-shrink-0">
+              R
+            </div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-primary">Razorpay</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Bangalore / Hybrid</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container font-mono-micro text-mono-micro font-medium">✓ 2026 eligible</span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold mt-0.5">Frontend Engineer (Design Systems)</h3>
+</div>
+</div>
+<!-- Circular Metric Pill -->
+<div class="flex flex-col items-end">
+<div class="px-2.5 py-1 rounded-lg bg-primary-container/10 text-primary-container flex items-center gap-1">
+<span class="font-mono-label text-mono-label font-bold text-[12px]">96%</span>
+<span class="font-mono-micro text-mono-micro">MATCH</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-surface-tint mt-1">POSTED 2H AGO</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">MISSING:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-surface-tint font-mono-micro text-mono-micro font-semibold">None — Exact Match</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm transition-colors">
+              Inspect Fit
+            </button>
+<button class="px-3 py-1 rounded-lg bg-primary-container text-on-primary-container font-body-sm text-body-sm font-semibold hover:bg-primary-fixed-dim transition-colors flex items-center gap-1">
+<span>Fast Apply</span>
+<span class="material-symbols-outlined text-[14px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Job Card 2: Stripe (94%) -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md hover:bg-surface-container transition-all group flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-mono-metric font-bold text-headline-sm flex-shrink-0">
+              S
+            </div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-primary">Stripe</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Remote (India/Global)</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container font-mono-micro text-mono-micro font-medium">✓ 2026 eligible</span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold mt-0.5">Software Engineering Intern</h3>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-2.5 py-1 rounded-lg bg-primary-container/10 text-primary-container flex items-center gap-1">
+<span class="font-mono-label text-mono-label font-bold text-[12px]">94%</span>
+<span class="font-mono-micro text-mono-micro">MATCH</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-surface-tint mt-1">POSTED 4H AGO</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">MISSING:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary font-mono-micro text-mono-micro">Go (Golang basics)</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm transition-colors">
+              Inspect Fit
+            </button>
+<button class="px-3 py-1 rounded-lg bg-primary-container text-on-primary-container font-body-sm text-body-sm font-semibold hover:bg-primary-fixed-dim transition-colors flex items-center gap-1">
+<span>Fast Apply</span>
+<span class="material-symbols-outlined text-[14px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Job Card 3: Vercel (91%) -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md hover:bg-surface-container transition-all group flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-mono-metric font-bold text-headline-sm flex-shrink-0">
+              V
+            </div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-primary">Vercel</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Remote Worldwide</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container font-mono-micro text-mono-micro font-medium">✓ 2026 eligible</span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold mt-0.5">Product Engineering Intern</h3>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-2.5 py-1 rounded-lg bg-tertiary-fixed-dim/15 text-tertiary-fixed-dim flex items-center gap-1">
+<span class="font-mono-label text-mono-label font-bold text-[12px]">91%</span>
+<span class="font-mono-micro text-mono-micro">MATCH</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant mt-1">POSTED 12H AGO</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">MISSING:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary font-mono-micro text-mono-micro">Next.js App Router deep internals</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm transition-colors">
+              Inspect Fit
+            </button>
+<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Job Card 4: Hugging Face (89%) -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md hover:bg-surface-container transition-all group flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-mono-metric font-bold text-headline-sm flex-shrink-0">
+              H
+            </div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-primary">Hugging Face</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-micro text-mono-micro">Remote</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container font-mono-micro text-mono-micro font-medium">✓ 2026 eligible</span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface font-semibold mt-0.5">Full Stack Intern (AI Workflows)</h3>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-2.5 py-1 rounded-lg bg-tertiary-fixed-dim/15 text-tertiary-fixed-dim flex items-center gap-1">
+<span class="font-mono-label text-mono-label font-bold text-[12px]">89%</span>
+<span class="font-mono-micro text-mono-micro">MATCH</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant mt-1">POSTED 18H AGO</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">MISSING:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary font-mono-micro text-mono-micro">PyTorch / CUDA Inference</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm transition-colors">
+              Inspect Fit
+            </button>
+<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1">
+<span>View Source</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT: Intelligence Watchlist & Deadline Monitor - 5 Columns -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- 1. Watched Company Alerts Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">notifications_active</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Watched Company Alerts</h3>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">3 DETECTED TODAY</span>
+</div>
+<!-- Alert Items List -->
+<div class="flex flex-col gap-2">
+<!-- Alert 1: CRED -->
+<div class="bg-surface-container rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center font-mono-metric font-bold text-primary">
+                C
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-base text-body-base font-semibold text-primary">CRED</span>
+<span class="px-1.5 py-0.2 rounded bg-primary-container/15 text-primary-container font-mono-micro text-mono-micro font-bold">+2 NEW ROLES</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Backend &amp; Product Ops Intern</span>
+</div>
+</div>
+<span class="font-mono-micro text-mono-micro text-surface-tint">22m ago</span>
+</div>
+<!-- Alert 2: Zerodha -->
+<div class="bg-surface-container rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center font-mono-metric font-bold text-primary">
+                Z
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-base text-body-base font-semibold text-primary">Zerodha</span>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-container/20 text-tertiary-fixed-dim font-mono-micro text-mono-micro font-bold">DIFF DETECTED</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">Careers page modified (Kite Tech)</span>
+</div>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">1h ago</span>
+</div>
+<!-- Alert 3: Postman -->
+<div class="bg-surface-container rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center font-mono-metric font-bold text-primary">
+                P
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-base text-body-base font-semibold text-primary">Postman</span>
+<span class="px-1.5 py-0.2 rounded bg-primary-container/15 text-primary-container font-mono-micro text-mono-micro font-bold">+1 INTERNSHIP</span>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">API Platform Developer Evangelist</span>
+</div>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">3h ago</span>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-container hover:bg-surface-container-high rounded-lg text-on-surface text-mono-micro font-mono-micro uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5">
+<span>Manage 38 Watched Domains</span>
+<span class="material-symbols-outlined text-[14px]">tune</span>
+</button>
+</div>
+<!-- 2. Upcoming Deadlines Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-tint text-[18px]">timer</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Upcoming Deadlines</h3>
+</div>
+<span class="font-mono-micro text-mono-micro text-on-surface-variant">GLOBAL COHORTS</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Deadline 1: GSOC 2025 -->
+<div class="bg-surface-container rounded-lg p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="font-body-base text-body-base font-semibold text-primary">Google Summer of Code (GSOC 2025)</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-mono-micro text-mono-micro font-bold">
+                3d 14h left
+              </span>
+</div>
+<div class="flex items-center justify-between text-mono-micro font-mono-micro text-on-surface-variant">
+<span>Proposal submissions close 18:00 UTC</span>
+<span class="text-primary font-semibold">2 Drafts ready</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[88%]"></div>
+</div>
+</div>
+<!-- Deadline 2: MLH Fellowship -->
+<div class="bg-surface-container rounded-lg p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-body-base text-body-base font-semibold text-primary">MLH Fellowship Summer</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-mono-micro text-mono-micro font-bold">
+                5d left
+              </span>
+</div>
+<div class="flex items-center justify-between text-mono-micro font-mono-micro text-on-surface-variant">
+<span>Open Source &amp; Software Engineering tracks</span>
+<span class="text-surface-tint">Verified Eligible</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[65%]"></div>
+</div>
+</div>
+<!-- Deadline 3: LFX Mentorship Term 2 -->
+<div class="bg-surface-container rounded-lg p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-body-base text-body-base font-semibold text-primary">LFX Mentorship Term 2</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-mono-micro text-mono-micro font-bold">
+                8d left
+              </span>
+</div>
+<div class="flex items-center justify-between text-mono-micro font-mono-micro text-on-surface-variant">
+<span>Linux Foundation CNCF / Kubernetes projects</span>
+<span class="text-secondary">Prerequisites verified</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full w-[40%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div></main></div></body></html>

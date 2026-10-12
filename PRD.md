@@ -86,7 +86,7 @@ Profiles are fully isolated in data (resume, preferences, matches, tracker, watc
 **Acceptance:** wrong password is rejected with rate limiting; switching profile swaps all data instantly.
 
 ### C7. Web UI
-- Deployable web app matching `DESIGN.md` and `docs/design/*.png` exactly, dark and light mode, smooth non-laggy animations.
+- Deployable web app matching `DESIGN.md` and `docs/design/<NN-screen-theme>/screen.png` exactly, dark and light mode, smooth non-laggy animations.
 
 ---
 

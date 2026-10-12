@@ -1,0 +1,166 @@
+{
+  "bodyFont": "INTER",
+  "bodyFontFamily": "Inter",
+  "colorMode": "DARK",
+  "colorVariant": "FIDELITY",
+  "customColor": "#d4ff3f",
+  "designMd": "---\nname: Editorial Precision Radar\ncolors:\n  surface: '#131315'\n  surface-dim: '#131315'\n  surface-bright: '#39393b'\n  surface-container-lowest: '#0e0e10'\n  surface-container-low: '#1b1b1d'\n  surface-container: '#201f21'\n  surface-container-high: '#2a2a2c'\n  surface-container-highest: '#353437'\n  on-surface: '#e5e1e4'\n  on-surface-variant: '#c5c9ae'\n  inverse-surface: '#e5e1e4'\n  inverse-on-surface: '#303032'\n  outline: '#8f937a'\n  outline-variant: '#444934'\n  surface-tint: '#add500'\n  primary: '#ffffff'\n  on-primary: '#293500'\n  primary-container: '#c8f232'\n  on-primary-container: '#576c00'\n  inverse-primary: '#516600'\n  secondary: '#c8c6ca'\n  on-secondary: '#303033'\n  secondary-container: '#47464a'\n  on-secondary-container: '#b6b4b8'\n  tertiary: '#ffffff'\n  on-tertiary: '#002d6f'\n  tertiary-container: '#d9e2ff'\n  on-tertiary-container: '#3561b9'\n  error: '#ffb4ab'\n  on-error: '#690005'\n  error-container: '#93000a'\n  on-error-container: '#ffdad6'\n  primary-fixed: '#c8f232'\n  primary-fixed-dim: '#add500'\n  on-primary-fixed: '#171e00'\n  on-primary-fixed-variant: '#3d4d00'\n  secondary-fixed: '#e4e1e5'\n  secondary-fixed-dim: '#c8c6ca'\n  on-secondary-fixed: '#1b1b1e'\n  on-secondary-fixed-variant: '#47464a'\n  tertiary-fixed: '#d9e2ff'\n  tertiary-fixed-dim: '#b0c6ff'\n  on-tertiary-fixed: '#001945'\n  on-tertiary-fixed-variant: '#06429a'\n  background: '#131315'\n  on-background: '#e5e1e4'\n  surface-variant: '#353437'\ntypography:\n  display-hero:\n    fontFamily: Inter\n    fontSize: 48px\n    fontWeight: '600'\n    lineHeight: 52px\n    letterSpacing: -0.03em\n  display-hero-mobile:\n    fontFamily: Inter\n    fontSize: 32px\n    fontWeight: '600'\n    lineHeight: 36px\n    letterSpacing: -0.025em\n  headline-lg:\n    fontFamily: Inter\n    fontSize: 30px\n    fontWeight: '600'\n    lineHeight: 36px\n    letterSpacing: -0.02em\n  headline-lg-mobile:\n    fontFamily: Inter\n    fontSize: 24px\n    fontWeight: '600'\n    lineHeight: 28px\n    letterSpacing: -0.02em\n  headline-md:\n    fontFamily: Inter\n    fontSize: 20px\n    fontWeight: '600'\n    lineHeight: 26px\n    letterSpacing: -0.02em\n  headline-sm:\n    fontFamily: Inter\n    fontSize: 16px\n    fontWeight: '600'\n    lineHeight: 22px\n    letterSpacing: -0.015em\n  body-lg:\n    fontFamily: Inter\n    fontSize: 15px\n    fontWeight: '400'\n    lineHeight: 22px\n    letterSpacing: -0.005em\n  body-base:\n    fontFamily: Inter\n    fontSize: 14px\n    fontWeight: '400'\n    lineHeight: 20px\n    letterSpacing: -0.005em\n  body-sm:\n    fontFamily: Inter\n    fontSize: 13px\n    fontWeight: '400'\n    lineHeight: 18px\n    letterSpacing: 0em\n  mono-metric:\n    fontFamily: JetBrains Mono\n    fontSize: 14px\n    fontWeight: '500'\n    lineHeight: 16px\n    letterSpacing: -0.01em\n  mono-label:\n    fontFamily: JetBrains Mono\n    fontSize: 11px\n    fontWeight: '500'\n    lineHeight: 14px\n    letterSpacing: 0.08em\n  mono-micro:\n    fontFamily: JetBrains Mono\n    fontSize: 10px\n    fontWeight: '500'\n    lineHeight: 12px\n    letterSpacing: 0.1em\nrounded:\n  sm: 0.125rem\n  DEFAULT: 0.25rem\n  md: 0.375rem\n  lg: 0.5rem\n  xl: 0.75rem\n  full: 9999px\nspacing:\n  gutter: 1rem\n  gutter-desktop: 1.5rem\n  margin: 1rem\n  margin-tablet: 1.5rem\n  margin-desktop: 2.5rem\n  space-xs: 0.25rem\n  space-sm: 0.5rem\n  space-md: 1rem\n  space-lg: 1.5rem\n  space-xl: 2rem\n---\n\n## Brand & Style\n\nThis design system embodies the intersection of Swiss International Typographic Style, Linearâ€™s dark-mode engineering discipline, and Vercelâ€™s monochromatic rigor. Designed specifically for a high-performance two-user AI job and internship intelligence engine, the aesthetic rejects consumer career-board clutter in favor of an authoritative, high-density command surface.\n\nThe emotional signature is razor-sharp focus, quiet competence, and computational advantage:\n- **Tone:** Telemetric, analytical, discreet, high-craft.\n- **Visual Stance:** Ultra-flat tactile surfaces defined by 1px hairline structural boundaries, strict monochromatic hierarchies, and a disciplined single-point fluorescent signal accent (`#D4FF3F`) reserved strictly for intelligence signals, primary actions, and real-time state changes.\n- **Architectural Rules:** Structural geometry relies on mathematical alignment, disciplined tabular data, and subtle 1px canvas grids (3% opacity) evoking physical drafting sheets and hardware telemetry.\n\n## Colors\n\nThe palette operates on absolute chromatic economy. Color is an informational device, never decorative. Surfaces rely on precise luminosity layering rather than elevation shadows.\n\n### Dark Mode (Primary Engine)\n- **Background:** `#0A0A0B` (Canvas bedrock)\n- **Surface:** `#121214` (Workstations, tables, panels)\n- **Elevated Surface:** `#1A1A1D` (Overlays, dialogs, active states)\n- **Border / Hairline:** `#26262A` (1px crisp boundary)\n- **Text Primary:** `#F4F2EE` (Warm off-white for low eye-strain)\n- **Text Muted:** `#8E8B85` (Secondary metadata, structural keys)\n- **Signal Lime (Primary Accent):** `#D4FF3F` (Match scores >= 90%, active radar triggers, primary CTA)\n- **Status Semantic:**\n  - Danger: `#FF5C47`\n  - Warning: `#F5B544`\n  - Success: `#4ADE80`\n  - Info: `#7AA2FF`\n\n### Light Mode (Daytime Archive)\n- **Background:** `#F6F5F1` (Tactile editorial stone)\n- **Surface:** `#FFFFFF` (Primary modules, clear paper cards)\n- **Elevated Surface:** `#EFEEE9` (Tooltips, secondary controls)\n- **Border / Hairline:** `#E2E0D9` (Architectural grid boundary)\n- **Text Primary:** `#111111` (Deep slate)\n- **Text Muted:** `#6B6862` (Secondary captions)\n- **Accent Primary:** `#1F3D2E` (Forest slate) punctuated by `#D4FF3F` micro-badges and glow indicators.\n- **Status Semantic:**\n  - Danger: `#D92D20`\n  - Warning: `#B7791F`\n  - Success: `#15803D`\n  - Info: `#2F5BD3`\n\n### Chromatic Discipline\nNever use gradient fills on interactive components. The signal accent `#D4FF3F` must not exceed 5% of viewport real estate at any given time.\n\n## Typography\n\nThe typography implements a dual-mode system: high-density editorial sans paired with precise monospaced telemetry.\n\n1. **Headlines & Structural Titles (Inter - Tight Tracking):** Headings feature dense line heights and an aggressive negative tracking (`-0.02em` to `-0.03em`) in semi-bold weight (`600`), establishing an authoritative, editorial cadence reminiscent of high-end design retrospectives.\n2. **Body & Prose (Inter):** Fixed between `14px` and `15px` with neutral character rendering and optical balance to handle complex multi-paragraph job specifications and AI analysis memos.\n3. **Telemetry & Meta Data (JetBrains Mono):** Reserved for technical readouts, match calculations, ISO timestamps, salary bands, and countdown clocks. All micro-labels in JetBrains Mono use uppercase transformations with tracking from `+0.08em` to `+0.1em`.\n\n## Layout & Spacing\n\nThe layout is rooted in a strict 8-point Cartesian grid, anchored by structural hairlines.\n\n### Canvas Grid Architecture\n- A faint 1px background grid at 3% opacity (`#FFFFFF` in dark mode, `#000000` in light mode) is rendered across canvas surfaces at 32px intervals.\n- **Split Radar View (Two-User Optimization):** The viewport supports an uninterrupted split-pane layout with independent dual-filter states, comparative timelines, and real-time synchronization channels.\n\n### Form Factors & Breakpoints\n- **Mobile (< 768px):** Single column stream. Outer margin: `16px`. Tab bar toggles between User A and User B radar streams.\n- **Tablet (768px â€“ 1024px):** 8-column layout. Margin: `24px`, Gutter: `16px`. Side drawer collapses to compact telemetry icons.\n- **Desktop (1024px â€“ 1600px):** 12-column layout. Margin: `40px`, Gutter: `24px`. Side-by-side multi-stream radar workbench.\n- **Wide Desktop (> 1600px):** Fixed max container `1680px` centered with auto-margins.\n\n## Elevation & Depth\n\nThis design system avoids traditional dropped blur shadows. Depth is communicated purely through **tonal stratification, hairline containment, and luminous edge highlights**.\n\n### Structural Surface Stack\n1. **Bedrock Canvas (Level 0):** `#0A0A0B`. Holds background grid lines.\n2. **Standard Surface (Level 1):** `#121214`. Enclosed in a 1px solid hairline of `#26262A`. No shadow.\n3. **Interactive & Elevated Surface (Level 2):** `#1A1A1D`. Enclosed in 1px solid `#26262A` with an internal top-inset hairline highlight: `inset 0 1px 0 0 rgba(255, 255, 255, 0.05)`.\n4. **Active Focus & High Priority:** Inset highlight shifts to `rgba(212, 255, 63, 0.25)` or direct signal borders.\n\n### Overlays & Flyouts\nFloating command palettes, menus, and inspector sheets use `#121214` combined with a `backdrop-filter: blur(12px)` and a subtle ambient occlusion border:\n- `box-shadow: 0 0 0 1px #26262A, 0 16px 32px -8px rgba(0, 0, 0, 0.6)`.\n\n## Shapes\n\nThe geometric vocabulary balances architectural discipline with ergonomic utility. Edges are crisp, avoiding exaggerated or playful pill shapes.\n\n- **Cards & Data Modules:** Fixed at `10px` radius (`rounded-[10px]`). Maintains precise containment when stacked in a dense table or grid.\n- **Interactive Controls (Buttons, Inputs, Selectors):** Fixed at `8px` radius (`rounded-[8px]`).\n- **Telemetry Chips, Badges & Micro-Pills:** `4px` radius or sharp chamfered appearance; never fully circular except for round 6px telemetry live-status pings.\n- **Dividers:** 1px hairlines without edge rounding.\n\n## Components\n\n### Buttons\n- **Primary Signal:** Fill `#D4FF3F`, text `#0A0A0B`, font Inter semi-bold 14px, radius 8px, padding `8px 16px`. Hover: `#C3EE2C`. Active: scales down to `0.98`.\n- **Secondary Ghost:** Surface `#1A1A1D`, 1px border `#26262A`, text `#F4F2EE`. Hover: border `#3A3A40` with top hairline highlight.\n- **Danger Action:** Surface transparent, 1px border `rgba(255, 92, 71, 0.3)`, text `#FF5C47`. Hover: fill `rgba(255, 92, 71, 0.1)`.\n\n### Cards & Radar Nodes\n- Encased in 10px radius, 1px `#26262A` border, background `#121214`.\n- Header houses uppercase JetBrains Mono tags (e.g., `MATCH: 96%`, `AI ACCELERATED`, `14M AGO`).\n- Hover state: 1px border transitions from `#26262A` to `#3A3A40`, subtle cursor-bound spotlight gradient at 4% opacity.\n\n### Match Score Chips & Micro-Labels\n- JetBrains Mono 11px uppercase.\n- Scores `>= 90%`: Text `#D4FF3F`, background `rgba(212, 255, 63, 0.08)`, border `1px solid rgba(212, 255, 63, 0.25)`.\n- Scores `< 90%` and `>= 75%`: Text `#7AA2FF`, background `rgba(122, 162, 255, 0.08)`, border `1px solid rgba(122, 162, 255, 0.2)`.\n\n### Input Fields & Command Palettes\n- Background `#0E0E10`, border 1px `#26262A`, radius 8px, text `#F4F2EE`.\n- Height: `36px` compact, `44px` large search.\n- Focus: Border shifts to `#8E8B85`, with `0 0 0 1px #8E8B85`. No chromatic ring unless directly validated by AI search.\n\n### Checkboxes & Segmented Radios\n- Square 16px with 3px radius. Unchecked: border 1px `#3A3A40`, fill `#121214`.\n- Checked: fill `#D4FF3F`, border `#D4FF3F`, icon check in `#0A0A0B`.\n\n### Lists & Data Grids\n- Continuous 1px hairline rows with zero margin collapse. Alternate row hover uses `#161619`.\n- Column headers rendered strictly in `JetBrains Mono` 11px uppercase tracking `0.08em` in `#8E8B85`.\n\n### Specialized Radar Components\n- **Dual User Switcher:** Split tab pill at screen top with active avatar indicators and independent alert counters in `#D4FF3F`.\n- **Telemetry Live-Pulse:** 6px circle with a subtle CSS radar ripple indicating real-time background scraping and model inference.",
+  "font": "INTER",
+  "headlineFont": "INTER",
+  "headlineFontFamily": "Inter",
+  "labelFont": "JETBRAINS_MONO",
+  "labelFontFamily": "JetBrains Mono",
+  "namedColors": {
+    "background": "#131315",
+    "error": "#ffb4ab",
+    "error_container": "#93000a",
+    "inverse_on_surface": "#303032",
+    "inverse_primary": "#516600",
+    "inverse_surface": "#e5e1e4",
+    "on_background": "#e5e1e4",
+    "on_error": "#690005",
+    "on_error_container": "#ffdad6",
+    "on_primary": "#293500",
+    "on_primary_container": "#576c00",
+    "on_primary_fixed": "#171e00",
+    "on_primary_fixed_variant": "#3d4d00",
+    "on_secondary": "#303033",
+    "on_secondary_container": "#b6b4b8",
+    "on_secondary_fixed": "#1b1b1e",
+    "on_secondary_fixed_variant": "#47464a",
+    "on_surface": "#e5e1e4",
+    "on_surface_variant": "#c5c9ae",
+    "on_tertiary": "#002d6f",
+    "on_tertiary_container": "#3561b9",
+    "on_tertiary_fixed": "#001945",
+    "on_tertiary_fixed_variant": "#06429a",
+    "outline": "#8f937a",
+    "outline_variant": "#444934",
+    "primary": "#ffffff",
+    "primary_container": "#c8f232",
+    "primary_fixed": "#c8f232",
+    "primary_fixed_dim": "#add500",
+    "secondary": "#c8c6ca",
+    "secondary_container": "#47464a",
+    "secondary_fixed": "#e4e1e5",
+    "secondary_fixed_dim": "#c8c6ca",
+    "surface": "#131315",
+    "surface_bright": "#39393b",
+    "surface_container": "#201f21",
+    "surface_container_high": "#2a2a2c",
+    "surface_container_highest": "#353437",
+    "surface_container_low": "#1b1b1d",
+    "surface_container_lowest": "#0e0e10",
+    "surface_dim": "#131315",
+    "surface_tint": "#add500",
+    "surface_variant": "#353437",
+    "tertiary": "#ffffff",
+    "tertiary_container": "#d9e2ff",
+    "tertiary_fixed": "#d9e2ff",
+    "tertiary_fixed_dim": "#b0c6ff"
+  },
+  "overrideNeutralColor": "#121214",
+  "overridePrimaryColor": "#d4ff3f",
+  "overrideSecondaryColor": "#1a1a1d",
+  "overrideTertiaryColor": "#7aa2ff",
+  "roundness": "ROUND_FOUR",
+  "spacing": {
+    "gutter": "1rem",
+    "gutter-desktop": "1.5rem",
+    "margin": "1rem",
+    "margin-desktop": "2.5rem",
+    "margin-tablet": "1.5rem",
+    "space-lg": "1.5rem",
+    "space-md": "1rem",
+    "space-sm": "0.5rem",
+    "space-xl": "2rem",
+    "space-xs": "0.25rem"
+  },
+  "spacingScale": 2,
+  "typography": {
+    "body-base": {
+      "fontFamily": "Inter",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "letterSpacing": "-0.005em",
+      "lineHeight": "20px"
+    },
+    "body-lg": {
+      "fontFamily": "Inter",
+      "fontSize": "15px",
+      "fontWeight": "400",
+      "letterSpacing": "-0.005em",
+      "lineHeight": "22px"
+    },
+    "body-sm": {
+      "fontFamily": "Inter",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "letterSpacing": "0em",
+      "lineHeight": "18px"
+    },
+    "display-hero": {
+      "fontFamily": "Inter",
+      "fontSize": "48px",
+      "fontWeight": "600",
+      "letterSpacing": "-0.03em",
+      "lineHeight": "52px"
+    },
+    "display-hero-mobile": {
+      "fontFamily": "Inter",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "letterSpacing": "-0.025em",
+      "lineHeight": "36px"
+    },
+    "headline-lg": {
+      "fontFamily": "Inter",
+      "fontSize": "30px",
+      "fontWeight": "600",
+      "letterSpacing": "-0.02em",
+      "lineHeight": "36px"
+    },
+    "headline-lg-mobile": {
+      "fontFamily": "Inter",
+      "fontSize": "24px",
+      "fontWeight": "600",
+      "letterSpacing": "-0.02em",
+      "lineHeight": "28px"
+    },
+    "headline-md": {
+      "fontFamily": "Inter",
+      "fontSize": "20px",
+      "fontWeight": "600",
+      "letterSpacing": "-0.02em",
+      "lineHeight": "26px"
+    },
+    "headline-sm": {
+      "fontFamily": "Inter",
+      "fontSize": "16px",
+      "fontWeight": "600",
+      "letterSpacing": "-0.015em",
+      "lineHeight": "22px"
+    },
+    "mono-label": {
+      "fontFamily": "JetBrains Mono",
+      "fontSize": "11px",
+      "fontWeight": "500",
+      "letterSpacing": "0.08em",
+      "lineHeight": "14px"
+    },
+    "mono-metric": {
+      "fontFamily": "JetBrains Mono",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "-0.01em",
+      "lineHeight": "16px"
+    },
+    "mono-micro": {
+      "fontFamily": "JetBrains Mono",
+      "fontSize": "10px",
+      "fontWeight": "500",
+      "letterSpacing": "0.1em",
+      "lineHeight": "12px"
+    }
+  }
+}
