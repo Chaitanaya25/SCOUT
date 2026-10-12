@@ -8,8 +8,12 @@
 | `01-sign-in-dark/` | Sign In — SCOUT | dark | exported |
 | `02-dashboard-dark/` | Dashboard — SCOUT | dark | exported |
 | `03-job-feed-dark/` | Job Feed — SCOUT (includes the job detail drawer) | dark | exported |
+| `04-watched-dark/` | Watched Companies — SCOUT | dark | exported |
+| `05-tracker-dark/` | Application Tracker — SCOUT | dark | exported |
+| `06-programs-dark/` | Programs & Opportunities — SCOUT | dark | exported |
+| `07-settings-dark/` | Settings — SCOUT (page title "Settings & System Telemetry") | dark | exported |
 
-**Gaps in Stitch (no mock exists):** light theme, Watched Companies, Tracker, Programs, Settings. Those sections below are marked **[no Stitch mock]** — they are derived from the Stitch tokens and the previous spec, and must be re-checked if a mock is added.
+**Gaps in Stitch (no mock exists):** the light theme, and the content of three Settings sections (Profile & Identities, Match Preferences, Scan & Frequencies — only Resume Intelligence and Telegram Dispatch are drawn). These are marked **[no Stitch mock]** — derived from the Stitch tokens and `PRD.md`, to be re-checked if a mock is added.
 
 Where this file and a `code.html` disagree on a value, the **`code.html` (rendered design) wins**; where Stitch's own `design-system.md` text disagrees with its `code.html`, the `code.html` wins and the difference is listed in §10. Do not invent screens, sections or features beyond `PRD.md` (see §9 for Stitch elements that are *not* built).
 
@@ -86,7 +90,7 @@ Light mode uses a subtle card shadow `0 1px 2px rgb(0 0 0 / 0.04)`. Stitch dark 
 ### 1.3 Semantic score colours
 Match chip / ring (from Stitch): `≥ 90 → --accent` text on `--accent-soft`; `75–89 → --info` text on `rgb(176 198 255 / .15)`. **Below 75 is not shown in Stitch** — extension: `65–74 → --warning`, `< 65 → --danger`. Scam-blocked jobs show `0% BLOCKED` in `--danger` on `--danger-container/30`.
 Ring caption: `≥ 95 BEST FIT`, `≥ 90 HIGH FIT`, `≥ 75 GOOD FIT` (thresholds inferred from the three examples 96/91/88; `< 75` → `FIT`).
-Deadline: `≤ 14 days → --danger`, `≤ 45 → --warning`, else `--muted` (Stitch shows 3d → danger, 5d/8d → accent/info).
+Deadline (Programs, from Stitch): `≤ 14 days → --danger`, `≤ 35 → --accent-tint`, else `--muted`. Raw Tailwind `yellow-*`/`amber-*` in the Tracker/Watched mocks → `--warning`; `cyan-*` → `--info`.
 
 ### 1.4 Typography — Inter + JetBrains Mono only (Archivo Black / Inter Tight are **removed**)
 Load with `next/font` (display: swap): Inter 400/500/600/700, JetBrains Mono 400/500/600.
@@ -136,7 +140,7 @@ Collapsed (68px): icons only + tooltips; profile switcher shows the active avata
 
 ### 2.2 Topbar (`components/shell/topbar.tsx`)
 Fixed, 64px, left offset 248px, `--surface-lowest` at 80% + `backdrop-filter: blur(12px+)`, no border, horizontal padding 24.
-- Left: mono-micro `SCOUT RADAR` · `/` · mono-label `INTELLIGENCE CORE` (`--text-strong`). Stitch shows `INTELLIGENCE CORE` on both Dashboard and Job Feed; other pages use their own title in that slot.
+- Left: mono-micro `SCOUT RADAR` · `/` · mono-label `INTELLIGENCE CORE` (`--text-strong`). Stitch shows `INTELLIGENCE CORE` on Dashboard, Job Feed, Tracker and Settings; Watched Companies shows `/ PIPELINE / WATCHED COMPANIES` and Programs `/ DISCOVER / PROGRAMS`.
 - Center: search field 380px, `--surface`, `--r-md`, magnifier 16px, placeholder `Quick search jobs, companies, tags...`, `⌘K` kbd chip. Click opens the cmdk palette (pages, jobs, companies, programs).
 - Right (gap 16): scan-status pill (`--surface`, `--r-sm`, 6px dot `--accent-tint` pulsing + mono-micro `Scanning 14 sources`; idle `Last scan 42m ago`, failed uses `--danger`), Telegram pill (`send` icon `--accent-tint` + `Telegram Active` / `Telegram not linked`), notifications bell 20px with 14px count badge (`--accent-tint` bg, 9px bold), 32px circular avatar with 8px status dot.
 - No theme toggle in the topbar (it lives in the sidebar).
@@ -175,6 +179,10 @@ Build in `components/ui/` on top of shadcn primitives, restyled to tokens.
 | **Skeleton** | `--surface-2` blocks, one transform-only shimmer sweep. |
 | **Toast** | sonner, `--surface`, bottom-right. |
 | **Empty state** | static radar-mark glyph, headline-sm, one `--muted` line, one action. |
+| **Page header** | Eyebrow row (6–8px `--accent`/`--accent-tint` dot + mono-micro UPPERCASE `--muted`, widest tracking) · H1 headline-lg (bold, tight) · body-base `--muted` sub (max 672px); actions right, aligned to the baseline. Used by Watched, Tracker, Programs; Settings uses a breadcrumb line instead of the eyebrow. |
+| **Stat tile** | `--surface`, `--r-lg`, padding 14–16; mono-micro UPPERCASE label, numeral (`headline-lg` bold, or `display-hero` on Dashboard), mono-micro caption; optional 4px bar. |
+| **Switch** | 36×20px pill, padding 2, `--r-pill`; on: `--accent` track + `--accent-ink` 16px knob translated 16px; off: `--surface-4` track + `--muted` knob. `aria-label` required. |
+| **Module card** | `--surface`, `--r-lg`, padding 24, gap 24: eyebrow `MODULE NN / TITLE` (mono-label, `MODULE NN` in `--accent`), headline-md title, body-base `--secondary` description, status chip right. Used in Settings. |
 | **Status pill** | `--surface`, `--r-sm`, 6px dot + mono-micro (scan status, Telegram, Stream: Live). |
 
 ---
@@ -225,28 +233,58 @@ Telemetry strip (mono-micro, above content): `● STREAM: LIVE` pill (`--surface
 - Sticky footer (`--surface-3`/90 + blur, padding 16): primary `Apply ↗` (label `Direct <ATS> Apply ↗` when the ATS is known) + secondary `Applied` (`task_alt`) → marks applied; below: `● Sync alert to Telegram` (resend this job's alert) left, parse-time caption right (optional).
 - URL-driven (`?job=<id>`), Esc closes, focus trapped on overlay variants, ←/→ previous/next job.
 
-### 4.4 Watched Companies (`/watched`) **[no Stitch mock]**
-- Header: `Watched Companies` + `+ Add careers page URL` primary button → inline input row expands (Motion `layout`) with URL field + `Add`; while detecting: mono status steps `Fetching… → Detecting ATS… → Found greenhouse · 3 roles` with a spinner.
-- One `--surface` card of rows separated by 8px gaps (rows on `--surface-2`, like the Dashboard alerts rows): 32px logo tile, company (body-base 600) + ATS badge, count pill (`3 open roles` `--accent`+ink; `No openings` `--surface-3`+`--muted`), diff pill (`+2 new` / `No change`), `Last checked 2h ago` mono-micro, **Instant alerts** switch (F2), overflow menu (Open careers page, Remove). Row click expands the open roles (title, location, posted, `Apply ↗`).
-- States: `Waiting for next scan` muted pill; `Couldn't read this page` `--danger` text + retry.
+### 4.4 Watched Companies (`/watched`) — ref `04-watched-dark`
+Topbar breadcrumb: `SCOUT RADAR / PIPELINE / WATCHED COMPANIES`. Page container max 1560px, vertical gap 24.
+**Page header** (§3 *Page header*): eyebrow `● CONTINUOUS CRAWLER ORCHESTRATION`; H1 `Watched Companies` (headline-lg, bold); sub `We check these careers pages every hour for stealth drops, phantom postings, and diff spikes.` Right (580px): **add-company bar** — `--surface` card, `--r-lg`, padding 6: `add_link` icon 18px + borderless input `Paste a careers page URL...` + primary button `radar` icon + `Add Company`; caption row (mono-micro, `--muted`): `AUTO-DETECTS GREENHOUSE · LEVER · ASHBY · WORKDAY`. While detecting, the existing mono step line (`Fetching… → Detecting ATS… → Found greenhouse · 3 roles`) replaces the caption — Stitch has no mock for this state.
+**Stat tiles** (4-up, gap 12; `--surface`, `--r-lg`, padding 14; mono-micro label, `headline-lg` bold numeral + mono-micro caption): `TARGETS ACTIVE 07`, `AGGREGATED OPENINGS 18 · +6 TODAY` (caption `--accent`), `CYCLE CADENCE 60m`, `NEXT DIFF PASS 18m 24s` (numeral `--accent`). Captions `100% HEALTH`, `JITTER RESISTANT`, `DISPATCH T-0` are not built (§9).
+**Companies card** (`--surface`, `--r-lg`, overflow hidden):
+- **Summary strip** (`--surface-2`, padding 14×20): pulsing 8px `--accent` dot + mono-label `7 MONITORED DOMAINS · 18 TOTAL OPENINGS DETECTED · NEXT HOURLY DIFF CYCLE IN 18M`. (Stitch also has `FILTER ENGINE` and `FORCE SCAN ALL` buttons here — not built, §9.)
+- **Company row** (padding 16×20, bg `--surface`, hover `--surface-2`/60, no dividers): 44px logo tile (`--surface-3`, `--r-md`, mono-metric bold monogram, `--text-strong`; a muted monogram when the company has no openings), name (headline-sm bold) over mono-micro UPPERCASE `GREENHOUSE ATS` (Stitch continues `· TARGET: INDIA / REMOTE` — not built, §9). Right cluster (gap 20): **count pill** — `3 OPEN ROLES` (`--accent` fill, `--accent-ink`, mono-label bold, with a dot) / `2 OPEN ROLES` & `1 OPEN ROLE` (`--surface-3`, `--text`) / `NO OPENINGS` (`--surface-3`, `--muted`); **diff pill** — `+2 NEW` (`--accent`/10, `--accent`) / `NO CHANGE` (`--surface-3`, `--muted`); `⏲ LAST CHECKED 12M AGO` (mono-label, `--muted`); `ALERTS` label + **Instant alerts switch** (§3 Switch); chevron button (`keyboard_arrow_up` when expanded, `down` when collapsed) and `more_vert` overflow (Open careers page, Remove).
+- **Expanded roles panel** (inside the row, padding 4×20×20): `--surface-2`, `--r-lg`, padding 14, gap 10. Header mono-micro `CURRENT ACTIVE ROLES PARSED FROM CAREERS STREAM` (right-hand `AI SCORE: 98% RELEVANCE` is not built, §9). Role rows (`--surface`, hover `--surface-3`, `--r-lg`, padding 12): title (headline-sm, 500) + `NEW DROP` badge (`--accent`/15, `--accent`, mono-micro bold) for roles new since the last check; meta line (mono-micro `--muted`): `location_on` location · `history` `Posted 2h ago` · skill keywords; right: `Track` (secondary, `bookmark` icon → adds the job to the tracker as *Saved*) and `Apply ↗` (primary, small).
+- **Pending state** (Vercel): a pulsing 6px `--info` dot next to the name; pill `WAITING FOR NEXT SCAN` (`--surface-3`, `--info`, pulsing dot + text), pill `PENDING DIFF`, `⏳ SCHEDULED IN 08M` (`--info`, semibold); the switch stays on. Custom/unknown ATS is shown as `WORKDAY / CUSTOM ATS`.
+- Error state (`Couldn't read this page` in `--danger` + retry) is from `PRD.md` C5; Stitch has no mock for it.
+- Footer strip (`DOM MONITOR ENGINE ACTIVE · HEADLESS PUPPETEER WORKER POOL…`) and the bottom row (`Latest Diff Inferences`, `Telemetry Health`) are **not built** (§9).
 
-### 4.5 Tracker (`/tracker`) **[no Stitch mock]**
-- Header `Application Tracker` + `+ Add application` + fullscreen toggle.
-- Six columns: Saved · Applied · OA · Interview · Offer · Rejected. Column header name + mono-micro count right; min 220px, equal width, horizontal scroll if needed. Column bg `--surface`, `--r-lg`; cards `--surface-2`, `--r-md`.
-- Card: 24px logo tile + company (600) + role; mono-micro date `Applied Oct 10`; next-action chip (`Interview · Oct 15` `--accent-soft`; `Follow up · Oct 14` warning soft; `Offer · Oct 1` success soft). Click → edit popover (stage, dates, next action, notes, delete).
-- Drag & drop with @dnd-kit: dragged card scale 1.03, rotate 1.5°, static shadow `0 12px 30px rgb(0 0 0 / .35)` on the overlay; placeholder slot animates open; counts tick.
+### 4.5 Tracker (`/tracker`) — ref `05-tracker-dark`
+Topbar breadcrumb `SCOUT RADAR / INTELLIGENCE CORE`.
+**Page header** (bottom 1px `--surface-3` rule, padding-bottom 24): eyebrow `● PIPELINE TELEMETRY ENGINE` (the Stitch eyebrow continues `• SYNCHRONIZED WITH TELEGRAM & EMAIL PARSER` — email parsing is not in PRD, §9); H1 `Application Tracker`; sub `Autonomous pipeline telemetry & interview lifecycle tracking. Dual-agent synchronization across verified institutional conduits.` Right: primary `+ Add Application` (add icon, headline-sm→body-base, `--r-md`, padding 8×16). The two stat chips (`CONVERSION RATE 16.7%`, `ACTIVE PIPELINE 18 Opportunities`) are not built (§9).
+**Toolbar** (padding-top 8): Stitch shows a `Kanban | Table` toggle, `Active Cohort`, `Target`, `Priority Radar Only` filters, `SORT: URGENCY DESC` and a refresh button. **None of these are in PRD F7 and none are built (§9);** the Kanban board is the only view.
+**Board:** horizontal scroll container, `grid-cols-6`, gap 14, min-width 1480px (220px+ columns), bottom padding 32. **Column:** `--surface-lowest`/60, `--r-lg`, padding 10, **1px `--surface-3` border** (this screen keeps hairlines; Stitch's only use of borders on cards). Header: 8px stage dot + mono-label semibold uppercase name, count badge right (mono-micro, `--surface-3`; OA = `--warning` tint; Interview & Offer = `--accent` fill + ink). Stage dots: Saved `--secondary`, Applied `--info`, OA `--warning`, Interview `--accent-tint`, Offer `--accent`, Rejected `--danger`/70.
+Columns (PRD F7): **Saved · Applied · OA Testing · Interview · Offer · Rejected**. Stitch's sixth column is titled `Archived` (opacity 60%, grayscale cards, hover → full) with `Position Filled`/`Cooling period` cards; it is built as **Rejected** with the same dimmed styling (§9).
+**Card** (`--surface`, `--r-md`, padding 12, 1px `--surface-3` border, hover border `--surface-variant #353437`, cursor pointer; gap 10): row 1 — 24px logo tile + company (body-sm 600) left, mono-micro date `OCT 11` right; row 2 — role (body-sm 500, → `--text-strong` on hover); row 3 — chips (mono-micro, padding 2×8, `--r-sm`): neutral `--surface-3`; **next-action chip** per F7: `Follow up · Oct 14` (`--warning` tint + 1px warning/30 border + dot), `Interview · Oct 15` (`--accent`/10 + accent border, `event` icon), `Offer`/deadline in `--danger` tint; **urgent** `OA DUE · OCT 13 (22:00)` bar (`--danger-container`/30, 1px danger/40 border, `crisis_alert` icon pulsing, `URGENT` 9px right) and soon `OA DUE · OCT 14` (`--warning` tint, `schedule` icon); footer (top hairline `--surface-2`): location / match `Match: 94%` (`--accent-tint`) left, `arrow_outward` (→ opens the job) or a stage icon right. Cards with an imminent action get a 1px `--warning`/40 border and `shadow-sm`; the Offer card a `--accent`/60 border and `shadow-lg`. Company tiles in Stitch use per-brand hex colours; build a neutral tile (`--surface-3` + monogram) instead (§10).
+**Drag state:** the dragged card is `--surface-3`, `border-2 --accent`, `ring-4 --accent/10`, rotate 2°, scale 1.03, static `shadow-2xl`, `cursor: grabbing`, with a `MOVING` chip (`--accent` fill) top-right; the stage's drop slot is a 112px dashed `--surface-3` box (`--surface`/40) labelled `DROP TARGET IN STAGE` (mono-micro uppercase). Counts tick on drop.
+Card click opens the edit popover (stage, dates, next action, delete — PRD F7). Stitch card extras not built: `Candidate: …`/`Dragging` text, `Launch Prep`, `Review Contract`, `Stage 2 of 3`, referral/`Application viewed` status chips, salary/CTC chips, inline notes, `via Neha`/`Aarav pool` provenance (§9).
+**Footer strip** (`SCOUT Ingestion Pipeline Status … Greenhouse API: OK`) is not built (§9).
 
-### 4.6 Programs (`/programs`) **[no Stitch mock — row pattern follows the Dashboard "Upcoming Deadlines" card]**
-- Title `Programs & Opportunities`; segmented tabs All · GSoC · LFX · MLH · Hackathons · Off-campus (shared segmented-control style, sliding active bg via `layoutId`); `+ Add program` → small modal (name, category, url, deadline).
-- Rows on `--surface-2`, `--r-md`, padding 12: 8px status dot, name (600) + organizer muted, days-left chip (`--danger-container` urgent, else `--surface-3`), date mono-micro, 6px time-elapsed bar (colours per §1.3), bell button (`Set reminder` / `Reminder on` accent) — F10.
+### 4.6 Programs (`/programs`) — ref `06-programs-dark`
+Topbar breadcrumb `SCOUT RADAR / DISCOVER / PROGRAMS`.
+**Page header:** eyebrow `● OPPORTUNITY SURVEILLANCE MATRIX`; H1 `Programs & Opportunities`; sub `Global fellowships, open source mentorships, off-campus hiring drives and elite hackathons with verified batch eligibility.` Right: primary `Add Program` (add icon, headline-sm; opens a small modal: name, category, url, deadline — PRD F10). `Filter Batches` (secondary) is not built (§9).
+**KPI row** (4 tiles: `ACTIVE PROGRAMS`, `EXPIRING SOON (<14D)`, `REMINDERS SET`, `DIRECT FAST-TRACKS`) — not in PRD F10, **not built** (§9).
+**Tabs:** segmented control (`--surface-lowest`, padding 4, `--r-lg`): `ALL (8) ●` · `GSOC (1)` · `LFX (1)` · `MLH (1)` · `HACKATHONS (3)` · `OFF-CAMPUS (2)` — mono-label, tracking-wider; active `--surface-3` + `--text-strong` with a 6px `--accent-tint` dot after the label (sliding bg via `layoutId`); counts per category. Right-hand `TELEGRAM SYNC: ACTIVE` / `AUTO-SCRAPING HOURLY` captions are not built (§9).
+**Table** (`--surface`, `--r-lg`, overflow hidden): header row (`--surface-lowest`, padding 12×24, mono-label uppercase, 12-col grid): `PROGRAM & INITIATIVE` (4) · `DOMAIN / TRACK` (3) · `TIME REMAINING / STATUS` (3) · `DEADLINE & ACTION` (2, right-aligned). Rows: padding 16×24, alternate bg `--surface`/`--surface`/60, hover `--surface-2`, no dividers.
+- Program cell: 40px tile (`--surface-3`, mono-metric monogram; urgent rows tint the monogram `--danger`), name (headline-sm 600, truncate; hover → `--accent-tint`) + category tag (mono-micro, `--surface-4`, `--r-sm`: `GLOBAL`, `CNCF`, `GITHUB`, `NATL`, `URGENT` in danger, …) over organizer (body-sm `--muted`).
+- Domain/track cell: body-sm line + mono-micro detail line (stipend/prize) — **not in PRD, not built** (§9); the column collapses and the time column widens.
+- Time cell: days-left chip (mono-micro semibold) + `85% ELAPSED` (`--muted`) over a 6px bar. Colours: **≤ 14 days** `--danger` (chip `--danger-container`/20 with dot, bar `--danger`); **≤ 35 days** `--accent-tint` text on `--surface-3`, bar `--accent-tint`; **otherwise** `--muted`/`--text` on `--surface-3`, bar `--surface-bright`.
+- Deadline cell: date mono-metric 500 `APR 02` + mono-micro time `18:00 UTC`/`IST` (shown in IST per CLAUDE.md), then the **reminder button** (`--surface-3`, `--r-md`, padding 4×12, body-sm 500): off = `notifications_none` + `Set reminder` (`--muted`); on = filled `notifications` + `Reminder on` (`--accent-tint`) — F10.
+- Table footer strip (`INDEXED SOURCES…`, `ALL TIMEZONES CONVERTED AUTOMATICALLY`, `EXPORT AS ICS / CALENDAR`) and the three bottom cards (`Batch Compliance Engine`, `Application Roadmap`, `Radar Dispatch Discipline`) are **not built** (§9).
 
-### 4.7 Settings (`/settings/[section]`) **[no Stitch mock]**
-Left sub-nav card (`--surface`): Profile · Resume · Preferences · Telegram · Scan Settings (active = `--surface-3` + `--text-strong`, same as sidebar). Content in `--surface` cards, inputs `--surface-lowest` 36px `--r-md`.
-- **Profile:** display name, avatar upload (circular crop preview), college.
-- **Resume:** dropzone (dashed `--outline-variant`, upload icon, "Click to upload or drag and drop", "PDF, DOC, DOCX (Max 5MB)"); progress → "Parsing with AI…" skeleton → parsed summary + **Parsed Skills** chips (removable ×, `+ Add skill`); shows file name + date.
-- **Preferences:** target roles, locations (tag inputs), remote toggle, job types (Internship / Full-time chips), graduation year, degree, max experience years, active backlogs (Yes / No / Prefer not), minimum match score (slider 40–90).
-- **Telegram:** not linked → QR + `Open in Telegram` + 15-min countdown; linked → chat name, `Send test message`, `Unlink`.
-- **Scan Settings:** schedule `Every 3 hours · watched companies hourly`, last 10 runs table, sources list (read-only from env), primary `Scan now` (disabled while running).
+### 4.7 Settings (`/settings/[section]`) — ref `07-settings-dark`
+Topbar breadcrumb `SCOUT RADAR / INTELLIGENCE CORE`. **Page header:** breadcrumb line `SCOUT RADAR / SYSTEM / SETTINGS` (mono-micro, last segment `--accent`), H1 `Settings & System Telemetry`, sub `Candidate intelligence models, document parsing vectors, and autonomous alert routing protocols.` The right-hand `ACTIVE SUBSYSTEM | CORE-V2.4 / RADAR-DISPATCH` badge is not built (§9).
+**Layout:** 12-col grid, gap 24: left sub-nav (3 cols), content (9 cols).
+- **Sub-nav card** (`--surface`, `--r-lg`, padding 12, gap 4; header mono-micro `NAVIGATION PROTOCOL`): items padding 10×12, `--r-md`, body-base, leading 18px icon: `Profile & Identities` (badge icon, trailing 6px dot), **`Resume Intelligence`** (psychology; **active:** `--surface-3`, `--text-strong`, semibold, 4px left bar `--accent`, accent icon, mono-micro `ACTIVE`), `Match Preferences` (tune), `Telegram Dispatch` (cell_tower, trailing badge `UNPAIRED` — `--danger-container`, `--danger`, 9px bold; absent when linked), `Scan & Frequencies` (sync_alt, trailing mono-micro `3H CYCLE`). Routes: profile · resume · preferences · telegram · scan. **`API & Webhooks` is not built (§9).** The `EMBEDDING MODEL` card below the nav is not built (§9).
+- **Section card** (§3 *Module card*: `--surface`, `--r-lg`, padding 24, gap 24): eyebrow `MODULE 01 / DOCUMENT VECTORIZER` (mono-label; `MODULE 01` in `--accent`), H2 (headline-md), body-base `--secondary` description, status chip right.
+**Resume Intelligence (`/settings/resume`)** — module 01, H2 `Autonomous Resume Parsing Engine`, `Scout extracts semantic capability vectors to score ATS listings against your live profile.` (the `MODEL: SBERT-TITAN` chip is not built, §9).
+- **Dropzone:** padding 32, `--surface-2`, `--r-lg`, no dashed border; hover `--surface-3`; centered 48px `--surface-4` tile with `upload_file` (`--accent`, scale 1.05 on hover); `Click to upload or drag and drop` (headline-sm → `--accent` on hover); `PDF, DOC, DOCX (Max 5MB)` (body-sm `--muted`). Stitch appends `· Encrypted at rest via AES-256` and an `OCR EXTRACTION · TOKENIZATION · SEMANTIC EMBEDDING` line — not built (§9). Hidden file input covers the zone.
+- **Current file row:** `--surface-3`, `--r-lg`, padding 16: 40px `--surface-4` `description` tile, file name (headline-sm) + `ACTIVE` chip (`--surface-2`, `--accent`, 10px), mono-micro `Uploaded Oct 8, 2025 · 1.4 MB` (the `· 98.4% ATS Parse Confidence` suffix is not built); buttons: primary `Replace File` (cloud_sync). `Inspect Nodes` is not built (§9).
+- **Parsing state:** progress → `Parsing with AI…` skeleton → parsed summary (no Stitch mock for these transitions).
+- **Parsed skills:** heading `Parsed Skills (N Detected)` (headline-sm; Stitch wording `Parsed Skill Vectors`), helper `Click '×' to remove or add target skills.`; chips (`--surface-2`, hover `--surface-3`, `--r-md`, padding 6×12): mono-label skill name + `close` 14px (hover `--danger`) — the per-skill `0.98` confidence value and the `RE-SYNC TO VECTOR DB` link are not built (§9); dashed-free `+ Add skill` chip (`--surface-3`, `--muted`, hover `--accent`).
+**Telegram (`/settings/telegram`)** — module 02, eyebrow `MODULE 02 / TELEMETRY ROUTING`, H2 `Telegram Instant Alert Conduit`; status chip right: not linked `NOT CONNECTED` (`--danger-container`/30, `--danger`, pill, pinging dot, mono-label bold) / linked `CONNECTED` (`--accent`).
+- Body panel (`--surface-2`, `--r-lg`, padding 24, 12-col grid 5/7): left tile (`--surface-3`, padding 24, centered) with 192px QR on `--surface-lowest` (`--r-lg`, padding 12) and caption `SCAN VIA TELEGRAM MOBILE APP`. Right: numbered steps (24px `--surface-4` circles `01`/`02`, body-base): `Open Telegram on your mobile device and scan the radar key matrix, or invoke direct authorization below.` / `Authorize the SCOUT Dispatch bot to stream verified postings and daily diff logs.` with a mono-micro strip (`--surface-lowest`, padding 10): `BOT: @<bot>` · `PAIRING KEY: <key>` (`--accent`). Then `● SESSION TOKEN EXPIRES IN 14:32` (15-minute countdown, mono-micro) with `Regenerate Key` (↻, `--secondary`) right; actions: primary `Open in Telegram ↗` (headline-sm, 20×10) and `Send Test Ping` (`--surface-4`, `send` icon, disabled at 50% until linked). Linked state shows chat name, `Send Test Ping`, `Unlink` (no Stitch mock).
+- The three tiles under the panel (`FILTER THRESHOLD`, `MAX PINGS / DAY`, `QUIET HOURS`) are not built (§9).
+**Profile & Identities, Match Preferences, Scan & Frequencies — section content has no Stitch mock** (nav items and routes exist; build from `PRD.md`, styled with the Module card pattern above):
+- *Profile:* display name, avatar upload (circular crop preview), college.
+- *Match Preferences:* target roles, locations (tag inputs), remote toggle, job types (Internship / Full-time chips), graduation year, degree, max experience years, active backlogs (Yes / No / Prefer not), minimum match score (slider 40–90).
+- *Scan & Frequencies:* schedule `Every 3 hours · watched companies hourly`, last 10 runs table, sources list (read-only from env), primary `Scan now` (disabled while running).
 
 ---
 
@@ -345,8 +383,59 @@ export const stagger = (step = 0.04) => ({ show: { transition: { staggerChildren
 | `2 Drafts ready`, `Verified Eligible`, `Prerequisites verified` | Deadlines | Not in PRD |
 | `LATENCY: 142MS` | status marquee | Not tracked |
 | `Encrypted AES-256`, `Multi-tenant Instance` | Login | Inaccurate for a two-profile app; omitted |
-| Table/Cards view toggle (previous spec) and Match/Company/Similar drawer tabs | — | Not in Stitch; removed. Missing skills live in Overview |
+| Job Feed Table/Cards toggle (previous spec) and Match/Company/Similar drawer tabs | — | Not in Stitch; removed. Missing skills live in Overview |
 | `Dual Node` split-pane radar workbench, user A/B tab bar (designMd) | — | Not in the screens; profile switching is the sidebar switcher (C6) |
+
+### 9.1 Watched Companies (`04-watched-dark`)
+| Stitch element | Why not built |
+|---|---|
+| `FILTER ENGINE` and `FORCE SCAN ALL` buttons | Not in PRD (manual scan lives only in Settings → Scan, C2) |
+| `· TARGET: INDIA / REMOTE` per-company target line | No per-company target field in PRD |
+| `verified` badge beside a company name ("Target Verified") | Not in PRD |
+| `AI SCORE: 98% RELEVANCE` on the roles panel | Not in PRD (per-job match score is shown in the feed, not per company) |
+| Stat captions `100% HEALTH`, `JITTER RESISTANT`, `DISPATCH T-0`; `RATE LIMIT: 24 CYCLES / DAY` | Not in PRD / invented figures |
+| `DIFF DETECTED` pill without a role count | PRD C5 defines only `+N new` / `No change`; if a role is removed or edited, surface it as `No change` + updated role list unless you approve a third state |
+| Footer `DOM MONITOR ENGINE ACTIVE · HEADLESS PUPPETEER WORKER POOL · CACHE LATENCY` | Internal engine telemetry; Puppeteer is not in the stack (ARCHITECTURE.md) |
+| **`Latest Diff Inferences`** card (rolling 24h stream with `MATCH: 98%`, `Auto-notified … via Telegram`) | Not in PRD; instant alerts go to Telegram (F2), there is no in-app diff log |
+| **`Telemetry Health`** card (`ACTIVE PROXIES`, `AVG CRAWL TIME`, `TELEGRAM NOTIF QUEUE`, `Configure ATS Webhooks`) | Not in PRD; proxies/webhooks are not part of the architecture |
+
+### 9.2 Application Tracker (`05-tracker-dark`)
+| Stitch element | Why not built |
+|---|---|
+| `CONVERSION RATE 16.7%` and `ACTIVE PIPELINE 18 Opportunities` header chips | Not in PRD F7 |
+| `Kanban \| Table` view toggle and the whole table view (`Candidate Track`, `Match Telemetry`, …) | PRD F7 specifies a Kanban only |
+| `Active Cohort`, `Target: All Roles`, `Priority Radar Only` filters, `SORT: URGENCY DESC`, refresh button | Not in PRD |
+| Eyebrow `SYNCHRONIZED WITH TELEGRAM & EMAIL PARSER` | Email parsing is not in PRD; Telegram sync is (F6) |
+| Sixth column named `Archived` (`Position Filled`, `Cooling period`, `Reapply: Mar 2025`) | PRD column is `Rejected`; built as Rejected with the dimmed style |
+| Card extras: `Launch Prep`, `Review Contract`, `Stage 2 of 3`, `Candidate: Aarav` / `Dragging`, `Referral requested/routed`, `Application viewed`, `via Neha` / `Aarav pool`, `Cooling period`, CTC/salary chips, inline notes (`HackerRank (90 min) · …`) | Not in PRD F7 (card = company, role, date, next-action chip) |
+| `OFFER RECEIVED · ₹28L CTC` / `Acceptance: Oct 25 (10d left)` | Offer card shows company, role, date and the `Offer · <date>` next-action chip only |
+| Footer `SCOUT Ingestion Pipeline Status … Greenhouse API: OK · Lever Sync · Workday Crawler` | Not in PRD; source health is in Settings → Scan |
+
+### 9.3 Programs & Opportunities (`06-programs-dark`)
+| Stitch element | Why not built |
+|---|---|
+| **KPI row** (`ACTIVE PROGRAMS`, `EXPIRING SOON (<14D)`, `REMINDERS SET`, `DIRECT FAST-TRACKS` + captions `100% VERIFIED`, `HIGH URGENCY`, `AUTO-PING ON`, `SES / DSE OFFERS`) | Not in PRD F10 (counts are derivable — add only if you approve) |
+| `Filter Batches` button | Not in PRD |
+| `DOMAIN / TRACK` column with stipend/prize lines (`Stipend: $1,500 – $3,000 USD`) | Not in PRD F10 row fields (name, organizer, time-elapsed bar, days left, deadline) |
+| Captions `TELEGRAM SYNC: ACTIVE`, `AUTO-SCRAPING HOURLY` | Scrape cadence for programs is unspecified in PRD |
+| Footer `INDEXED SOURCES…`, `ALL TIMEZONES CONVERTED AUTOMATICALLY`, `EXPORT AS ICS / CALENDAR` | Not in PRD (ICS export is a new feature) |
+| **`Batch Compliance Engine`** card (cross-references both profiles' batches) | Not in PRD |
+| **`Application Roadmap`** card (`AI proposal drafting assistant`, `14 previously accepted … templates`, `PRE-DRAFT NOW →`) | New AI feature — outside F8/F10 |
+| **`Radar Dispatch Discipline`** card (`emergency dispatch when deadline breaches <72 hours … direct PDF application upload commands`) | Contradicts F10 (reminders at 7 days and 1 day) and non-goals (no auto-applying) |
+| Row tags `URGENT`, `FLAGSHIP`, `ACADEMY`, `DIRECT` and `Direct Specialist Interview Gate` | Free-text labels; only category (GSoC/LFX/MLH/Hackathons/Off-campus) is modelled |
+
+### 9.4 Settings (`07-settings-dark`)
+| Stitch element | Why not built |
+|---|---|
+| Header badge `ACTIVE SUBSYSTEM | CORE-V2.4 / RADAR-DISPATCH` | Decorative |
+| Nav item **`API & Webhooks`** | Not in PRD (Profile, Resume, Preferences, Telegram, Scan Settings only) |
+| **`EMBEDDING MODEL` card** (`READY`, `Vector Cache Limit 768 / 1024D`, `LATENCY: 42ms`, `ATS PRECISION: 99.1%`) | Not in PRD; internal model telemetry (also a Gemini-free-tier stack, not "SBERT") |
+| `MODEL: SBERT-TITAN` chip | Wrong model — parsing is Gemini (C3, ARCHITECTURE.md) |
+| `Encrypted at rest via AES-256` and `OCR EXTRACTION · TOKENIZATION · SEMANTIC EMBEDDING` under the dropzone | Unverified security claim / pipeline internals |
+| `98.4% ATS Parse Confidence`, per-skill confidence values (`0.98`), `RE-SYNC TO VECTOR DB` | Not in PRD (C3 shows editable skill chips only) |
+| `Inspect Nodes` button | Not in PRD |
+| Tiles `FILTER THRESHOLD ≥ 90%`, `MAX PINGS / DAY 8`, `QUIET HOURS 23:00–07:00` | Contradict PRD §10 defaults (min score 60; max 8 *per scan*) and quiet hours are not in PRD; min score is set in Match Preferences |
+| Telegram module copy `matching >= 90% confidence`, `sub-second` | Inaccurate vs. PRD defaults and hourly/3-hourly scan cadence |
 
 ## 10. Stitch-internal conflicts and open points
 1. **Accent:** `design-system.md` text says `#D4FF3F`; every screen uses `#c8f232` / `#add500`. Screens win → `--accent #c8f232`.
@@ -354,5 +443,9 @@ export const stagger = (step = 0.04) => ({ show: { transition: { staggerChildren
 3. **Radius:** text says cards 10px / controls 8px / chips 4px; the Tailwind config (what renders) gives 8px / 4px / 2px, and `rounded-full` = 12px. Rendered values adopted; true circles used for avatars/dots/radar (the PNG shows the radar as a rounded square — assumed unintended).
 4. **Icons:** Stitch uses Material Symbols Outlined; `CLAUDE.md` says lucide-react. Spec follows Stitch (self-hosted subset). Decide whether to update `CLAUDE.md`.
 5. **Page margin:** token `margin-desktop 40px` exists but the mocks render 24px.
-6. **Light mode, Watched, Tracker, Programs, Settings** have no mock — generate them in Stitch before building those screens if exact fidelity is wanted.
+6. **Light mode** and the content of Settings → Profile / Match Preferences / Scan & Frequencies have no mock — generate them in Stitch if exact fidelity is wanted.
 7. **Score colours below 75%, warning/success colours** are not shown in any mock; values kept from the previous spec.
+8. **Borders:** the Tracker uses 1px `--surface-3` borders on columns, cards and header chips, unlike the rest of the app (tonal layering). Spec follows the mock; it is the only screen with hairlines.
+9. **Brand colours:** Tracker logo tiles use per-company hex colours (`#0c2340`, `#635BFF`, `#FF6C37`, …) and a 🤗 emoji. These violate the "tokens only / no emoji" rules; build neutral `--surface-3` monogram tiles.
+10. **Off-token Tailwind colours:** `yellow-*`, `amber-*`, `cyan-*` appear in Watched/Tracker; mapped to `--warning` / `--info` (§1.3).
+11. **Date examples:** Programs mocks show past/mixed dates (`MAR 28` urgent next to `APR 02`); they are placeholder data, deadlines come from the programs table.
